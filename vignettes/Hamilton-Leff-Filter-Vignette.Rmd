@@ -1,0 +1,17 @@
+---
+title: "Hamilton-Leff Filter vignette"
+author: "Justin M Shea"
+date: ' '
+output:
+  pdf_document:
+    toc: yes
+  rmarkdown::html_document:
+    toc: yes
+vignette: >
+  %\VignetteIndexEntry{Hamilton-Leff Filter vignette}  
+  %\VignetteEngine{knitr::rmarkdown}  
+  %\VignetteEncoding{UTF-8}
+
+
+---
+
