@@ -15,3 +15,104 @@ vignette: >
 
 ---
 
+
+```{r}
+library(knitr)
+library(xts)
+# Real GDP
+Real_Gross_Domestic_Product <- "https://research.stlouisfed.org/fred2/data/GDPC96.txt"
+RGDP <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 12, index.column = 1,
+                        header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+
+
+### Employment Rate ###
+Total_nonfarm_Payrolls   <- "https://fred.stlouisfed.org/data/PAYEMS.txt"
+Employment_Establishment <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", skip = 42, index.column = 1,
+                                            header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
+```
+
+```{r}
+HLfilter.lm <- function(x) {
+
+        DF <- merge(lag.xts(x, k = -8, na.pad = TRUE),
+                    x,
+                    lag.xts(x, k = 1, na.pad = TRUE),
+                    lag.xts(x, k = 2, na.pad = TRUE),
+                    lag.xts(x, k = 3, na.pad = TRUE))
+
+        colnames(DF) <- c("x8", "x", "x_1", "x_2", "x_3")
+
+        HL_filter <- lm(x8 ~ x + x_1 + x_2 + x_3, data = DF)
+
+        HL_filter
+
+}
+
+HLfilter <- function(x) {
+
+        DF <- merge(x,
+                    lag.xts(x, k = 8, na.pad = TRUE),
+                    lag.xts(x, k = 9, na.pad = TRUE),
+                    lag.xts(x, k = 10, na.pad = TRUE),
+                    lag.xts(x, k = 11, na.pad = TRUE))
+
+        colnames(DF) <- c("x", "x_8", "x_9", "x_10", "x_11")
+
+        HL_filter <- lm(x ~ x_8 + x_9 + x_10 + x_11, data = DF)
+
+
+        HL_fit <- as.xts(unname(HL_filter$fitted.values),
+                         order.by = as.yearqtr(names(HL_filter$fitted.values)))
+
+        HL_resid <- as.xts(unname(HL_filter$residuals),
+                           order.by = as.yearqtr(names(HL_filter$residuals)))
+
+
+        merge(DF$x, DF$x-DF$x_8, HL_fit, HL_resid)
+
+}
+
+
+
+```
+
+```{r}
+
+log_RGDP <- 100*log(RGDP)
+
+gdp_hl <- HLfilter.lm(log_RGDP)
+gdp_hl2 <- HLfilter(log_RGDP)
+
+plot(log_RGDP, grid.col = "white")
+
+plot(gdp_hl2$x.1, grid.col = "white")
+lines(gdp_hl2$HL_resid, col = "red")
+
+plot(gdp_hl2$x.1, grid.col = "white")
+
+plot(gdp_hl$residuals, col="black", type="l")
+abline(v = 1982, lty = 2, col = "darkgreen")
+abline(h = 0, lty = 2, col = "darkgreen")
+```
+
+```{r}
+# household
+Employment_log <- 100*(log(Employment_Establishment["1947/2007"]))
+plot(Employment_log, grid.col = "white")
+
+Employ_qtr <- to.quarterly(Employment_log, indexAt = 'yearqtr', OHLC=FALSE)
+plot(Employ_qtr, grid.col = "white")
+
+employ_hlm <- HLfilter.lm(Employ_qtr)
+employ_hlf <- HLfilter(Employ_qtr)
+
+plot(employ_hlf$x.1, col = "red", grid.col = "white")
+lines(employ_hlf$HL_resid, col = "black")
+
+plot(employ_hlf$x, col = "red", grid.col = "white")
+lines(employ_hlf$HL_fit, col = "black")
+
+plot(abs(employ_hlf$HL_resid), index(employ_hlf), col = "red", grid.col = "white")
+abline(v = .index(employ_hlf["1982"])[1], lty = 2, col = "darkgreen")
+```
