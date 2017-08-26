@@ -1,0 +1,10 @@
+Package: HLfilter
+Type: Package
+Title: Hamilton-Leff Filter 
+Author: Justin M. Shea
+Maintainer: Justin M. Shea <jshea@Roosevelt.edu>
+Description: Implementation of the Hamilton-Leff Filter descripted in the paper 
+    "Why You Should Never Use the Hodrick-Prescott Filter". 
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
