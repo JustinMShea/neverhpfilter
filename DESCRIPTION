@@ -16,6 +16,7 @@ LazyData: true
 Imports: xts,
     zoo
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
