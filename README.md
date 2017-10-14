@@ -10,22 +10,10 @@ Install from the Github master branch on R version >= 3.4.0.
 devtools::install_github("JustinMShea/HLfilter")
 ```
 
-Load the library and filter-away.
+Load the library and check out the documentation:
 ```{r}
 library(HLfilter)
 
-data("jtrain")
-```
-
-View the `jtrain` data set
-
-```{r}
-View(jtrain)
-```
-
-Check out the documentation:
-
-```{r}
 ?HL_filter
 
 ?HL_filter_lm
