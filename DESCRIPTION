@@ -1,7 +1,7 @@
 Package: HLfilter
 Type: Package
 Title: Implementation of the Hamilton-Leff Filter.
-Version: 0.1.0.9001
+Version: 0.1.0.9002
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
 Description: In the working paper titled "Why You Should Never Use the 
@@ -17,3 +17,4 @@ Imports: xts
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
+RoxygenNote: 6.0.1

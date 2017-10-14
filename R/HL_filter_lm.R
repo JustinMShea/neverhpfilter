@@ -1,7 +1,13 @@
-# Hamilton Filter
-library(xts)
-
-HLfilter.lm <- function(x, h = 8) {
+#` Linear Model Hamilton Filtered quarterly xts object.
+#`
+#` \code{HL_filter_lm} returns a hamilton filtered linear model of class "formula"
+#`
+#`@param x An xts object of quarterly periodicity.
+#`
+#`@param h The look ahead parameter indicating the length of the AR(4) lag. Default to h = 8, or 8 quarters.
+#`
+#`@inheritParams lm
+HL_filter_lm <- function(x, h = 8, ...) {
 
         if (!requireNamespace("pkg", quietly = TRUE)) {
                 stop("Pkg xts needed for this function to work. Please install it.",
@@ -16,8 +22,8 @@ HLfilter.lm <- function(x, h = 8) {
 
   colnames(DF) <- c("x_h", "x", "x_1", "x_2", "x_3")
 
-  HL_filter <- lm(x_h ~ x + x_1 + x_2 + x_3, data = DF)
+  HL_Filter <- lm(x_h ~ x + x_1 + x_2 + x_3, data = DF)
 
-  HL_filter
+  HL_Filter
 
 }
