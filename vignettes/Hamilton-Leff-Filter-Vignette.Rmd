@@ -19,6 +19,7 @@ vignette: >
 ```{r}
 library(knitr)
 library(xts)
+library(HLfilter)
 # Real GDP
 Real_Gross_Domestic_Product <- "https://research.stlouisfed.org/fred2/data/GDPC96.txt"
 RGDP <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 12, index.column = 1,
@@ -33,7 +34,7 @@ Employment_Establishment <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", s
 ```
 
 ```{r}
-HLfilter.lm <- function(x) {
+HL_filter_lm <- function(x) {
 
         DF <- merge(lag.xts(x, k = -8, na.pad = TRUE),
                     x,
@@ -49,7 +50,7 @@ HLfilter.lm <- function(x) {
 
 }
 
-HLfilter <- function(x) {
+HL_filter <- function(x) {
 
         DF <- merge(x,
                     lag.xts(x, k = 8, na.pad = TRUE),
@@ -78,11 +79,11 @@ HLfilter <- function(x) {
 ```
 
 ```{r}
-
+library(HLfilter)
 log_RGDP <- 100*log(RGDP)
 
-gdp_hl <- HLfilter.lm(log_RGDP)
-gdp_hl2 <- HLfilter(log_RGDP)
+gdp_hl <- HL_filter_lm(log_RGDP)
+gdp_hl2 <- HL_filter(log_RGDP)
 
 plot(log_RGDP, grid.col = "white")
 
@@ -104,8 +105,8 @@ plot(Employment_log, grid.col = "white")
 Employ_qtr <- to.quarterly(Employment_log, indexAt = 'yearqtr', OHLC=FALSE)
 plot(Employ_qtr, grid.col = "white")
 
-employ_hlm <- HLfilter.lm(Employ_qtr)
-employ_hlf <- HLfilter(Employ_qtr)
+employ_hlm <- HL_filter_lm(Employ_qtr)
+employ_hlf <- HL_filter(Employ_qtr)
 
 plot(employ_hlf$x.1, col = "red", grid.col = "white")
 lines(employ_hlf$HL_resid, col = "black")
