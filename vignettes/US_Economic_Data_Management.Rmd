@@ -31,7 +31,7 @@ We collected all data through the economic research website of the Federal Reser
 
 \newpage
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, cache=TRUE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, cache=FALSE}
 ########################################################### 
 ###  The GREAT MODERATION or ACCUMULATION OF DEBT paper ###
 ########################################################### 
@@ -195,7 +195,7 @@ colnames(GDP_Table) <- "GDP & Components."
 ```
 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, cache=TRUE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, cache=FALSE}
 ### Employment Rate ###
 Total_Nonfarm_Payrolls   <- "https://fred.stlouisfed.org/data/PAYEMS.txt"
 Civilian_Employment_Rate <- "https://fred.stlouisfed.org/data/CE16OV.txt"
@@ -219,7 +219,7 @@ colnames(Employment_Table) <- "Employment and Productivity"
 kable(Employment_Table, align = "l", caption = "Employment & Productivity data sources")
 ```
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, cache=TRUE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, cache=FALSE}
 ### Inflation Data ###
 Producer_Price_Index     <- "https://fred.stlouisfed.org/data/PPIACO.txt"
 PCE_Price_Deflator       <- PCE_Price_Index
@@ -236,7 +236,7 @@ kable(Inflation_Table, align = "l", caption = "Inflation data sources")
 
 ```
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, cache=TRUE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, cache=FALSE}
 ### Income Savings ###
 Personal_Income             <- "https://fred.stlouisfed.org/data/PINCOME.txt"
 Gross_Private_Savings       <- "https://fred.stlouisfed.org/data/GPSAVE.txt"
@@ -259,7 +259,7 @@ colnames(Income_Table) <- "Income-Savings"
 kable(Income_Table, align = "l", caption = "Income & Savings data sources")
 ```
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, cache=TRUE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, cache=FALSE}
 ### Liquidity-Money ###
 Effective_Fed_Funds_Rate      <- "https://fred.stlouisfed.org/data/FEDFUNDS.txt"  
 One_Yr_Constant_Maturity_Rate <- "https://fred.stlouisfed.org/data/GS1.txt"
