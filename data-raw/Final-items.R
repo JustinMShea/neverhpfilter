@@ -11,4 +11,4 @@ devtools::use_vignette()
 
 # Render .pdf and .html vignettes
 library(rmarkdown)
-rmarkdown::render("vignettes/Hamilton-Leff Filter vignette.Rmd", "all")
+rmarkdown::render("vignettes/Hamilton-Leff-Filter-vignette.Rmd", "all")
