@@ -3,6 +3,11 @@ library(xts)
 
 HLfilter <- function(x, h = 8) {
 
+                if (!requireNamespace("pkg", quietly = TRUE)) {
+                        stop("Pkg xts needed for this function to work. Please install it.",
+                             call. = FALSE)
+                }
+
         DF <- merge(x,
                     lag.xts(x, k = h, na.pad = TRUE),
                     lag.xts(x, k = h+1, na.pad = TRUE),
