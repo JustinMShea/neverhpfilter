@@ -18,6 +18,10 @@ HL_filter(x, h = 8)
 }
 \examples{
 \dontrun{
-HL_filter(PAYEMS h = 8)
+HL_filter(PAYEMS, h = 8)
 }
+}
+\references{
+James D. Hamilton. Why You Should Never Use the Hodrick-Prescott Filter.
+           NBER Working Paper No. 23429, Issued in May 2017.
 }

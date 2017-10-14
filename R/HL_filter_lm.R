@@ -8,7 +8,8 @@
 #'
 #'@param ... see "lm"
 #'
-#' @inheritParams lm Inherits arguements from "stats::lm"
+#'@references James D. Hamilton. Why You Should Never Use the Hodrick-Prescott Filter.
+#'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
 #'\dontrun{

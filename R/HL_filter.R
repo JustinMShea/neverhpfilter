@@ -8,9 +8,12 @@
 #'
 #'@param h The look ahead parameter indicating the length of the AR(4) lag. Default to h = 8, or 8 quarters.
 #'
+#'@references James D. Hamilton. Why You Should Never Use the Hodrick-Prescott Filter.
+#'            NBER Working Paper No. 23429, Issued in May 2017.
+#'
 #'@examples
 #'\dontrun{
-#' HL_filter(PAYEMS h = 8)
+#' HL_filter(PAYEMS, h = 8)
 #'}
 HL_filter <- function(x, h = 8) {
 

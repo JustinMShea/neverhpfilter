@@ -21,3 +21,7 @@ HL_filter_lm(x, h = 8, ...)
 HL_filter_lm(GDPC96, h = 8)
 }
 }
+\references{
+James D. Hamilton. Why You Should Never Use the Hodrick-Prescott Filter.
+           NBER Working Paper No. 23429, Issued in May 2017.
+}
