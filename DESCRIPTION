@@ -5,11 +5,12 @@ Version: 0.1.0.9101
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
 Description: In their working paper titled "Why You Should Never Use the 
-    Hodrick-Prescott Filter", James D. Hamilton and his trusty research assistant 
+    Hodrick-Prescott Filter", James D. Hamilton and his research assistant 
     Daniel Leff, propose a more robust approach to economic time series filtering. 
     By regressing the y variable at date T+h on the four most recent lagged values 
-    as of date t, all the objectives sought by users of the Hodrick-Prescott Filter 
-    are met, with none of its drawbacks. Hamilton (2017) <doi:10.3386/w23429>.
+    of a quarterly time series as of date t, all the objectives sought by users of 
+    the Hodrick-Prescott Filter are met, with none of its drawbacks. 
+    Hamilton (2017) <doi:10.3386/w23429>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
