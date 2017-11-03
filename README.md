@@ -1,4 +1,4 @@
-# HLfilter Package
+# neverHPfilter Package
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/JustinMShea/HLfilter?branch=master&svg=true)](https://ci.appveyor.com/project/JustinMShea/HLfilter) [![Travis-CI Build Status](https://travis-ci.org/JustinMShea/HLfilter.svg?branch=master)](https://travis-ci.org/JustinMShea/HLfilter)
 
@@ -7,20 +7,20 @@ In their working paper titled "Why You Should Never Use the Hodrick-Prescott Fil
 Install from the Github master branch on R version >= 3.4.0.
 
 ```{r}
-devtools::install_github("JustinMShea/HLfilter")
+devtools::install_github("JustinMShea/neverHPfilter")
 ```
 
 Load the library and check out the documentation:
 ```{r}
-library(HLfilter)
+library(neverHPfilter)
 
 ?HL_filter
 
 ?HL_filter_lm
 ```
 
-Load the [`vignette`](https://github.com/JustinMShea/HLfilter/blob/master/vignettes/Hamilton-Leff-Filter-vignette.pdf) to build the research project and view the results.
+Load the [`vignette`](https://github.com/JustinMShea/HLfilter/blob/master/vignettes/Never-HP-Filter-Vignette.pdf) to build the research project and view the results.
 
 ```{r}
- vignette("HLfilter-vignette")
+ vignette("neverHPfilter-vignette")
 ```

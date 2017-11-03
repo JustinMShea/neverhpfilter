@@ -1,5 +1,5 @@
 ---
-title: "Hamilton-Leff Filter"
+title: "Never HP-Filter Vignette"
 author: "Justin M Shea"
 date: ' '
 output:
@@ -8,7 +8,7 @@ output:
   rmarkdown::html_document:
     toc: yes
 vignette: >
-  %\VignetteIndexEntry{Hamilton-Leff Filter}  
+  %\VignetteIndexEntry{Never-HP-Filter-Vignette}  
   %\VignetteEngine{knitr::rmarkdown}  
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,8 +22,6 @@ library(HLfilter)
 Real_Gross_Domestic_Product <- "https://fred.stlouisfed.org/data/GDPC1.txt"
 RGDP <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 16, index.column = 1,
                         header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-
-
 
 ### Employment Rate ###
 Total_nonfarm_Payrolls   <- "https://fred.stlouisfed.org/data/PAYEMS.txt"
