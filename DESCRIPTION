@@ -1,7 +1,7 @@
-Package: HLfilter
+Package: neverHPfilter
 Type: Package
 Title: Implementation of the Hamilton-Leff Filter
-Version: 0.1.0.9031
+Version: 0.1.0.9100
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
 Description: In their working paper titled "Why You Should Never Use the 
