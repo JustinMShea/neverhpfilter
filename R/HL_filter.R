@@ -15,10 +15,10 @@
 #'\dontrun{
 #' HL_filter(PAYEMS, h = 8)
 #'}
-HL_filter <- function(x, h = 8) {
+HL_filter <- function(x, h = 8, ...) {
 
-                if (!requireNamespace("pkg", quietly = TRUE)) {
-                        stop("Pkg xts needed for this function to work. Please install it.",
+                if (!requireNamespace("xts", quietly = TRUE)) {
+                        stop("xts package dependent. Please install it.",
                              call. = FALSE)
                 }
 
