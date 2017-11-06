@@ -4,7 +4,7 @@
 \alias{HL_filter}
 \title{Hamilton Filtered quarterly xts object.}
 \usage{
-HL_filter(x, h = 8)
+HL_filter(x, h = 8, ...)
 }
 \arguments{
 \item{x}{An xts object of quarterly periodicity.}
