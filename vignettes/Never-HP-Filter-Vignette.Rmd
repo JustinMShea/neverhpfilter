@@ -14,10 +14,13 @@ vignette: >
 ---
 
 
-```{r, eval = FALSE}
+```{r, message = FALSE, warning = FALSE}
 library(knitr)
 library(xts)
 library(neverHPfilter)
+```
+
+```{r, eval = FALSE}
 # Real GDP
 Real_Gross_Domestic_Product <- "https://fred.stlouisfed.org/data/GDPC1.txt"
 RGDP <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 16, index.column = 1,
@@ -72,12 +75,9 @@ HL_filter <- function(x) {
 
 }
 
-
-
 ```
 
 ```{r}
-library(neverHPfilter)
 log_RGDP <- 100*log(RGDP)
 
 gdp_hl <- HL_filter_lm(log_RGDP)
