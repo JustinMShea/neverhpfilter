@@ -23,12 +23,12 @@ library(neverHPfilter)
 ```{r, eval = FALSE}
 # Real GDP
 Real_Gross_Domestic_Product <- "https://fred.stlouisfed.org/data/GDPC1.txt"
-RGDP <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 16, index.column = 1,
+GDPC1 <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 16, index.column = 1,
                         header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
 ### Employment Rate ###
 Total_nonfarm_Payrolls   <- "https://fred.stlouisfed.org/data/PAYEMS.txt"
-Employment_Establishment <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", skip = 42, index.column = 1,
+PAYEMS <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", skip = 42, index.column = 1,
                                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
 
 head(RGDP)
@@ -78,7 +78,7 @@ HL_filter <- function(x) {
 ```
 
 ```{r}
-log_RGDP <- 100*log(RGDP)
+log_RGDP <- 100*log(GDPC1)
 
 gdp_hl <- HL_filter_lm(log_RGDP)
 gdp_hl2 <- HL_filter(log_RGDP)
@@ -97,7 +97,7 @@ abline(h = 0, lty = 2, col = "darkgreen")
 
 ```{r}
 # household
-Employment_log <- 100*(log(Employment_Establishment["1947/2007"]))
+Employment_log <- 100*(log(PAYEMS["1947/2007"]))
 plot(Employment_log, grid.col = "white")
 
 Employ_qtr <- to.quarterly(Employment_log, indexAt = 'yearqtr', OHLC=FALSE)
