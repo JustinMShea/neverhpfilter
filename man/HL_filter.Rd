@@ -10,6 +10,8 @@ HL_filter(x, h = 8, ...)
 \item{x}{An xts object of quarterly periodicity.}
 
 \item{h}{The look ahead parameter indicating the length of the AR(4) lag. Default to h = 8, or 8 quarters.}
+
+\item{...}{see "lm"}
 }
 \description{
 \code{HL_filter} returns an xts object containing the original series,

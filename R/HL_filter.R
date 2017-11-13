@@ -8,6 +8,8 @@
 #'
 #'@param h The look ahead parameter indicating the length of the AR(4) lag. Default to h = 8, or 8 quarters.
 #'
+#'@param ... see "lm"
+#'
 #'@references James D. Hamilton. Why You Should Never Use the Hodrick-Prescott Filter.
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
@@ -44,6 +46,7 @@ HL_filter <- function(x, h = 8, ...) {
 
         # merge together relevant components
         output <- merge(extensible$y_h, extensible$y_h - extensible$x, fit, resid)
+        
         colnames(output) <- c("y_h", "y_h-x", "fit", "residual")
         
         output

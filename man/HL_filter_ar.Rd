@@ -12,6 +12,8 @@ HL_filter_ar(x, h = 8, p = 4, ...)
 \item{h}{The look ahead parameter indicating the length of the first lag. Default to h = 8, or 8 quarters.}
 
 \item{p}{The number of lagged AR terms. Default is p = 4, to reflect 4 quarters of an annual time series.}
+
+\item{...}{see "lm"}
 }
 \description{
 \code{HL_filter_ar} returns an xts object containing the original series,
