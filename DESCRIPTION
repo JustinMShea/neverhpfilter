@@ -1,12 +1,12 @@
 Package: neverHPfilter
 Type: Package
 Title: Implementation of the Hamilton-Leff Filter
-Version: 0.1.0.9101
+Version: 0.1.0.9102
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
 Description: In their working paper titled "Why You Should Never Use the 
-    Hodrick-Prescott Filter", James D. Hamilton and his research assistant 
-    Daniel Leff, propose a more robust approach to economic time series filtering. 
+    Hodrick-Prescott Filter", James D. Hamilton proposes a more robust approach to 
+    economic time series filtering. The `neverHPfilter` package implements his approach.
     By regressing the y variable at date T+h on the four most recent lagged values 
     of a quarterly time series as of date t, all the objectives sought by users of 
     the Hodrick-Prescott Filter are met, with none of its drawbacks. 
