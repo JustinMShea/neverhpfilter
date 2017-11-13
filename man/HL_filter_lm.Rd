@@ -18,7 +18,7 @@ HL_filter_lm(x, h = 8, ...)
 }
 \examples{
 \dontrun{
-HL_filter_lm(GDPC96, h = 8)
+HL_filter_lm(GDPC1, h = 8)
 }
 }
 \references{
