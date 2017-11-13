@@ -15,6 +15,7 @@
 #'\dontrun{
 #' HL_filter(PAYEMS, h = 8)
 #'}
+#'
 #'@export
 HL_filter <- function(x, h = 8, ...) {
 
@@ -29,10 +30,10 @@ HL_filter <- function(x, h = 8, ...) {
                     xts::lag.xts(x, k = h+1, na.pad = TRUE),
                     xts::lag.xts(x, k = h+2, na.pad = TRUE),
                     xts::lag.xts(x, k = h+3, na.pad = TRUE))
-        colnames(extensible) <- c("x_h", "x", "x_1", "x_2", "x_3")
+        colnames(extensible) <- c("y_h", "x", "x_1", "x_2", "x_3")
 
         # linear model data
-        alt_Filter <- stats::lm(x_h ~ x + x_1 + x_2 + x_3, data = extensible)
+        alt_Filter <- stats::lm(y_h ~ x + x_1 + x_2 + x_3, data = extensible)
 
         # convert fitted and residuals to xts objects
         fit <- xts::as.xts(unname(alt_Filter$fitted.values),
@@ -42,7 +43,10 @@ HL_filter <- function(x, h = 8, ...) {
                            order.by = zoo::as.yearqtr(names(alt_Filter$residuals)))
 
         # merge together relevant components
-        merge(extensible$x_h, h = (extensible$x_h - extensible$x), fit, resid)
+        output <- merge(extensible$y_h, extensible$y_h - extensible$x, fit, resid)
+        colnames(output) <- c("y_h", "y_h-x", "fit", "residual")
+        
+        output
 
 }
 
