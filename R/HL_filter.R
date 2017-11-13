@@ -15,6 +15,7 @@
 #'\dontrun{
 #' HL_filter(PAYEMS, h = 8)
 #'}
+#'@export
 HL_filter <- function(x, h = 8, ...) {
 
                 if (!requireNamespace("xts", quietly = TRUE)) {

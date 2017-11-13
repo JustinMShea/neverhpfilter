@@ -13,21 +13,22 @@
 #'
 #'@examples
 #'\dontrun{
-#' HL_filter_lm(GDPC96, h = 8)
+#' HL_filter_lm(GDPC1, h = 8)
 #'}
+#'@export
 HL_filter_lm <- function(x, h = 8, ...) {
 
-        if (!requireNamespace("pkg", quietly = TRUE)) {
-                stop("Pkg xts needed for this function to work. Please install it.",
-                     call. = FALSE)
-        }
+  #      if (!requireNamespace("xts", quietly = TRUE)) {
+   #             stop("Pkg xts needed for this function to work. Please install it.",
+    #                 call. = FALSE)
+     #   }
 
   DF <- merge(xts::lag.xts(x, k = -h, na.pad = TRUE),
                            x,
               xts::lag.xts(x, k = 1, na.pad = TRUE),
               xts::lag.xts(x, k = 2, na.pad = TRUE),
               xts::lag.xts(x, k = 3, na.pad = TRUE))
-
+  
   colnames(DF) <- c("x_h", "x", "x_1", "x_2", "x_3")
 
   HL_Filter <- stats::lm(x_h ~ x + x_1 + x_2 + x_3, data = DF)
