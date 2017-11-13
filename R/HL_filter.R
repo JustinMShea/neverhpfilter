@@ -18,30 +18,30 @@
 HL_filter <- function(x, h = 8, ...) {
 
                 if (!requireNamespace("xts", quietly = TRUE)) {
-                        stop("xts package dependent. Please install it.",
+                        stop("xts package dependent. Please load.",
                              call. = FALSE)
                 }
 
         # Transform data
-        DF <- merge(x,
+             extensible <- merge(x,
                     xts::lag.xts(x, k = h, na.pad = TRUE),
                     xts::lag.xts(x, k = h+1, na.pad = TRUE),
                     xts::lag.xts(x, k = h+2, na.pad = TRUE),
                     xts::lag.xts(x, k = h+3, na.pad = TRUE))
-        colnames(DF) <- c("x_h", "x", "x_1", "x_2", "x_3")
+        colnames(extensible) <- c("x_h", "x", "x_1", "x_2", "x_3")
 
         # linear model data
-        HL_Filter <- stats::lm(x_h ~ x + x_1 + x_2 + x_3, data = DF)
+        alt_Filter <- stats::lm(x_h ~ x + x_1 + x_2 + x_3, data = extensible)
 
         # convert fitted and residuals to xts objects
-        HL_fit <- xts::as.xts(unname(HL_Filter$fitted.values),
-                         order.by = zoo::as.yearqtr(names(HL_Filter$fitted.values)))
+        fit <- xts::as.xts(unname(alt_Filter$fitted.values),
+                         order.by = zoo::as.yearqtr(names(alt_Filter$fitted.values)))
 
-        HL_resid <- xts::as.xts(unname(HL_Filter$residuals),
-                           order.by = zoo::as.yearqtr(names(HL_Filter$residuals)))
+        resid <- xts::as.xts(unname(alt_Filter$residuals),
+                           order.by = zoo::as.yearqtr(names(alt_Filter$residuals)))
 
         # merge together relevant components
-        merge(DF$x_h, DF$x_h-DF$x, HL_fit, HL_resid)
+        merge(extensible$x_h, h = (extensible$x_h - extensible$x), fit, resid)
 
 }
 
