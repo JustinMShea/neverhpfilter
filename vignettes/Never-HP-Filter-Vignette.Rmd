@@ -1,5 +1,5 @@
 ---
-title: "Never HP-Filter Vignette"
+title: "The neverHPfilter Vignette"
 author: "Justin M Shea"
 date: ' '
 output:
@@ -13,6 +13,30 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+\newpage
+
+## Introduction
+
+In the working paper titled "Why You Should Never Use the Hodrick-Prescott Filter" <doi:10.3386/w23429>, James D. Hamilton proposes a more robust approach to economic time series filtering. The `neverHPfilter` package implements his approach.
+
+The abstract from Hamilton(2017) offers an excellent introduction.
+
+
+  >Here’s why. 
+  (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process. 
+  (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
+  (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
+  (4) There’s a better alternative. A regression of the variable at date $t + h$ on the four most recent values as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
+
+## A Better Alternative
+
+Fortunatly, Hamilton doesn't just add to the list of critiques plagueing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as a lagged AR(4) process:
+
+$$y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}$$
+$$\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
+
+\newpage
 
 ```{r, message = FALSE, warning = FALSE}
 library(knitr)
@@ -35,61 +59,28 @@ head(RGDP)
 ```
 
 ```{r}
-HL_filter_lm <- function(x) {
-
-        DF <- merge(lag.xts(x, k = -8, na.pad = TRUE),
-                    x,
-                    lag.xts(x, k = 1, na.pad = TRUE),
-                    lag.xts(x, k = 2, na.pad = TRUE),
-                    lag.xts(x, k = 3, na.pad = TRUE))
-
-        colnames(DF) <- c("x8", "x", "x_1", "x_2", "x_3")
-
-        HL_filter <- lm(x8 ~ x + x_1 + x_2 + x_3, data = DF)
-
-        HL_filter
-
-}
-
-HL_filter <- function(x) {
-
-        DF <- merge(x,
-                    lag.xts(x, k = 8, na.pad = TRUE),
-                    lag.xts(x, k = 9, na.pad = TRUE),
-                    lag.xts(x, k = 10, na.pad = TRUE),
-                    lag.xts(x, k = 11, na.pad = TRUE))
-
-        colnames(DF) <- c("x", "x_8", "x_9", "x_10", "x_11")
-
-        HL_filter <- lm(x ~ x_8 + x_9 + x_10 + x_11, data = DF)
-
-
-        HL_fit <- as.xts(unname(HL_filter$fitted.values),
-                         order.by = as.yearqtr(names(HL_filter$fitted.values)))
-
-        HL_resid <- as.xts(unname(HL_filter$residuals),
-                           order.by = as.yearqtr(names(HL_filter$residuals)))
-
-
-        merge(DF$x, DF$x-DF$x_8, HL_fit, HL_resid)
-
-}
-
-```
-
-```{r}
+data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
 gdp_hl <- HL_filter_lm(log_RGDP)
 gdp_hl2 <- HL_filter(log_RGDP)
+head(gdp_hl2)
+```
 
+```{r}
 plot(log_RGDP, grid.col = "white")
+```
 
-plot(gdp_hl2$x.1, grid.col = "white")
-lines(gdp_hl2$HL_resid, col = "red")
+```{r}
+plot(gdp_hl2$`y_h-x`, grid.col = "white")
+lines(gdp_hl2$resid, col = "red")
+```
 
-plot(gdp_hl2$x.1, grid.col = "white")
+```{r}
+plot(gdp_hl2$`y_h-x`, grid.col = "white")
+```
 
+```{r}
 plot(gdp_hl$residuals, col="black", type="l")
 abline(v = 1982, lty = 2, col = "darkgreen")
 abline(h = 0, lty = 2, col = "darkgreen")
@@ -99,19 +90,27 @@ abline(h = 0, lty = 2, col = "darkgreen")
 # household
 Employment_log <- 100*(log(PAYEMS["1947/2007"]))
 plot(Employment_log, grid.col = "white")
+```
 
+```{r}
 Employ_qtr <- to.quarterly(Employment_log, indexAt = 'yearqtr', OHLC=FALSE)
 plot(Employ_qtr, grid.col = "white")
+```
 
+```{r}
 employ_hlm <- HL_filter_lm(Employ_qtr)
 employ_hlf <- HL_filter(Employ_qtr)
 
-plot(employ_hlf$x.1, col = "red", grid.col = "white")
-lines(employ_hlf$HL_resid, col = "black")
+plot(employ_hlf$`y_h-x`, col = "red", grid.col = "white")
+lines(employ_hlf$resid, col = "black")
+```
 
-plot(employ_hlf$x, col = "red", grid.col = "white")
-lines(employ_hlf$HL_fit, col = "black")
+```{r}
+plot(employ_hlf$y_h, col = "red", grid.col = "white")
+lines(employ_hlf$fit, col = "black")
+```
 
-plot(abs(employ_hlf$HL_resid), index(employ_hlf), col = "red", grid.col = "white")
+```{r}
+plot(abs(employ_hlf$resid), index(employ_hlf), col = "red", grid.col = "white")
 abline(v = .index(employ_hlf["1982"])[1], lty = 2, col = "darkgreen")
 ```

@@ -10,6 +10,8 @@
 #'
 #'@param p The number of lagged AR terms. Default is p = 4, to reflect 4 quarters of an annual time series.
 #'
+#'@param ... see "lm"
+#'
 #'@references James D. Hamilton. Why You Should Never Use the Hodrick-Prescott Filter.
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
@@ -34,7 +36,7 @@ HL_filter_ar <- function(x, h = 8, p = 4, ...) {
   colnames(DF) <- c("x_h", "x", "x_1", "x_2", "x_3")
   DF
   # linear model data
-  stats::ar.ols(DF$x_h, aic = FALSE, order.max = p, n.ahead = 8)
+  stats::ar.ols(DF$x_h, aic = FALSE, order.max = p, n.ahead = 8, ...)
   
   # convert fitted and residuals to xts objects
   #HL_fit <- xts::as.xts(unname(HL_Filter$fitted.values),
