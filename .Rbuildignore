@@ -5,3 +5,4 @@
 ^appveyor\.yml$
 ^codecov\.yml$
 ^vignettes/US_Economic_Data_Management\.Rmd$
+^w23429\.pdf$
