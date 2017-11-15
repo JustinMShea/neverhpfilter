@@ -5,11 +5,11 @@
 #' \deqn{\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
 #'
 #'
-#' \value{
-#' \code{Hfilter} returns an xts object containing the original series,
+#' @return \code{Hfilter} returns an xts object containing the original series,
 #'                   the fitted (trend) values, the residual (cycle) component,
-#'                   and the difference between \eqn{y_{t+h}} and \eqn{y_t},
-#'}
+#'                   and the difference between \eqn{y_{t+h}} and \eqn{y_t}.
+#'                   
+#'
 #'@param x An xts object of quarterly periodicity.
 #'
 #'@param h The look ahead parameter indicating the length of the AR(4) lag. Default to h = 8, or 8 quarters.
@@ -22,8 +22,8 @@
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
-#' PAYEMS_filtered <- Hfilter(PAYEMS, h = 8)
-#' plot(PAYEMS_filtered$cycle)
+#'GDPC1_Hfilter <- Hfilter(GDPC1, h = 8)
+#'plot(GDPC1_Hfilter)
 #'
 #'@export
 Hfilter <- function(x, h = 8, ...) {

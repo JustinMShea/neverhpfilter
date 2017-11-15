@@ -4,9 +4,7 @@
 #' additionally lagged by \eqn{h} periods. \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
 #' \deqn{\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
 #'
-#'\value{
-#' \strong\code{Hlm} returns a linear model of class "formula", like the output created by `stats::lm`.
-#'}
+#' @return \code{Hlm} returns a linear model of class "formula", like the output created by `stats::lm`.
 #'
 #'@param x An xts object of quarterly periodicity.
 #'
@@ -20,7 +18,7 @@
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
-#' HL_filter_lm(GDPC1, h = 8)
+#' Hlm(GDPC1, h = 8)
 #' 
 #'@export
 Hlm <- function(x, h = 8, ...) {

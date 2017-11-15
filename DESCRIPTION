@@ -1,7 +1,7 @@
 Package: neverHPfilter
 Type: Package
 Title: Implementation of the Hamilton-Leff Filter
-Version: 0.1.0.9120
+Version: 0.1.0.9200
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
 Description: In their working paper titled "Why You Should Never Use the 
@@ -16,12 +16,8 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: xts,
-    zoo,
-    micEconIndex
-Suggests:
-    forecast,
-    knitr,
-    rmarkdown,
-    tufte
+    zoo
+Suggests: knitr,
+    rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
