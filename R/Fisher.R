@@ -6,7 +6,7 @@
 #'
 #'@param Nominal xts object containing the names of the prices index.
 #'
-#'@param price	Vector that containing the prices index.
+#'@param price	 Vector that containing the prices index.
 #'
 #'@param quantity Vector that contains the quantities index.
 #'
@@ -18,7 +18,7 @@
 #'\dontrun{
 #' Real_PCE <- Fisher(PCE, PCE_Price, PCE_Quanity, 249)
 #'}
-#'
+#'@export
 Fisher <- function(Nominal, price, quantity, baseYear=249) {
 
         # price = price index
@@ -28,7 +28,7 @@ Fisher <- function(Nominal, price, quantity, baseYear=249) {
         QuantityPrice <- merge(price, quantity)
 
         # Extract data frame for using priceIndex function
-        QuantityPriceDF <- data.frame(xts::coredata(QuantityPrice))
+        QuantityPriceDF <- data.frame(zoo::coredata(QuantityPrice))
         colnames(QuantityPriceDF) <- c("PRICE","QUANTITY")
 
         # Now, call priceIndex() and set the method to "Fisher". ##

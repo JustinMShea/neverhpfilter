@@ -1,7 +1,7 @@
 Package: neverHPfilter
 Type: Package
 Title: Implementation of the Hamilton-Leff Filter
-Version: 0.1.0.9111
+Version: 0.1.0.9120
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
 Description: In their working paper titled "Why You Should Never Use the 
@@ -11,6 +11,7 @@ Description: In their working paper titled "Why You Should Never Use the
     of a quarterly time series as of date t, all the objectives sought by users of 
     the Hodrick-Prescott Filter are met, with none of its drawbacks. 
     Hamilton (2017) <doi:10.3386/w23429>.
+Depends: R (>= 3.4.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

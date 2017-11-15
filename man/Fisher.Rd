@@ -27,5 +27,4 @@ Wrapper function calculates Fisher price index and applies it to an xts object
 \dontrun{
 Real_PCE <- Fisher(PCE, PCE_Price, PCE_Quanity, 249)
 }
-
 }
