@@ -1,5 +1,8 @@
 #' PAYEMS
 #'
+#' All Employees: Total Nonfarm
+#' 
+#' @section Notes:
 #' All Employees: Total Nonfarm, commonly known as Total Nonfarm Payroll,
 #' is a measure of the number of U.S. workers in the economy that
 #' excludes proprietors, private household employees, unpaid volunteers,
@@ -27,15 +30,14 @@
 #' (PAYNSA), which is not seasonally adjusted. The series comes from the 'Current Employment Statistics
 #' (Establishment Survey).'
 #' 
-#' @section Notes:
 #' 
 #' @docType data
 #'
 #' @usage data("PAYEMS")
 #'
-#' @format An xts object containing monthly observations of Real Gross Domestic Product.
-#' \itemize{
-#'  \item \strong {PAYEMS}  All Employees: Total Nonfarm Payrolls, Seasonally Adjusted, Thousands of Persons.
+#' @format An xts object containing monthly observations of All Employees: Total Nonfarm.
+#'  \itemize{
+#'  \item\strong{PAYEMS} {Seasonally Adjusted, Thousands of Persons.}
 #' }
 #' 
 #' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PAYEMS.txt}
