@@ -6,7 +6,7 @@
 #'
 #'
 #' \value{
-#' \code{HL_filter} returns an xts object containing the original series,
+#' \code{Hfilter} returns an xts object containing the original series,
 #'                   the fitted (trend) values, the residual (cycle) component,
 #'                   and the difference between \eqn{y_{t+h}} and \eqn{y_t},
 #'}
@@ -22,11 +22,11 @@
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
-#' PAYEMS_filtered <- HL_filter(PAYEMS, h = 8)
+#' PAYEMS_filtered <- Hfilter(PAYEMS, h = 8)
 #' plot(PAYEMS_filtered$cycle)
 #'
 #'@export
-HL_filter <- function(x, h = 8, ...) {
+Hfilter <- function(x, h = 8, ...) {
 
                 if (!requireNamespace("xts", quietly = TRUE)) {
                         stop("xts package dependent. Please load.",
