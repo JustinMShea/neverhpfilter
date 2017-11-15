@@ -14,8 +14,7 @@ Description: In their working paper titled "Why You Should Never Use the
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: 
-    xts,
+Imports: xts,
     zoo,
     micEconIndex
 Suggests:
