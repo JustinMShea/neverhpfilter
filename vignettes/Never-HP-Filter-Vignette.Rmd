@@ -62,7 +62,7 @@ head(RGDP)
 data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
-gdp_hl <- HL_filter_lm(log_RGDP)
+gdp_hl <- Hlm(log_RGDP)
 gdp_hl2 <- Hfilter(log_RGDP)
 head(gdp_hl2)
 ```
@@ -98,7 +98,7 @@ plot(Employ_qtr, grid.col = "white")
 ```
 
 ```{r}
-employ_hlm <- HL_filter_lm(Employ_qtr)
+employ_hlm <- Hlm(Employ_qtr)
 employ_hlf <- Hfilter(Employ_qtr)
 
 plot(employ_hlf$`y_h-x`, col = "red", grid.col = "white")

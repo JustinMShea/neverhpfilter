@@ -5,7 +5,7 @@
 #' \deqn{\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
 #'
 #'\value{
-#' \strong\code{HL_filter_lm} returns a linear model of class "formula", like the output created by `stats::lm`.
+#' \strong\code{Hlm} returns a linear model of class "formula", like the output created by `stats::lm`.
 #'}
 #'
 #'@param x An xts object of quarterly periodicity.
@@ -23,7 +23,7 @@
 #' HL_filter_lm(GDPC1, h = 8)
 #' 
 #'@export
-HL_filter_lm <- function(x, h = 8, ...) {
+Hlm <- function(x, h = 8, ...) {
 
   #      if (!requireNamespace("xts", quietly = TRUE)) {
    #             stop("Pkg xts needed for this function to work. Please install it.",
