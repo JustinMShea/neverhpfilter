@@ -1,40 +1,44 @@
-#' consump
+#' PAYEMS
 #'
-#' Data loads lazily. Type data(consump) into the console.
-#'
+#' All Employees: Total Nonfarm, commonly known as Total Nonfarm Payroll,
+#' is a measure of the number of U.S. workers in the economy that
+#' excludes proprietors, private household employees, unpaid volunteers,
+#' farm employees, and the unincorporated self-employed. This measure
+#' accounts for approximately 80 percent of the workers who contribute to
+#' Gross Domestic Product (GDP).
+#' This measure provides useful insights into the current economic
+#' situation because it can represent the number of jobs added or lost in
+#' an economy. Increases in employment might indicate that businesses are
+#' hiring which might also suggest that businesses are growing.
+#' Additionally, those who are newly employed have increased their
+#' personal incomes, which means (all else constant) their disposable
+#' incomes have also increased, thus fostering further economic
+#' expansion.
+#' Generally, the U.S. labor force and levels of employment and
+#' unemployment are subject to fluctuations due to seasonal changes in
+#' weather, major holidays, and the opening and closing of schools. The
+#' Bureau of Labor Statistics (BLS) adjusts the data to offset the
+#' seasonal effects to show non-seasonal changes: for example, women's
+#' participation in the labor force; or a general decline in the number
+#' of employees, a possible indication of a downturn in the economy. To
+#' closely examine seasonal and non-seasonal changes, the BLS releases
+#' two monthly statistical measures: the seasonally adjusted All
+#' Employees: Total Nonfarm (PAYEMS) and All Employees: Total Nonfarm
+#' (PAYNSA), which is not seasonally adjusted. The series comes from the 'Current Employment Statistics
+#' (Establishment Survey).'
+#' 
+#' @section Notes:
+#' 
 #' @docType data
 #'
-#' @usage data(consump)
+#' @usage data("PAYEMS")
 #'
-#' @format A data.frame with 37 rows and 24 variables:
+#' @format An xts object containing monthly observations of Real Gross Domestic Product.
 #' \itemize{
-#'  \item year. 1959-1995
-#'  \item i3. 3 mo. T-bill rate
-#'  \item inf. inflation rate; CPI
-#'  \item rdisp. disp. inc., 1992 $, bils.
-#'  \item rnondc. nondur. cons., 1992 $, bils.
-#'  \item rserv. services, 1992 $, bils.
-#'  \item pop. population, 1000s
-#'  \item y. per capita real disp. inc.
-#'  \item rcons. rnondc + rserv
-#'  \item c. per capita real cons.
-#'  \item r3. i3 - inf; real ex post int.
-#'  \item lc. log(c)
-#'  \item ly. log(y)
-#'  \item gc. lc - lc[_n-1]
-#'  \item gy. ly - ly[_n-1]
-#'  \item gc_1. gc[_n-1]
-#'  \item gy_1. gy[_n-1]
-#'  \item r3_1. r3[_n-1]
-#'  \item lc_ly. lc - ly
-#'  \item lc_ly_1. lc_ly[_n-1]
-#'  \item gc_2. gc[_n-2]
-#'  \item gy_2. gy[_n-2]
-#'  \item r3_2. r3[_n-2]
-#'  \item lc_ly_2. lc_ly[_n-2]
+#'  \item \strong {PAYEMS}  All Employees: Total Nonfarm Payrolls, Seasonally Adjusted, Thousands of Persons.
 #' }
-#' @source \url{https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9781111531041}
-#' @examples  str(consump)
-"consump"
- 
- 
+#' 
+#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PAYEMS.txt}
+#' 
+#' @examples  tail(PAYEMS)
+"PAYEMS"
