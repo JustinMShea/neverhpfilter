@@ -111,6 +111,6 @@ lines(employ_hlf$fit, col = "black")
 ```
 
 ```{r}
-plot(abs(employ_hlf$resid), index(employ_hlf), col = "red", grid.col = "white")
+plot(abs(employ_hlf$cycle), index(employ_hlf), col = "red", grid.col = "white")
 abline(v = .index(employ_hlf["1982"])[1], lty = 2, col = "darkgreen")
 ```
