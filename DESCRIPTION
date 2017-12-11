@@ -1,7 +1,7 @@
 Package: neverHPfilter
 Type: Package
 Title: The James D. Hamilton suggested alternative to the Hodrick-Prescott Filter.
-Version: 0.1.0.9210
+Version: 0.1.0.9211
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
 Description: In his working paper titled "Why You Should Never Use the 
