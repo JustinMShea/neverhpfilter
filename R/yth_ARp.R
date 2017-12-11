@@ -20,7 +20,7 @@
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
-#' yth_AR(GDPC1, h = 8)
+#' yth_AR(GDPC1, h = 8, p = 4)
 #'
 #'@export
 yth_ARp <- function(x, h = 8, p = 4, ...) {
