@@ -31,11 +31,13 @@ yth_ARp <- function(x, h = 8, p = 4, ...) {
 
         } else {
 
-        yth <- lag(x, k = c(-h, 0:(p-1)), na.pad = TRUE)
+        data <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
 
         lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
-        colnames(yth) <- lagnames
+        colnames(data) <- lagnames
 
-        stats::lm(get(lagnames[1]) ~ ., data = yth)
+        formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
+
+        stats::lm(formula, data = data)
         }
 }

@@ -36,7 +36,7 @@ yth_trend <- function(x, h = 8, p = 4, ...) {
                 lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
                 colnames(yth) <- lagnames
 
-                formula <- c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1)))
+                formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
 
                 model <- stats::lm(formula, data = yth)
 
