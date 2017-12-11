@@ -1,6 +1,6 @@
 library(testthat)
 
-hlm_model <- Hlm(GDPC1, h = 8)
+hlm_model <- yth_ARp(GDPC1, h = 8)
 
 test_that("The hlm model is of class 'lm'",
           {
