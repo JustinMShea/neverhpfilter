@@ -18,12 +18,13 @@ vignette: >
 
 ## Introduction
 
-In the working paper titled "Why You Should Never Use the Hodrick-Prescott Filter" <doi:10.3386/w23429>, James D. Hamilton proposes a more robust approach to economic time series filtering. The `neverHPfilter` package implements his approach.
+In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter" <doi:10.3386/w23429>, James D. Hamilton proposes an approach to economic time series filtering which achieve goals the HP-Filter attempts to achieve, but ultimatly fails to deliver on. and none The `neverHPfilter` package implements his approach.
+
 
 The abstract from Hamilton(2017) offers an excellent introduction.
 
 
-  >Here’s why. 
+  >Here's why. 
   (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process. 
   (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
   (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
@@ -68,7 +69,8 @@ head(gdp_hl2)
 ```
 
 ```{r}
-plot(log_RGDP, grid.col = "white")
+library(ggplot2)
+autoplot(log_RGDP, grid.col = "white") + theme_bw()
 ```
 
 ```{r}
