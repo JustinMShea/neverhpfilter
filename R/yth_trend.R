@@ -43,7 +43,7 @@ yth_trend <- function(x, h = 8, p = 4, ...) {
                 trend <- xts::as.xts(unname(model$fitted.values),
                          order.by = zoo::as.yearqtr(names(model$fitted.values)))
 
-                trend
+                print(trend)
         }
 }
 
