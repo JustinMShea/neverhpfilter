@@ -1,24 +1,20 @@
 Package: neverHPfilter
 Type: Package
 Title: The James D. Hamilton suggested alternative to the Hodrick-Prescott Filter.
-Version: 0.1.0.9211
+Version: 0.0.0.9300
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
 Description: In his working paper titled "Why You Should Never Use the 
     Hodrick-Prescott Filter", James D. Hamilton proposes a more robust approach to 
     economic time series filtering. The `neverHPfilter` package implements the approach.
     By regressing the y variable at date t+h on p most recent lagged values 
-    of a quarterly time series, all the objectives sought by users of the Hodrick-Prescott 
+    of an time series, all the objectives sought by users of the Hodrick-Prescott 
     Filter are met, with none of its drawbacks. Hamilton (2017) <doi:10.3386/w23429>.
 Depends: R (>= 3.4.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: xts,
-    zoo
-Suggests: knitr,
-    rmarkdown,
-    testthat,
-    covr
+Imports: xts, zoo
+Suggests: knitr, rmarkdown, testthat, covr
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
