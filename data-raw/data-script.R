@@ -13,16 +13,23 @@ PAYEMS <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", skip = 42, index.co
                                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
 colnames(PAYEMS) <- "PAYEMS"
 
+### US REcessions
+
+Recession_Indicators <- "https://fred.stlouisfed.org/data/USREC.txt"
+USREC <- as.xts(read.zoo(Recession_Indicators , sep = "", skip = 69, index.column = 1,
+                                   header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
+colnames(USREC) <- "USREC"
+
 ###################################################################
 # compression data sets to xz level 9 .Rdata files #
 ###################################################################
 
 dir.create("data")
 
-dataset_list <- c("PAYEMS", "GDPC1")
+dataset_list <- c("PAYEMS", "GDPC1", "USREC")
 
 for (i in dataset_list) {
-  
+
   save(list = i, file = paste0("data/", i, ".RData"), compress = "xz", compression_level = 9)
-  
+
 }
