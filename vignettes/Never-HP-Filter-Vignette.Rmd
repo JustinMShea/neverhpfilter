@@ -3,8 +3,6 @@ title: "The neverHPfilter Vignette"
 author: "Justin M Shea"
 date: ' '
 output:
-  pdf_document:
-    toc: yes
   rmarkdown::html_document:
     toc: yes
 vignette: >
@@ -37,15 +35,15 @@ Fortunatly, Hamilton doesn't just add to the list of critiques plagueing the Hod
 $$y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}$$
 $$\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
 
-\newpage
 
 ```{r, message = FALSE, warning = FALSE}
 library(knitr)
+library(broom)
 library(xts)
 library(neverHPfilter)
 ```
 
-```{r, eval = FALSE}
+```{r eval=FALSE, include=FALSE}
 # Real GDP
 Real_Gross_Domestic_Product <- "https://fred.stlouisfed.org/data/GDPC1.txt"
 GDPC1 <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 16, index.column = 1,
@@ -56,63 +54,88 @@ Total_nonfarm_Payrolls   <- "https://fred.stlouisfed.org/data/PAYEMS.txt"
 PAYEMS <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", skip = 42, index.column = 1,
                                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
 
-head(RGDP)
+# US Recessions
+Recession_Indicators <- "https://fred.stlouisfed.org/data/USREC.txt"
+USREC <- as.xts(read.zoo(Recession_Indicators , sep = "", skip = 69, index.column = 1,
+                                   header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
+colnames(USREC) <- "USREC"
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
-gdp_hl <- Hlm(log_RGDP)
-gdp_hl2 <- Hfilter(log_RGDP)
-head(gdp_hl2)
+gdp_ar <- yt_ar(log_RGDP, h = 8, p = 4)
+
+gdp_ar_df <- broom::tidy(gdp_ar)
+
+kable(gdp_ar_df)
+
+plot(gdp_ar)
 ```
 
 ```{r}
-library(ggplot2)
-autoplot(log_RGDP, grid.col = "white") + theme_bw()
+gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
+
+kable(tail(gdp_filtered))
 ```
 
-```{r}
-plot(gdp_hl2$`y_h-x`, grid.col = "white")
-lines(gdp_hl2$resid, col = "red")
+```{r, warning = FALSE}
+main <- "Log of Real GDP (GDPC1) and trend"
+plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main, panels = 'lines(gdp_filtered[,3], type="h", on=NA)')
 ```
 
-```{r}
-plot(gdp_hl2$`y_h-x`, grid.col = "white")
+```{r, warning = FALSE}
+main <- "Log of Real GDP cycle and random walk"
+plot(gdp_filtered[,3:4], subset = "1982/", grid.col = "white", legend.loc = "topright", main = main)
+
 ```
 
-```{r}
-plot(gdp_hl$residuals, col="black", type="l")
-abline(v = 1982, lty = 2, col = "darkgreen")
-abline(h = 0, lty = 2, col = "darkgreen")
+
+```{r, warning = FALSE}
+main <- "Log of Real GDP cycle around trend"
+#Recessions <- as.yearqtr(index(USREC["1947/"]))
+plot(gdp_filtered[,3], grid.col = "white", legend.loc = "topright", main = main)
+#addEventLines(Recessions)
+abline(h = 0, lty = 2, lwd = 1, col = "red")
 ```
 
-```{r}
+```{r, warning = FALSE}
 # household
-Employment_log <- 100*(log(PAYEMS["1947/2007"]))
-plot(Employment_log, grid.col = "white")
+Employment_log <- 100*log(PAYEMS)
+employ_ar <- yt_ar(Employment_log, h = 24, p = 12)
+employ_filtered <- yth_filter(Employment_log, h = 24, p = 12)
+
+main <- "Log of Employment and trend"
+plot(employ_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main, panels = 'lines(employ_filtered[,3], type="h", on=NA)')
 ```
 
-```{r}
-Employ_qtr <- to.quarterly(Employment_log, indexAt = 'yearqtr', OHLC=FALSE)
-plot(Employ_qtr, grid.col = "white")
+
+```{r, warning = FALSE}
+main <- "Log of Employment cycle and random walk"
+plot(employ_filtered[,3:4], grid.col = "white", legend.loc = "topright", main = main)
+abline(h = 0, lty = 2, lwd = 1, col = "darkgreen")
 ```
 
-```{r}
-employ_hlm <- Hlm(Employ_qtr)
-employ_hlf <- Hfilter(Employ_qtr)
-
-plot(employ_hlf$`y_h-x`, col = "red", grid.col = "white")
-lines(employ_hlf$resid, col = "black")
+```{r, warning = FALSE}
+main <- "Absolute Log of Employment cycle"
+plot(abs(employ_filtered[,3]), index(employ_filtered), col = "Black", grid.col = "white", main = main)
 ```
 
-```{r}
-plot(employ_hlf$y_h, col = "red", grid.col = "white")
-lines(employ_hlf$fit, col = "black")
-```
 
-```{r}
-plot(abs(employ_hlf$cycle), index(employ_hlf), col = "red", grid.col = "white")
-abline(v = .index(employ_hlf["1982"])[1], lty = 2, col = "darkgreen")
+```{r, warning = FALSE}
+GDP.St.Dev <- round(sd(gdp_filtered$GDPC1.cycle["/2016-1"], na.rm=TRUE), 2)
+GDP.GDPCorr. <- cor(gdp_filtered$GDPC1.cycle["/2016-1"], gdp_filtered$GDPC1.cycle["/2016-1"], use = "complete.obs")
+
+GDP.Random <- round(sd(coredata(gdp_filtered[,4]["/2016-1"]), na.rm=TRUE), 2)
+GDP.RanCorr. <- cor(gdp_filtered[,4]["/2016-1"],gdp_filtered[,4]["/2016-1"], use = "complete.obs")
+
+Sample <- gsub(" ","-",paste0(index(gdp_filtered[,1]),":",index(gdp_filtered["2016-1"])))
+                 
+GDP <- cbind(GDP.St.Dev, GDP.GDPCorr., GDP.Random, GDP.RanCorr., Sample)
+colnames(GDP) <- c("yth_St.Dev", "yth_Corr.", "ran_St.Dev", "ran_Corr.", "Sample")
+kable(GDP)
+
+round(sd(employ_filtered$PAYEMS.cycle["1947-1/2016-1"], na.rm=TRUE), 2)
+
 ```
