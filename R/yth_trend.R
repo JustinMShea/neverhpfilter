@@ -31,17 +31,16 @@ yth_trend <- function(x, h = 8, p = 4, ...) {
 
         } else {
 
-                yth <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
-
+                # run yth_ar(p) model and store results
+                data <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
                 lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
-                colnames(yth) <- lagnames
-
+                colnames(data) <- lagnames
                 formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
+                neverHP <- stats::lm(formula, data = data)
 
-                model <- stats::lm(formula, data = yth)
-
-                trend <- xts::as.xts(unname(model$fitted.values),
-                         order.by = zoo::as.yearqtr(names(model$fitted.values)))
+                #fitted trend xts object
+                trend <- xts::as.xts(unname(neverHP$fitted.values),
+                                     order.by = get(paste0("as.",class(index(x))))(names(neverHP$fitted.values)))
 
                 print(trend)
         }
