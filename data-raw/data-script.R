@@ -7,13 +7,13 @@ GDPC1 <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 17, index.column = 
 colnames(GDPC1) <- "GDPC1"
 
 
-### Employment Rate ###
+# Employment Rate
 Total_nonfarm_Payrolls   <- "https://fred.stlouisfed.org/data/PAYEMS.txt"
 PAYEMS <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", skip = 42, index.column = 1,
                                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
 colnames(PAYEMS) <- "PAYEMS"
 
-### US REcessions
+# US Recessions
 
 Recession_Indicators <- "https://fred.stlouisfed.org/data/USREC.txt"
 USREC <- as.xts(read.zoo(Recession_Indicators , sep = "", skip = 69, index.column = 1,
