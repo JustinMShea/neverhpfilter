@@ -1,4 +1,4 @@
-#' An alternative to the Hodrick-Prescott Filter
+#' A better Hodrick-Prescott Filter
 #'
 #' For time series of quarterly periodicity, Hamilton suggests an \eqn{AR(4)} process,
 #' additionally lagged by \eqn{h} periods. \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
@@ -27,17 +27,19 @@ yt_ar <- function(x, h = 8, p = 4, ...) {
 
         if(!"xts" %in% class(x)) {
 
-        stop("This function requires an xts object.")
+stop("This function requires an xts object.")
 
         } else {
 
-        data <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
+                 data  <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
 
-        lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
-        colnames(data) <- lagnames
+           data_names  <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
 
-        formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
+        colnames(data) <- data_names
 
-        stats::lm(formula, data = data)
-        }
+               formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
+
+                          stats::lm(formula, data = data)
+
+                }
 }
