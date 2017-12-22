@@ -5,16 +5,17 @@
 #' \deqn{\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
 #'
 #'
-#' @return \code{Hfilter} returns an xts object containing the original series,
+#' @return \code{yth_filter} returns an xts object containing the original series,
 #'                   the fitted (trend) values, the residual (cycle) component,
 #'                   and a "random walk" series represented by the difference between \eqn{y_{t+h}} and \eqn{y_t}
 #'
+#'@param x An xts object.
 #'
-#'@param x An xts object of quarterly periodicity.
+#'@param h The look ahead parameter. Default to h = 8, or 8 quarters for two years.
 #'
-#'@param h The look ahead parameter indicating the length of the AR(4) lag. Default to h = 8, or 8 quarters.
+#'@param p Idicating the number of lags. Default to p = 4, or 4 quarters for one year.
 #'
-#'@param ... see function "stats::lm"
+#'@param ... see "lm"
 #'
 #'@inheritParams stats::lm see "lm"
 #'
@@ -22,41 +23,38 @@
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
-#'GDPC1_Hfilter <- Hfilter(GDPC1, h = 8)
-#'plot(GDPC1_Hfilter)
+#'GDPC1_filtered <- yth_filter(GDPC1, h = 8, p = 4)
+#'plot(GDPC1_filtered)
 #'
 #'@export
-yth_ARfilter <- function(x, h = 8, ...) {
+yth_filter <- function(x, h = 8, p = 4, ...) {
 
-                if (!requireNamespace("xts", quietly = TRUE)) {
-                        stop("xts package dependent. Please load.",
-                             call. = FALSE)
-                }
+        if(!"xts" %in% class(x)) {
 
-        # Transform data
-             extensible <- merge(x,
-                    xts::lag.xts(x, k = h, na.pad = TRUE),
-                    xts::lag.xts(x, k = h+1, na.pad = TRUE),
-                    xts::lag.xts(x, k = h+2, na.pad = TRUE),
-                    xts::lag.xts(x, k = h+3, na.pad = TRUE))
-        colnames(extensible) <- c("y_h", "x", "x_1", "x_2", "x_3")
+        stop("This function requires an xts object.")
 
-        # linear model data
-        alt_Filter <- stats::lm(y_h ~ x + x_1 + x_2 + x_3, data = extensible)
+        } else {
+        # run yth_ar(p) model and store results
+                  data <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
+              lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
+        colnames(data) <- lagnames
+               formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
+               neverHP <- stats::lm(formula, data = data)
 
-        # convert fitted and residuals to xts objects
-        trend <- xts::as.xts(unname(alt_Filter$fitted.values),
-                         order.by = zoo::as.yearqtr(names(alt_Filter$fitted.values)))
+        #fitted and residuals into trend and cycle xts objects
+        trend <- xts::as.xts(unname(neverHP$fitted.values),
+                             order.by = get(paste0("as.",class(index(x))))(names(neverHP$fitted.values)))
 
-        cycle <- xts::as.xts(unname(alt_Filter$residuals),
-                           order.by = zoo::as.yearqtr(names(alt_Filter$residuals)))
+        cycle <- xts::as.xts(unname(neverHP$residuals),
+                             order.by = get(paste0("as.",class(index(x))))(names(neverHP$residuals)))
 
-        # merge together relevant components
-        output <- merge(extensible$y_h, trend, cycle, extensible$y_h - extensible$x)
-
-        colnames(output) <- c("y_h","trend", "cycle", "y_h-x")
+        # merge together relevant components and name accordingly
+                  output <- merge(data[,1], trend, cycle, data[,1] - data[,2])
+                  x_name <- names(x)
+            output_names <- c(x_name, paste0(x_name,".", c("trend", "cycle", paste0(lagnames[1],"-",lagnames[2]))))
+        colnames(output) <- output_names
 
         output
 
+        }
 }
-
