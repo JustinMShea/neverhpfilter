@@ -23,7 +23,7 @@
 #' yth_glm(GDPC1, h = 8, p = 4)
 #'
 #'@export
-yth_ar <- function(x, h = 8, p = 4, ...) {
+yth_glm <- function(x, h = 8, p = 4, ...) {
 
                if(!"xts" %in% class(x)) {
 
