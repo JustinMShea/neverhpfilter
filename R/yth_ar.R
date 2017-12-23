@@ -1,10 +1,10 @@
-#' A better Hodrick-Prescott Filter
+#' A better alternative to the Hodrick-Prescott Filter
 #'
 #' For time series of quarterly periodicity, Hamilton suggests an \eqn{AR(4)} process,
 #' regressed against a look ahead of \eqn{h} periods. \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
 #' \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
 #'
-#'@return \code{yth_ar} returns a linear model estimed by ordinary least squares of class "formula".
+#'@return \code{yth_glm} returns a linear model estimed by ordinary least squares of class "formula".
 #'
 #'@param x An univariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".
 #'
@@ -12,15 +12,15 @@
 #'
 #'@param p Idicating the number of lags. Default to p = 4, or 4 quarters for one year.
 #'
-#'@param ... see "lm"
+#'@param ... see "glm"
 #'
-#'@inheritParams stats::lm see "lm"
+#'@inheritParams stats::glm see "glm"
 #'
 #'@references James D. Hamilton. "Why You Should Never Use the Hodrick-Prescott Filter".
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
-#' yth_ar(GDPC1, h = 8, p = 4)
+#' yth_glm(GDPC1, h = 8, p = 4)
 #'
 #'@export
 yth_ar <- function(x, h = 8, p = 4, ...) {
@@ -48,7 +48,7 @@ stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
 
                formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
 
-                          stats::lm(formula, data = data)
+                          stats::glm(formula, data = data)
 
                 }
 }
