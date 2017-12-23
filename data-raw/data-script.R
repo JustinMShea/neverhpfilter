@@ -37,7 +37,7 @@ Hamilton_table_2$Sample <- gsub(":", "-", Hamilton_table_2$Sample)
 
 dir.create("data")
 
-dataset_list <- c("PAYEMS", "GDPC1", "USREC")
+dataset_list <- c("PAYEMS", "GDPC1", "USREC", "Hamilton_table_2")
 
 for (i in dataset_list) {
 
