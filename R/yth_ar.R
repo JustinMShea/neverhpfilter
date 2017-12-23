@@ -4,7 +4,7 @@
 #' regressed against a look ahead of \eqn{h} periods. \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
 #' \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
 #'
-#'@return \code{yt_ar} returns a linear model estimed by ordinary least squares of class "formula".
+#'@return \code{yth_ar} returns a linear model estimed by ordinary least squares of class "formula".
 #'
 #'@param x An univariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".
 #'
@@ -20,10 +20,10 @@
 #'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
-#' yt_ar(GDPC1, h = 8, p = 4)
+#' yth_ar(GDPC1, h = 8, p = 4)
 #'
 #'@export
-yt_ar <- function(x, h = 8, p = 4, ...) {
+yth_ar <- function(x, h = 8, p = 4, ...) {
 
                if(!"xts" %in% class(x)) {
 
