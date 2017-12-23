@@ -48,7 +48,7 @@ stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
 
                formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
 
-                          stats::glm(formula, data = data)
+                          stats::glm(formula, data = data, ...)
 
                 }
 }
