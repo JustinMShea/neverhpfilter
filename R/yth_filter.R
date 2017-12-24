@@ -23,7 +23,7 @@
 #'
 #' @importFrom stats lag
 #' @importFrom xts as.xts
-#' @importFrom zoo index
+#' @import zoo
 #'
 #'@references James D. Hamilton. Why You Should Never Use the Hodrick-Prescott Filter.
 #'            NBER Working Paper No. 23429, Issued in May 2017.
@@ -35,11 +35,19 @@
 #'@export
 yth_filter <- function(x, h = 8, p = 4, ...) {
 
-        if(!"xts" %in% class(x)) {
-
-        stop("This function requires an xts object.")
-
-        } else {
+         if(!"xts" %in% class(x)) {
+    
+    stop(paste("Arguement 'x' be an object of type xts.", class(x), "is not an xts object"))
+    
+  } else if(h %% 1 != 0) {
+    
+    stop(paste("Argument 'h' must be a whole number.", h, "is not a whole number."))
+    
+  } else if(p %% 1 != 0) {
+    
+    stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
+    
+  } else {
         # run yth_ar(p) model and store results
                   data <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
               lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))

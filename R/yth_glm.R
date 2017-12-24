@@ -29,15 +29,15 @@ yth_glm <- function(x, h = 8, p = 4, ...) {
 
                if(!"xts" %in% class(x)) {
 
-stop(paste("Arguement 'x' be an object of type xts.", class(x), "is not an xts object"))
+  stop(paste("Arguement 'x' be an object of type xts.", class(x), "is not an xts object"))
 
         } else if(h %% 1 != 0) {
 
-stop(paste("Argument 'h' must be a whole number.", h, "is not a whole number."))
+  stop(paste("Argument 'h' must be a whole number.", h, "is not a whole number."))
 
         } else if(p %% 1 != 0) {
 
-stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
+  stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
 
         } else {
 
