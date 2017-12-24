@@ -1,12 +1,12 @@
 ---
-title: "The neverHPfilter Vignette"
+title: "Reproducing Hamilton's paper"
 author: "Justin M Shea"
 date: ' '
 output:
   rmarkdown::html_document:
     toc: yes
 vignette: >
-  %\VignetteIndexEntry{Never-HP-Filter-Vignette}  
+  %\VignetteIndexEntry{Reproducing Hamilton's paper}  
   %\VignetteEngine{knitr::rmarkdown}  
   %\VignetteEncoding{UTF-8}
 ---
