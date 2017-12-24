@@ -13,7 +13,7 @@ yth_cycle(x, h = 8, p = 4, ...)
 
 \item{p}{Idicating the number of lags. Default to p = 4, or 4 quarters for one year.}
 
-\item{...}{additional argeuments of accepted by the model class see "lm"}
+\item{...}{additional argeuments of accepted by the model class see "glm"}
 }
 \value{
 \code{yth_cycle} returns a xts object of the cyclical component, the residual of the yt_ar model.

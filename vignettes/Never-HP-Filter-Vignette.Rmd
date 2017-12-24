@@ -66,7 +66,7 @@ colnames(USREC) <- "USREC"
 data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
-gdp_ar <- yth_ar(log_RGDP, h = 8, p = 4)
+gdp_ar <- yth_glm(log_RGDP, h = 8, p = 4)
 
 gdp_ar_df <- broom::tidy(gdp_ar)
 
@@ -130,7 +130,7 @@ plot(gdp_filtered[,3], grid.col = "white", legend.loc = "topright", main = main)
 ```{r, warning = FALSE}
 # household
 Employment_log <- 100*log(PAYEMS)
-employ_ar <- yth_ar(Employment_log, h = 24, p = 12)
+employ_ar <- yth_glm(Employment_log, h = 24, p = 12)
 employ_filtered <- yth_filter(Employment_log, h = 24, p = 12)
 
 main <- "Log of Employment and trend"
