@@ -5,5 +5,6 @@
 ^appveyor\.yml$
 ^codecov\.yml$
 ^vignettes/US_Economic_Data_Management\.Rmd$
+^vignettes/additional-examples\.Rmd$
 ^w23429\.pdf$
 ^testplots.R$
