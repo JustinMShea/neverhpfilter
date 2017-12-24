@@ -14,9 +14,13 @@
 #'
 #'@param p Idicating the number of lags. Default to p = 4, or 4 quarters for one year.
 #'
-#'@param ... additional argeuments of accepted by the model class see "lm"
+#'@param ... additional argeuments of accepted by the model class see "glm"
 #'
-#'@inheritParams stats::lm see "lm"
+#'@inheritParams stats::glm see "glm"
+#'
+#' @importFrom stats lag
+#' @importFrom xts as.xts
+#' @importFrom zoo index
 #'
 #'@references James D. Hamilton. "Why You Should Never Use the Hodrick-Prescott Filter".
 #'            NBER Working Paper No. 23429, Issued in May 2017.
@@ -38,7 +42,7 @@ yth_cycle <- function(x, h = 8, p = 4, ...) {
                 lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
                 colnames(data) <- lagnames
                 formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
-                neverHP <- stats::lm(formula, data = data)
+                neverHP <- stats::glm(formula, data = data, ...)
 
                 # cycle xts object
                 cycle <- xts::as.xts(unname(neverHP$residuals),

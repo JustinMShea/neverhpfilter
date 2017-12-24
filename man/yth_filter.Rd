@@ -13,7 +13,7 @@ yth_filter(x, h = 8, p = 4, ...)
 
 \item{p}{Idicating the number of lags. Default to p = 4, or 4 quarters for one year.}
 
-\item{...}{see "lm"}
+\item{...}{see "glm"}
 }
 \value{
 \code{yth_filter} returns an xts object containing the original series,
