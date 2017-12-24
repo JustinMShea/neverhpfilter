@@ -15,3 +15,21 @@ plot(SP500_filter[,1:2], subset = "2017/", grid.col = "white", legend.loc = "top
 plot(SP500_filter[,3:4], subset = "2017-06/", grid.col = "white", legend.loc = "topleft", main = main)
 
 
+# Test table
+gdp_filtered <- yth_filter(GDPC1)
+
+sd(coredata(gdp_filtered$GDPC1.cycle["/2016-1"]), na.rm=TRUE)
+
+
+# USREC datra
+
+qtr_recc <- to.quarterly(USREC["1947-1/2017-3"], OHLC=FALSE)
+qtr_recc2 <- qtr_rec[qtr_rec$USREC==1,]
+qtr_recc2
+
+# another try
+
+start <- index(USREC[which(diff(USREC$USREC)==1)])
+end   <- index(USREC[which(diff(USREC$USREC)==-1)-1])
+Recessions <- paste(format(start,"%Y-%m"),format(end[-1],"%Y-%m"),sep="/")
+

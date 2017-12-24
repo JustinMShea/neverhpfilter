@@ -30,16 +30,17 @@ The abstract from Hamilton(2017) offers an excellent introduction.
 
 ## A Better Alternative
 
-Fortunatly, Hamilton doesn't just add to the list of critiques plagueing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as a lagged AR(4) process:
+Fortunatly, Hamilton doesn't just add to the list of critiques plagueing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as an AR(4) process, additionally lagged by $h$ periods.
 
 $$y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}$$
 $$\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
 
+## Implementation in R
 
 ```{r, message = FALSE, warning = FALSE}
+library(xts)
 library(knitr)
 library(broom)
-library(xts)
 library(neverHPfilter)
 ```
 
@@ -81,13 +82,39 @@ kable(tail(gdp_filtered))
 ```
 
 ```{r, warning = FALSE}
+library(PerformanceAnalytics)
+
+qtr_recc <- to.quarterly(USREC["1947-1/2017-3"], OHLC=FALSE)
+start <- index(qtr_recc[which(diff(qtr_recc$USREC)==1)])
+end   <- index(qtr_recc[which(diff(qtr_recc$USREC)==-1)])
+Recessions <- paste(format(start,"%Y-%q"),format(end,"%Y-%q"),sep="/")
+
 main <- "Log of Real GDP (GDPC1) and trend"
-plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main, panels = 'lines(gdp_filtered[,3], type="h", on=NA)')
+chart.TimeSeries(GDPC1, period.areas = Recessions, period.color="lightblue", lwd=2)
+
+```
+
+
+
+
+```{r, warning = FALSE}
+qtr_recc <- to.quarterly(USREC["1947-1/2017-3"], OHLC=FALSE)
+qtr_recc2 <- qtr_recc[qtr_recc$USREC==1,]
+
+main <- "Log of Real GDP (GDPC1) and trend"
+plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main)
+lines(gdp_filtered[,3], type="h", on=NA, panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))
+#plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main)
+#points(x=index(qtr_recc2), type="h", lwd = 2, on=1,col = "lightgrey")
+#abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")
 ```
 
 ```{r, warning = FALSE}
 main <- "Log of Real GDP cycle and random walk"
+
 plot(gdp_filtered[,3:4], subset = "1982/", grid.col = "white", legend.loc = "topright", main = main)
+#lines(panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))
+#addSeries(x = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")
 
 ```
 
@@ -97,7 +124,7 @@ main <- "Log of Real GDP cycle around trend"
 #Recessions <- as.yearqtr(index(USREC["1947/"]))
 plot(gdp_filtered[,3], grid.col = "white", legend.loc = "topright", main = main)
 #addEventLines(Recessions)
-abline(h = 0, lty = 2, lwd = 1, col = "red")
+#abline(h = 0, lty = 2, lwd = 1, col = "red")
 ```
 
 ```{r, warning = FALSE}
