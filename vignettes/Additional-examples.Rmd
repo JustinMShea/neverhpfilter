@@ -87,7 +87,7 @@ end   <- index(qtr_recc[which(diff(qtr_recc$USREC)==-1)])
 Recessions <- paste(format(start,"%Y-%q"),format(end,"%Y-%q"),sep="/")
 
 main <- "Log of Real GDP (GDPC1) and trend"
-chart.TimeSeries(GDPC1, period.areas = Recessions, period.color="lightblue", lwd=2)
+chart.TimeSeries(GDPC1, period.areas = Recessions, period.color="lightgrey", lwd=2)
 
 ```
 
