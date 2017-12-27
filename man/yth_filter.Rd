@@ -2,38 +2,59 @@
 % Please edit documentation in R/yth_filter.R
 \name{yth_filter}
 \alias{yth_filter}
-\title{yth_filter}
+\title{Filtered xts object}
 \usage{
 yth_filter(x, h = 8, p = 4, ...)
 }
 \arguments{
-\item{x}{An xts object.}
+\item{x}{A univariate xts series of zoo index class, such as \code{Date, yearmon},
+or \code{yearqtr}.}
 
-\item{h}{The look ahead parameter. Default to h = 8, or 8 quarters for two years.}
+\item{h}{An \code{integer}, defining the lookahead period.
+Defaults to \code{h = 8}, suggested by Hamilton. The default assumes
+economic data of quarterly periodicity with a lookahead period of 2 years.
+This function is not limited by the default parameter, and Economists may
+change it as desired.}
 
-\item{p}{Idicating the number of lags. Default to p = 4, or 4 quarters for one year.}
+\item{p}{An \code{integer}, indicating the number of lags. A Default of \code{p = 4},
+suggested by Hamilton, assumes data is of quarterly periodicity. If data is
+of monthly periodicity, one may choose \code{p = 12} or aggregate the series
+to quarterly periodicity and maintain the default. This function is not limited by
+the default parameter, and Economists may consider changing it to accomodate
+the seasonal structure of their data.}
 
-\item{...}{see "glm"}
+\item{...}{other arguments passed to the function \code{\link[stats]{glm}}}
 }
 \value{
-\code{yth_filter} returns an xts object containing the original series,
-                  the fitted (trend) values, the residual (cycle) component,
-                  and a "random walk" series represented by the difference between \eqn{y_{t+h}} and \eqn{y_t}
+\code{yth_filter} returns an xts object containing four time series.
+ They include the original series, model fitted values (trend component), model residuals (cycle component),
+ and a "random walk" series represented by differencing \eqn{y_{t+h}} and \eqn{y_t}.
 }
 \description{
-Filtered time series xts object
+\code{yth_filter} returns a zoo indexed original, trend, cycle, and "random walk" series.
 }
 \details{
-For a time series of say, quarterly periodicity, Hamilton's solution can be described as an \eqn{AR(4)} process,
-additionally lagged by \eqn{h} periods. \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
-\deqn{\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
+For time series of quarterly periodicity, Hamilton suggests parameters of
+ h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8} lookahead periods.
+ Exploring parameters of h should be undertaken by Economists with reason to do so.
+ However, p merely corresponds with the seasonality of a given periodicity and should be matched accordingly.
+ For example, p = 4 for data of quarterly periodicity and p = 12 for data of monthly.
+ \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
+ \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
+ Which can be rewritten as:
+ \deqn{y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}}
+ \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 }
 \examples{
-GDPC1_filtered <- yth_filter(GDPC1, h = 8, p = 4)
-plot(GDPC1_filtered)
+data(GDPC1)
+GDP_filtered <- yth_filter(100*log(GDPC1), h = 8, p = 4)
+plot(GDP_filtered)
 
 }
 \references{
-James D. Hamilton. Why You Should Never Use the Hodrick-Prescott Filter.
+James D. Hamilton. \href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.
            NBER Working Paper No. 23429, Issued in May 2017.
+}
+\seealso{
+\code{\link{yth_glm}}
 }

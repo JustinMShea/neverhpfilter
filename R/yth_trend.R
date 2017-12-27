@@ -1,46 +1,63 @@
-#' An alternative to the Hodrick-Prescott Filter
+#' Estimates trend component
 #'
-#' For time series of quarterly periodicity, Hamilton suggests an \eqn{AR(4)} process,
-#' additionally lagged by \eqn{h} periods. \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
-#' \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
+#' \code{yth_trend} returns the trend component of Hamilton's alternative to the HP-Filter.
 #'
-#'@return \code{yth_trend} returns a xts object of
+#' For time series of quarterly periodicity, Hamilton suggests parameters of
+#'  h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8}
+#'  lookahead periods. Note explorations of h are encouraged by Economists. However, p is designed to correspond with the seasonality of a given periodicity and should be matched accordingly.
+#'  \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
+#'  \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
+#'  Which can be rewritten as:
+#'  \deqn{y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}}
+#'  \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 #'
-#'@param x An xts object.
+#' This function estimates \eqn{\hat{y_{t+h}}}.
 #'
-#'@param h The look ahead parameter. Default to h = 8, or 8 quarters for two years.
+#' @return This function returns an xts object of the trend component, or the \code{fitted.values} of the \code{\link{yth_glm}} model.
 #'
-#'@param p Idicating the number of lags. Default to p = 4, or 4 quarters for one year.
+#' @param x Anunivariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".
 #'
-#'@param ... additional argeuments of accepted by the model class see "glm"
+#' @param h The lookahead parameter. Defaults to h = 8, or 8 quarters if data is
+#'  of quarterly periodicity. Longer lookahead periods such as h = 20, maybe useful
+#'  for economic cycles of extended periods of time.
 #'
-#'@inheritParams stats::glm see "glm"
+#' @param p Indicates the number of lags. Defaults to p = 4, or 4 quarters if data
+#'  is of quarterly periodicity. Other parameters one may estimate include p = 12,
+#'  for data of monthly periodicity.
+#'
+#' @param ... other arguments passed to the function \code{\link[stats]{glm}}
+#'
+#' @inheritParams glm
+#'
+#' @seealso \code{\link{yth_glm}}
 #'
 #' @importFrom stats lag
 #' @importFrom xts as.xts
 #' @import zoo
-#' 
-#'@references James D. Hamilton. "Why You Should Never Use the Hodrick-Prescott Filter".
-#'            NBER Working Paper No. 23429, Issued in May 2017.
 #'
-#'@examples
-#' yth_trend(GDPC1, h = 8, p = 4)
+#' @references James D. Hamilton. \href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.
+#'  NBER Working Paper No. 23429, Issued in May 2017.
+#'
+#' @examples
+#' data(GDPC1)
+#' LGDP_cycle <- yth_cycle(100*log(GDPC1), h = 8, p = 4)
+#' plot(LGDP_cycle)
 #'
 #'@export
 yth_trend <- function(x, h = 8, p = 4, ...) {
 
   if(!"xts" %in% class(x)) {
-    
-    stop(paste("Arguement 'x' be an object of type xts.", class(x), "is not an xts object"))
-    
+
+    stop(paste("Argument 'x' be an object of type xts.", class(x), "is not an xts object"))
+
   } else if(h %% 1 != 0) {
-    
+
     stop(paste("Argument 'h' must be a whole number.", h, "is not a whole number."))
-    
+
   } else if(p %% 1 != 0) {
-    
+
     stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
-    
+
   } else {
 
                 # run yth_ar(p) model and store results

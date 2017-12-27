@@ -2,32 +2,49 @@
 % Please edit documentation in R/yth_glm.R
 \name{yth_glm}
 \alias{yth_glm}
-\title{A better alternative to the Hodrick-Prescott Filter}
+\title{Fits Hamilton's alternative model}
 \usage{
 yth_glm(x, h = 8, p = 4, ...)
 }
 \arguments{
-\item{x}{An univariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".}
+\item{x}{A univariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".}
 
-\item{h}{The look ahead parameter. Default to h = 8, or 8 quarters for two years of look ahead data.}
+\item{h}{The lookahead parameter. Defaults to h = 8, or 8 quarters, assumes economic data is
+of quarterly periodicity. Longer lookahead periods such as h = 20, maybe useful
+for economic cycles of extended periods of time.}
 
-\item{p}{Idicating the number of lags. Default to p = 4, or 4 quarters for one year.}
+\item{p}{Indicates the number of lags. Defaults to p = 4, or 4 quarters if data
+is of quarterly periodicity. Other parameters one may estimate include p = 12,
+for data of monthly periodicity.}
 
-\item{...}{see "glm"}
+\item{...}{all arguments passed to the function \code{\link[stats]{glm}}}
 }
 \value{
-\code{yth_glm} returns a linear model estimed by ordinary least squares of class "formula".
+\code{yth_glm} returns a generalized linear model object of class "glm", which inherits from "lm".
 }
 \description{
-For time series of quarterly periodicity, Hamilton suggests an \eqn{AR(4)} process,
- regressed against a look ahead of \eqn{h} periods. \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
+\code{yth_glm} fits a generalized linear model suggested by James D. Hamilton as a better alternative to the Hodrick-Prescott Filter.
+}
+\details{
+For time series of quarterly periodicity, Hamilton suggests parameters of
+ h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8}
+ lookahead periods. Note explorations of h are encouraged by Economists. However, p is designed to correspond with the seasonality of a given periodicity and should be matched accordingly.
+ \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
  \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
+ Which can be rewritten as:
+ \deqn{y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}}
+ \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 }
 \examples{
-yth_glm(GDPC1, h = 8, p = 4)
+data(GDPC1)
+GDP_model <- yth_glm(GDPC1, h = 8, p = 4)
+summary(GDP_model)
 
 }
 \references{
-James D. Hamilton. "Why You Should Never Use the Hodrick-Prescott Filter".
-           NBER Working Paper No. 23429, Issued in May 2017.
+James D. Hamilton. \href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.
+ NBER Working Paper No. 23429, Issued in May 2017.
+}
+\seealso{
+\code{\link{glm}}
 }

@@ -1,56 +1,72 @@
-#' A better alternative to the Hodrick-Prescott Filter
+#' Fits Hamilton's alternative model
 #'
-#'  For time series of quarterly periodicity, Hamilton suggests an \eqn{AR(4)} process,
-#'  regressed against a look ahead of \eqn{h} periods. \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
+#' \code{yth_glm} fits a generalized linear model suggested by James D. Hamilton as a better alternative to the Hodrick-Prescott Filter.
+#'
+#' For time series of quarterly periodicity, Hamilton suggests parameters of
+#'  h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8}
+#'  lookahead periods. Note explorations of h are encouraged by Economists. However, p is designed to correspond with the seasonality of a given periodicity and should be matched accordingly.
+#'  \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
 #'  \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
+#'  Which can be rewritten as:
+#'  \deqn{y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}}
+#'  \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 #'
-#' @return \code{yth_glm} returns a linear model estimed by ordinary least squares of class "formula".
+#' @return \code{yth_glm} returns a generalized linear model object of class "glm", which inherits from "lm".
 #'
-#' @param x An univariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".
+#' @param x A univariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".
 #'
-#' @param h The look ahead parameter. Default to h = 8, or 8 quarters for two years of look ahead data.
+#' @param h The lookahead parameter. Defaults to h = 8, or 8 quarters, assumes economic data is
+#'  of quarterly periodicity. Longer lookahead periods such as h = 20, maybe useful
+#'  for economic cycles of extended periods of time.
 #'
-#' @param p Idicating the number of lags. Default to p = 4, or 4 quarters for one year.
+#' @param p Indicates the number of lags. Defaults to p = 4, or 4 quarters if data
+#'  is of quarterly periodicity. Other parameters one may estimate include p = 12,
+#'  for data of monthly periodicity.
 #'
-#' @param ... see "glm"
+#' @param ... all arguments passed to the function \code{\link[stats]{glm}}
 #'
-#' @inheritParams stats::glm see "glm"
-#' 
+#' @inheritParams glm
+#'
+#' @seealso \code{\link{glm}}
+#'
 #' @importFrom stats lag
 #'
-#'@references James D. Hamilton. "Why You Should Never Use the Hodrick-Prescott Filter".
-#'            NBER Working Paper No. 23429, Issued in May 2017.
+#' @references James D. Hamilton. \href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.
+#'  NBER Working Paper No. 23429, Issued in May 2017.
 #'
 #'@examples
-#' yth_glm(GDPC1, h = 8, p = 4)
+#' data(GDPC1)
+#' GDP_model <- yth_glm(GDPC1, h = 8, p = 4)
+#' summary(GDP_model)
 #'
 #'@export
 yth_glm <- function(x, h = 8, p = 4, ...) {
 
-               if(!"xts" %in% class(x)) {
+        if(!"xts" %in% class(x)) {
 
-  stop(paste("Arguement 'x' be an object of type xts.", class(x), "is not an xts object"))
+                stop(paste("Argument 'x' be an object of type xts.", class(x), "is not an xts object"))
 
         } else if(h %% 1 != 0) {
 
-  stop(paste("Argument 'h' must be a whole number.", h, "is not a whole number."))
+                stop(paste("Argument 'h' must be a whole number.", h, "is not a whole number."))
 
         } else if(p %% 1 != 0) {
 
-  stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
+                stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
 
         } else {
 
 
-                 data  <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
+                data  <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
 
-           data_names  <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
+                data_names  <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
 
-        colnames(data) <- data_names
+                colnames(data) <- data_names
 
-               formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
+                formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
 
-                          stats::glm(formula, data = data, ...)
+                stats::glm(formula, data = data, ...)
 
-                }
+        }
 }
+
