@@ -3,19 +3,19 @@
 \docType{data}
 \name{PAYEMS}
 \alias{PAYEMS}
-\title{PAYEMS}
+\title{Employment Situation}
 \format{An xts object containing monthly observations of All Employees: Total Nonfarm.
  \itemize{
- \item\strong{PAYEMS} {Seasonally Adjusted, Thousands of Persons.}
+ \item\strong{PAYEMS} {Seasonally Adjusted, Thousands of Persons. }
 }}
 \source{
 U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PAYEMS.txt}
 }
 \usage{
-data("PAYEMS")
+data(PAYEMS)
 }
 \description{
-All Employees: Total Nonfarm
+\code{PAYEMS} All Employees: Total Nonfarm
 }
 \section{Notes}{
 
@@ -25,6 +25,7 @@ excludes proprietors, private household employees, unpaid volunteers,
 farm employees, and the unincorporated self-employed. This measure
 accounts for approximately 80 percent of the workers who contribute to
 Gross Domestic Product (GDP).
+
 This measure provides useful insights into the current economic
 situation because it can represent the number of jobs added or lost in
 an economy. Increases in employment might indicate that businesses are
@@ -33,6 +34,7 @@ Additionally, those who are newly employed have increased their
 personal incomes, which means (all else constant) their disposable
 incomes have also increased, thus fostering further economic
 expansion.
+
 Generally, the U.S. labor force and levels of employment and
 unemployment are subject to fluctuations due to seasonal changes in
 weather, major holidays, and the opening and closing of schools. The
@@ -43,11 +45,15 @@ of employees, a possible indication of a downturn in the economy. To
 closely examine seasonal and non-seasonal changes, the BLS releases
 two monthly statistical measures: the seasonally adjusted All
 Employees: Total Nonfarm (PAYEMS) and All Employees: Total Nonfarm
-(PAYNSA), which is not seasonally adjusted. The series comes from the 'Current Employment Statistics
-(Establishment Survey).'
+(PAYNSA), which is not seasonally adjusted.
+
+The series comes from the 'Current Employment Statistics (Establishment Survey).
+
+The source code is: CES0000000001
 }
 
 \examples{
- tail(PAYEMS)
+data(PAYEMS)
+tail(PAYEMS)
 }
 \keyword{datasets}

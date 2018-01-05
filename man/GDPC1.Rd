@@ -3,8 +3,8 @@
 \docType{data}
 \name{GDPC1}
 \alias{GDPC1}
-\title{GDPC1}
-\format{An xts object containing quarterly observations of Real GDP
+\title{Gross Domestic Product}
+\format{An xts object containing quarterly observations of Real Gross Domestic Product.
  \itemize{
  \item\strong{GDPC1} {Seasonally Adjusted Annual Rate, in Billions of Chained 2009 Dollars.}
 }}
@@ -12,21 +12,24 @@
 U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPC1.txt}
 }
 \usage{
-data("GDPC1")
+data(GDPC1)
 }
 \description{
-Real Gross Domestic Product
+\code{GDPC1} Real Gross Domestic Product
 }
 \section{Notes}{
 
-Real gross deomstic product is the inflation adjusted value of the
-goods and services produced by labor and property located in the
-United States.For more information see the Guide to the National
-Income and Product Accounts of the United States (NIPA) -
-(http://www.bea.gov/national/pdf/nipaguid.pdf)
+Real gross deomstic product is the inflation adjusted value of the goods and
+services produced by labor and property located in the United States.
+
+For more information see the Guide to the National Income and Product Accounts
+of the United States (NIPA) - \url{http://www.bea.gov/national/pdf/nipaguid.pdf}.
+
+BEA Account Code: A191RX
 }
 
 \examples{
- tail(GDPC1)
+data(GDPC1)
+tail(GDPC1)
 }
 \keyword{datasets}

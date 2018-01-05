@@ -1,11 +1,12 @@
-#' USREC
+#' Recession Indicators Series
 #'
-#' NBER based Recession Indicators for the United States from the Period following the Peak through the Trough
+#' \code{USREC} NBER based Recession Indicators for the United States from the
+#'  Period following the Peak through the Trough
 #'
 #' @section Notes:
 #' This time series is an interpretation of US Business Cycle Expansions
 #' and Contractions data provided by The National Bureau of Economic
-#' Research (NBER) at http://www.nber.org/cycles/cyclesmain.html. Our
+#' Research (NBER) at \url{http://www.nber.org/cycles/cyclesmain.html}. Our
 #' time series is composed of dummy variables that represent periods of
 #' expansion and recession. The NBER identifies months and quarters of
 #' turning points without designating a date within the period that
@@ -41,9 +42,7 @@
 #' maximum number of periods as a recession for monthly and quarterly
 #' data. The Federal Reserve Bank of St. Louis uses this method in its
 #' own publications. A version of this time series represented using the
-#' midpoint method can be found at:
-#'
-#' https://fred.stlouisfed.org/series/USRECM
+#' midpoint method can be found at: \url{https://fred.stlouisfed.org/series/USRECM}
 #'
 #' The second interpretation, known as the trough method, is to show a
 #' recession from the period following the peak through the trough (i.e.
@@ -60,20 +59,20 @@
 #' data, the recession begins on the first day of the month of the peak
 #' and ends on the last day of the month preceding the trough. Daily data
 #' is a disaggregation of monthly data. A version of this time series
-#' represented using the peak method can be found at:
-#'
-#' https://fred.stlouisfed.org/series/USRECP
+#' represented using the peak method can be found at: \url{https://fred.stlouisfed.org/series/USRECP}
 #'
 #' @docType data
 #'
-#' @usage data("USREC")
+#' @usage data(USREC)
 #'
 #' @format An xts object containing monthly observations of NBER based Recession Indicators
 #'  \itemize{
-#'  \item\strong{USREC} {NoT Seasonally Adjusted, units of +1 for recession, 0 for no recession.}
+#'  \item\strong{USREC}{ Not Seasonally Adjusted, units of +1 for recession, 0 for no recession.}
 #' }
 #'
 #' @source Federal Reserve Bank of St. Louis \url{https://fred.stlouisfed.org/data/USREC.txt}
 #'
-#' @examples  tail(USREC)
+#' @examples
+#' data(USREC)
+#' tail(USREC)
 "USREC"
