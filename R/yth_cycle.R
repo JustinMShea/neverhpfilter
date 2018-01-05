@@ -14,15 +14,21 @@
 #'
 #' @return This function returns an xts object of the cyclical component, or the residual of the \code{\link{yth_glm}} model, \eqn{\hat{v}_{t}}.
 #'
-#' @param x A univariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".
+#' @param x A univariate xts series of zoo index class, such as \code{Date, yearmon},
+#'  or \code{yearqtr}.
 #'
-#' @param h The lookahead parameter. Defaults to h = 8, or 8 quarters if data is
-#'  of quarterly periodicity. Longer lookahead periods such as h = 20, maybe useful
-#'  for economic cycles of extended periods of time.
+#' @param h An \code{integer}, defining the lookahead period.
+#'  Defaults to \code{h = 8}, suggested by Hamilton. The default assumes
+#'  economic data of quarterly periodicity with a lookahead period of 2 years.
+#'  This function is not limited by the default parameter, and Economists may
+#'  change it as desired.
 #'
-#' @param p Indicates the number of lags. Defaults to p = 4, or 4 quarters if data
-#'  is of quarterly periodicity. Other parameters one may estimate include p = 12,
-#'  for data of monthly periodicity.
+#' @param p An \code{integer}, indicating the number of lags. A Default of \code{p = 4},
+#'  suggested by Hamilton, assumes data is of quarterly periodicity. If data is
+#'  of monthly periodicity, one may choose \code{p = 12} or aggregate the series
+#'  to quarterly periodicity and maintain the default. This function is not limited by
+#'  the default parameter, and Economists may consider changing it to accomodate
+#'  the seasonal structure of their data.
 #'
 #' @param ... other arguments passed to the function \code{\link[stats]{glm}}
 #'
@@ -47,7 +53,7 @@ yth_cycle <- function(x, h = 8, p = 4, ...) {
 
   if(!"xts" %in% class(x)) {
 
-    stop(paste("Argument 'x' be an object of type xts.", class(x), "is not an xts object"))
+    stop(paste("Argument 'x' must be an object of type xts.", class(x), " is not an xts object"))
 
   } else if(h %% 1 != 0) {
 
