@@ -7,15 +7,21 @@
 yth_glm(x, h = 8, p = 4, ...)
 }
 \arguments{
-\item{x}{A univariate xts series of zoo index class, such as "Date", "yearmon", or "yearqtr".}
+\item{x}{A univariate xts series of zoo index class, such as \code{Date, yearmon},
+or \code{yearqtr}.}
 
-\item{h}{The lookahead parameter. Defaults to h = 8, or 8 quarters, assumes economic data is
-of quarterly periodicity. Longer lookahead periods such as h = 20, maybe useful
-for economic cycles of extended periods of time.}
+\item{h}{An \code{integer}, defining the lookahead period.
+Defaults to \code{h = 8}, suggested by Hamilton. The default assumes
+economic data of quarterly periodicity with a lookahead period of 2 years.
+This function is not limited by the default parameter, and Economists may
+change it as desired.}
 
-\item{p}{Indicates the number of lags. Defaults to p = 4, or 4 quarters if data
-is of quarterly periodicity. Other parameters one may estimate include p = 12,
-for data of monthly periodicity.}
+\item{p}{An \code{integer}, indicating the number of lags. A Default of \code{p = 4},
+suggested by Hamilton, assumes data is of quarterly periodicity. If data is
+of monthly periodicity, one may choose \code{p = 12} or aggregate the series
+to quarterly periodicity and maintain the default. This function is not limited by
+the default parameter, and Economists may consider changing it to accomodate
+the seasonal structure of their data.}
 
 \item{...}{all arguments passed to the function \code{\link[stats]{glm}}}
 }
