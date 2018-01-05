@@ -1,6 +1,6 @@
-Package: neverHPfilter
+Package: neverhpfilter
 Type: Package
-Title: A good alternative to the Hodrick-Prescott Filter
+Title: A better alternative to the Hodrick-Prescott Filter
 Version: 0.0.0.9400
 Author: Justin M. Shea
 Maintainer: Justin M. Shea <jshea@roosevelt.edu>
