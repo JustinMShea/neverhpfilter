@@ -31,7 +31,7 @@ the seasonal structure of their data.}
  and a "random walk" series represented by differencing \eqn{y_{t+h}} and \eqn{y_t}.
 }
 \description{
-\code{yth_filter} returns a zoo indexed original, trend, cycle, and "random walk" series.
+\code{yth_filter} returns an xts zoo indexed original, trend, cycle, and "random walk" series.
 }
 \details{
 For time series of quarterly periodicity, Hamilton suggests parameters of

@@ -1,6 +1,6 @@
 #' Filtered xts object
 #'
-#' \code{yth_filter} returns a zoo indexed original, trend, cycle, and "random walk" series.
+#' \code{yth_filter} returns an xts zoo indexed original, trend, cycle, and "random walk" series.
 #'
 #' For time series of quarterly periodicity, Hamilton suggests parameters of
 #'  h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8} lookahead periods.
@@ -57,7 +57,7 @@ yth_filter <- function(x, h = 8, p = 4, ...) {
 
          if(!"xts" %in% class(x)) {
 
-    stop(paste("Argument 'x' be an object of type xts.", class(x), "is not an xts object"))
+    stop(paste("Argument 'x' must be an object of type xts.", class(x), " is not an xts object"))
 
   } else if(h %% 1 != 0) {
 
