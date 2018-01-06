@@ -40,7 +40,7 @@ $$\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_
 ```{r, message = FALSE, warning = FALSE}
 library(xts)
 library(knitr)
-library(neverHPfilter)
+library(neverhpfilter)
 ```
 
 ```{r eval=FALSE, include=FALSE}

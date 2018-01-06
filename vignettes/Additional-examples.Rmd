@@ -13,7 +13,7 @@ vignette: >
 
 ## Introduction
 
-In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter" <doi:10.3386/w23429>, James D. Hamilton proposes an approach to economic time series filtering which achieve goals the HP-Filter attempts to achieve, but ultimatly fails to deliver on. and none The `neverHPfilter` package implements his approach.
+In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter" <doi:10.3386/w23429>, James D. Hamilton proposes an approach to economic time series filtering which achieve goals the HP-Filter attempts to achieve, but ultimatly fails to deliver on. and none The `neverhpfilter` package implements his approach.
 
 
 The abstract from Hamilton(2017) offers an excellent introduction.
@@ -38,7 +38,7 @@ $$\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_
 library(xts)
 library(knitr)
 library(broom)
-library(neverHPfilter)
+library(neverhpfilter)
 ```
 
 ```{r eval=FALSE, include=FALSE}
