@@ -112,17 +112,16 @@ or <code>yearqtr</code>.</p></td>
       <td><p>An <code>integer</code>, defining the lookahead period.
 Defaults to <code>h = 8</code>, suggested by Hamilton. The default assumes
 economic data of quarterly periodicity with a lookahead period of 2 years.
-This function is not limited by the default parameter, and Economists may
-change it as desired.</p></td>
+This function is not limited by the default parameter, and Econometricians may
+change it as required.</p></td>
     </tr>
     <tr>
       <th>p</th>
       <td><p>An <code>integer</code>, indicating the number of lags. A Default of <code>p = 4</code>,
 suggested by Hamilton, assumes data is of quarterly periodicity. If data is
 of monthly periodicity, one may choose <code>p = 12</code> or aggregate the series
-to quarterly periodicity and maintain the default. This function is not limited by
-the default parameter, and Economists may consider changing it to accomodate
-the seasonal structure of their data.</p></td>
+to quarterly periodicity and maintain the default. Econometricians should
+use this parameter to accomodate the Seasonality of their data.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -139,10 +138,8 @@ the seasonal structure of their data.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For time series of quarterly periodicity, Hamilton suggests parameters of
- h = 8 and p = 4, or an \(AR(4)\) process, additionally lagged by \(8\) lookahead periods.
- Exploring parameters of h should be undertaken by Economists with reason to do so.
- However, p merely corresponds with the seasonality of a given periodicity and should be matched accordingly.
- For example, p = 4 for data of quarterly periodicity and p = 12 for data of monthly.
+ h = 8 and p = 4, or an \(AR(4)\) process, additionally lagged by \(8\)
+ lookahead periods. Econometricians may explore variations of h. However, p is designed to correspond with the seasonality of a given periodicity and should be matched accordingly.
  $$y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}$$
  $$\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
  Which can be rewritten as:
@@ -161,8 +158,22 @@ the seasonal structure of their data.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>GDPC1</span>)
-<span class='no'>GDP_filtered</span> <span class='kw'>&lt;-</span> <span class='fu'>yth_filter</span>(<span class='fl'>100</span>*<span class='fu'>log</span>(<span class='no'>GDPC1</span>), <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-<span class='fu'>plot</span>(<span class='no'>GDP_filtered</span>)</div><div class='img'><img src='yth_filter-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+
+<span class='no'>l_GDPC1</span> <span class='kw'>&lt;-</span> <span class='fl'>100</span>*<span class='fu'>log</span>(<span class='no'>GDPC1</span>)
+
+<span class='no'>GDPC1_filter</span> <span class='kw'>&lt;-</span> <span class='fu'>yth_filter</span>(<span class='no'>l_GDPC1</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+
+<span class='fu'>tail</span>(<span class='no'>GDPC1_filter</span>, <span class='fl'>8</span>)</div><div class='output co'>#&gt;            GDPC1 GDPC1.trend GDPC1.cycle GDPC1.yt8-Xt_0
+#&gt; 2015 Q4 971.3998    971.0746  0.32512275       4.661666
+#&gt; 2016 Q1 971.5444    970.4246  1.11980556       5.036787
+#&gt; 2016 Q2 972.0977    971.9094  0.18831943       4.465194
+#&gt; 2016 Q3 972.7833    973.3109 -0.52760922       3.880684
+#&gt; 2016 Q4 973.2190    973.2501 -0.03104638       3.817619
+#&gt; 2017 Q1 973.5261    974.1597 -0.63363121       3.327926
+#&gt; 2017 Q2 974.2795    974.9659 -0.68630695       3.405300
+#&gt; 2017 Q3 975.0563    975.2427 -0.18635065       3.777707</div><div class='input'>
+<span class='no'>main</span> <span class='kw'>&lt;-</span> <span class='st'>"Log of Real GDP (GDPC1)"</span>
+<span class='fu'>plot</span>(<span class='no'>GDPC1_filter</span>[,<span class='fl'>3</span>:<span class='fl'>4</span>], <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>legend.loc</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>main</span>)</div><div class='img'><img src='yth_filter-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

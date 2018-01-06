@@ -68,17 +68,31 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#neverhpfilter-package" class="anchor"></a>neverhpfilter Package</h1></div>
 
-<p>In their working paper titled “Why You Should Never Use the Hodrick-Prescott Filter”, James D. Hamilton and his trusty research assistant Daniel Leff, propose a more robust approach to economic time series filtering. By regressing the y variable at date T+h on the four most recent lagged values as of date t, all the objectives sought by users of the Hodrick-Prescott Filter are met, with none of its drawbacks. <a href="https://www.nber.org/papers/w23429">Hamilton (2017) &lt;doi:10.3386/w23429&gt;.</a></p>
+<div id="introduction" class="section level2">
+<h2 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h2>
+<p>In his working paper titled “Why You Should Never Use the Hodrick-Prescott Filter”, James D. Hamilton proposes an alternative approach to economic time series filtering. The <code>neverhpfilter</code> package implements his approach. By fitting a Generalized Linear Model of the <code>y</code> variable at date <code>t+h</code> on <code>p</code> lagged values of a time series, all the objectives sought by users of the Hodrick-Prescott filter are met, with none of its drawbacks. <a href="https://www.nber.org/papers/w23429">Hamilton (2017) &lt;doi:10.3386/w23429&gt;</a></p>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting Started</h2>
 <p>Install from the Github master branch on R version &gt;= 3.4.0.</p>
-<pre class="{r}"><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("JustinMShea/neverhpfilter")</a></code></pre>
-<p>Load the library and check out the documentation:</p>
-<pre class="{r}"><code>library(neverhpfilter)
+<pre class="{r}"><code>devtools::install_github("JustinMShea/neverhpfilter")
 
-?HL_filter
-
-?HL_filter_lm</code></pre>
-<p>Load the <a href=""><code>vignettes</code></a> to build the research project and view the results.</p>
-<pre class="{r}"><code><a href="articles/Reproducing-Hamilton.html">vignette("Reproducing-Hamilton")</a></code></pre>
+library(neverhpfilter)</code></pre>
+<p>Read the vignette <a href="https://justinmshea.github.io/neverhpfilter/articles/Reproducing-Hamilton.html">Reproducing Hamilton.</a></p>
+</div>
+<div id="package-documentation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#package-documentation" class="anchor"></a>Package Documentation</h2>
+<p>The package consists of 4 core functions, clearly documented here:</p>
+<ul>
+<li><p><a href="https://justinmshea.github.io/neverhpfilter/reference/yth_glm.html">yth_glm</a></p></li>
+<li><p><a href="https://justinmshea.github.io/neverhpfilter/reference/yth_trend.html">yth_trend</a></p></li>
+<li><p><a href="https://justinmshea.github.io/neverhpfilter/reference/yth_cycle.html">yth_cycle</a></p></li>
+<li><p><a href="https://justinmshea.github.io/neverhpfilter/reference/yth_filter.html">yth_filter</a></p></li>
+</ul>
+</div>
 </div>
   </div>
 
