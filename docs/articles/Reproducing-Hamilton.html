@@ -88,7 +88,7 @@
 <div id="a-better-alternative" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-better-alternative" class="anchor"></a>A Better Alternative</h2>
-<p>Fortunately, Hamilton doesn’t just add to the list of critiques plaguing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as an AR(4) process, additionally lagged by <span class="math inline">\(h\)</span> periods.</p>
+<p>Fortunately, Hamilton doesn’t just add to the list of critiques plaguing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as an AR(4) process, additionally lagged by <span class="math inline">\(h\)</span> lookahead periods.</p>
 <p><span class="math display">\[y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}\]</span> <span class="math display">\[\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}\]</span></p>
 </div>
 <div id="implementation-in-r" class="section level2">
@@ -98,12 +98,11 @@
 <span class="kw">library</span>(knitr)
 <span class="kw">library</span>(neverhpfilter)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(GDPC1)
-
 log_RGDP &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(GDPC1)
 
 gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
 
-<span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered))</code></pre></div>
+<span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered, <span class="dv">8</span>))</code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">GDPC1</th>
@@ -112,6 +111,18 @@ gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 <th align="right">GDPC1.yt8-Xt_0</th>
 </tr></thead>
 <tbody>
+<tr class="odd">
+<td align="right">971.3998</td>
+<td align="right">971.0746</td>
+<td align="right">0.32512275</td>
+<td align="right">4.661666</td>
+</tr>
+<tr class="even">
+<td align="right">971.5444</td>
+<td align="right">970.4246</td>
+<td align="right">1.11980556</td>
+<td align="right">5.036787</td>
+</tr>
 <tr class="odd">
 <td align="right">972.0977</td>
 <td align="right">971.9094</td>
@@ -152,37 +163,30 @@ gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 </table>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
 <span class="kw">plot</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_filtered[,3], type="h", on=NA)'</span>)</code></pre></div>
-<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")</span>
-<span class="co">#plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main)</span>
-<span class="co">#points(x=index(qtr_recc2), type="h", lwd = 2, on=1,col = "lightgrey")</span>
-<span class="co">#abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")</span></code></pre></div>
+<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP cycle and random walk"</span>
-
 <span class="kw">plot</span>(gdp_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)
 <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"darkgreen"</span>)</code></pre></div>
-<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#lines(panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))</span>
-<span class="co">#addSeries(x = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")</span></code></pre></div>
+<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># household</span>
 Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS[<span class="st">"1947/"</span>])
 employ_ar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>)
+
 employ_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>)
 
 main &lt;-<span class="st"> "Log of Employment and trend"</span>
 <span class="kw">plot</span>(employ_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main, <span class="dt">panels =</span> <span class="st">'lines(employ_filtered[,3], type="h", on=NA)'</span>)</code></pre></div>
-<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Employment cycle and random walk"</span>
 <span class="kw">plot</span>(employ_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)
 <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"darkgreen"</span>)</code></pre></div>
-<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 </div>
 <div id="comparing-results-to-hamiltons" class="section level1">
 <h1 class="hasAnchor">
 <a href="#comparing-results-to-hamiltons" class="anchor"></a>Comparing results to Hamilton’s</h1>
 <p>Below is Table 2, found on pg. 40 of “Why You Should Never Use the Hodrick-Prescott Filter”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"Hamilton_table_2"</span>)
-
 <span class="kw">kable</span>(Hamilton_table_<span class="dv">2</span>)</code></pre></div>
 <table class="table">
 <thead><tr class="header">

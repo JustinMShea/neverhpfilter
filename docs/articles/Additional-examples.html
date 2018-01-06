@@ -73,23 +73,6 @@
     
     
 <div class="contents">
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>In the working paper titled “Why You Should Never Use the <strong>H</strong>odrick-<strong>P</strong>rescott Filter” <a href="doi:10.3386/w23429" class="uri">doi:10.3386/w23429</a>, James D. Hamilton proposes an approach to economic time series filtering which achieve goals the HP-Filter attempts to achieve, but ultimatly fails to deliver on. and none The <code>neverhpfilter</code> package implements his approach.</p>
-<p>The abstract from Hamilton(2017) offers an excellent introduction.</p>
-<blockquote>
-<p>Here’s why. (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process. (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.<br>
-(3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for <span class="math inline">\(\lambda\)</span> far below 1600 for quarterly data.<br>
-(4) There’s a better alternative. A regression of the variable at date <span class="math inline">\(t + h\)</span> on the four most recent values as of date <span class="math inline">\(t\)</span> offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.</p>
-</blockquote>
-</div>
-<div id="a-better-alternative" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-better-alternative" class="anchor"></a>A Better Alternative</h2>
-<p>Fortunatly, Hamilton doesn’t just add to the list of critiques plagueing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as an AR(4) process, additionally lagged by <span class="math inline">\(h\)</span> periods.</p>
-<p><span class="math display">\[y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}\]</span> <span class="math display">\[\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}\]</span></p>
-</div>
 <div id="implementation-in-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#implementation-in-r" class="anchor"></a>Implementation in R</h2>
@@ -102,7 +85,9 @@ log_RGDP &lt;-<span class="st"> </span><span class="dv">100</span><span class="o
 
 gdp_ar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
 
-gdp_ar_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">tidy</a></span>(gdp_ar)
+<span class="kw">plot</span>(gdp_ar)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-2-1.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-2.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-3.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-4.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_ar_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">tidy</a></span>(gdp_ar)
 
 <span class="kw">kable</span>(gdp_ar_df)</code></pre></div>
 <table class="table">
@@ -151,11 +136,9 @@ gdp_ar_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span cla
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(gdp_ar)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-3-1.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-2.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-3.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-4.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
 
-<span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered))</code></pre></div>
+<span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered, <span class="dv">8</span>))</code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">GDPC1</th>
@@ -164,6 +147,18 @@ gdp_ar_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span cla
 <th align="right">GDPC1.yt8-Xt_0</th>
 </tr></thead>
 <tbody>
+<tr class="odd">
+<td align="right">971.3998</td>
+<td align="right">971.0746</td>
+<td align="right">0.32512275</td>
+<td align="right">4.661666</td>
+</tr>
+<tr class="even">
+<td align="right">971.5444</td>
+<td align="right">970.4246</td>
+<td align="right">1.11980556</td>
+<td align="right">5.036787</td>
+</tr>
 <tr class="odd">
 <td align="right">972.0977</td>
 <td align="right">971.9094</td>
@@ -258,9 +253,7 @@ main &lt;-<span class="st"> "Log of Employment and trend"</span>
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li><a href="#a-better-alternative">A Better Alternative</a></li>
-      <li><a href="#implementation-in-r">Implementation in R</a></li>
+<li><a href="#implementation-in-r">Implementation in R</a></li>
       </ul>
 </div>
       </div>
