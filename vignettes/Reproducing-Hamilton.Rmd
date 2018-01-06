@@ -23,6 +23,7 @@ The abstract from Hamilton(2017) offers an excellent introduction.
 
 
   >Here's why. 
+ 
   (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process. 
   (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
   (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
@@ -30,7 +31,7 @@ The abstract from Hamilton(2017) offers an excellent introduction.
 
 ## A Better Alternative
 
-Fortunately, Hamilton doesn't just add to the list of critiques plaguing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as an AR(4) process, additionally lagged by $h$ periods.
+Fortunately, Hamilton doesn't just add to the list of critiques plaguing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as an AR(4) process, additionally lagged by $h$ lookahead periods.
 
 $$y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}$$
 $$\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
@@ -63,12 +64,11 @@ colnames(USREC) <- "USREC"
 
 ```{r, warning=FALSE, message=FALSE}
 data(GDPC1)
-
 log_RGDP <- 100*log(GDPC1)
 
 gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
 
-kable(tail(gdp_filtered))
+kable(tail(gdp_filtered, 8))
 ```
 
 
@@ -116,7 +116,6 @@ Below is Table 2, found on pg. 40 of "Why You Should Never Use the Hodrick-Presc
 
 ```{r}
 data("Hamilton_table_2")
-
 kable(Hamilton_table_2)
 ```
 
