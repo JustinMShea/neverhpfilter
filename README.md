@@ -1,4 +1,4 @@
-# neverHPfilter Package
+# neverhpfilter Package
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/JustinMShea/neverHPfilter?branch=master&svg=true)](https://ci.appveyor.com/project/JustinMShea/neverHPfilter) [![Travis-CI Build Status](https://travis-ci.org/JustinMShea/neverHPfilter.svg?branch=master)](https://travis-ci.org/JustinMShea/neverHPfilter)
 
@@ -7,12 +7,12 @@ In their working paper titled "Why You Should Never Use the Hodrick-Prescott Fil
 Install from the Github master branch on R version >= 3.4.0.
 
 ```{r}
-devtools::install_github("JustinMShea/neverHPfilter")
+devtools::install_github("JustinMShea/neverhpfilter")
 ```
 
 Load the library and check out the documentation:
 ```{r}
-library(neverHPfilter)
+library(neverhpfilter)
 
 ?HL_filter
 
