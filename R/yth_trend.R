@@ -45,13 +45,12 @@
 #'
 #' @examples
 #' data(GDPC1)
+#'
 #' l_GDPC1 <- 100*log(GDPC1)
 #'
 #' GDPC1_trend <- yth_trend(l_GDPC1, h = 8, p = 4)
 #'
-#' main <- "Trend component of 100*log(Real GDP)"
-#'
-#' plot(GDPC1_trend  grid.col = "white", legend.loc = "topleft", main = main)
+#' plot(GDPC1_trend, grid.col = "white", main = "Trend component of 100*log(Real GDP)")
 #'
 #'
 #'@export

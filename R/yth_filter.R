@@ -47,9 +47,15 @@
 #'
 #' @examples
 #' data(GDPC1)
+#'
 #' l_GDPC1 <- 100*log(GDPC1)
+#'
 #' GDPC1_filter <- yth_filter(l_GDPC1, h = 8, p = 4)
-#' tail(GDPC1_filter)
+#'
+#' tail(GDPC1_filter, 8)
+#'
+#' main <- "Log of Real GDP (GDPC1)"
+#' plot(GDPC1_filter[,3:4], grid.col = "white", legend.loc = "topright", main = main)
 #'
 #' @export
 yth_filter <- function(x, h = 8, p = 4, ...) {

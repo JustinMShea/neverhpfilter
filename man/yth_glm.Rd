@@ -42,6 +42,7 @@ For time series of quarterly periodicity, Hamilton suggests parameters of
 }
 \examples{
 data(GDPC1)
+
 GDP_model <- yth_glm(GDPC1, h = 8, p = 4)
 
 summary(GDP_model)

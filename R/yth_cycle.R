@@ -48,9 +48,7 @@
 #'
 #' GDPC1_cycle <- yth_cycle(l_GDPC1, h = 8, p = 4)
 #'
-#' main <- "Cyclical component of 100*log(Real GDP)"
-#'
-#' plot(GDPC1_cycle, grid.col = "white", legend.loc = "topright", main = main)
+#' plot(GDPC1_cycle, grid.col = "white", main = "Cyclical component of 100*log(Real GDP)")
 #'
 #'
 #' @export
