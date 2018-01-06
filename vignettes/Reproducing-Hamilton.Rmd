@@ -50,8 +50,6 @@ data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
 gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
-
-kable(tail(gdp_filtered, 8))
 ```
 
 

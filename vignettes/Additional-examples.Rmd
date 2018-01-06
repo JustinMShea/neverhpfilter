@@ -42,11 +42,14 @@ gdp_ar_df <- broom::tidy(gdp_ar)
 kable(gdp_ar_df)
 ```
 
+```{r, warning = FALSE, message = FALSE}
+gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
+
+kable(tail(gdp_filtered, 8))
+```
 
 ```{r, warning = FALSE, message = FALSE}
 library(PerformanceAnalytics)
-
-gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
 
   qtr_recc <- to.quarterly(USREC["1947-1/2017-3"], OHLC=FALSE)
      start <- index(qtr_recc[which(diff(qtr_recc$USREC)==1)])
