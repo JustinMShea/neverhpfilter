@@ -13,15 +13,14 @@ or \code{yearqtr}.}
 \item{h}{An \code{integer}, defining the lookahead period.
 Defaults to \code{h = 8}, suggested by Hamilton. The default assumes
 economic data of quarterly periodicity with a lookahead period of 2 years.
-This function is not limited by the default parameter, and Economists may
-change it as desired.}
+This function is not limited by the default parameter, and Econometricians may
+change it as required.}
 
 \item{p}{An \code{integer}, indicating the number of lags. A Default of \code{p = 4},
 suggested by Hamilton, assumes data is of quarterly periodicity. If data is
 of monthly periodicity, one may choose \code{p = 12} or aggregate the series
-to quarterly periodicity and maintain the default. This function is not limited by
-the default parameter, and Economists may consider changing it to accomodate
-the seasonal structure of their data.}
+to quarterly periodicity and maintain the default. Econometricians should
+use this parameter to accomodate the Seasonality of their data.}
 
 \item{...}{other arguments passed to the function \code{\link[stats]{glm}}}
 }
@@ -29,12 +28,12 @@ the seasonal structure of their data.}
 This function returns an xts object of the trend component, or the \code{fitted.values} of the \code{\link{yth_glm}} model.
 }
 \description{
-\code{yth_trend} returns the trend component of Hamilton's alternative to the HP-Filter.
+\code{yth_trend} returns the trend component of Hamilton's alternative to the Hodrick-Prescott Filter.
 }
 \details{
 For time series of quarterly periodicity, Hamilton suggests parameters of
  h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8}
- lookahead periods. Note explorations of h are encouraged by Economists. However, p is designed to correspond with the seasonality of a given periodicity and should be matched accordingly.
+ lookahead periods. Econometricians may explore variations of h. However, p is designed to correspond with the seasonality of a given periodicity and should be matched accordingly.
  \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
  \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
  Which can be rewritten as:
@@ -45,8 +44,14 @@ This function estimates \eqn{\hat{y_{t+h}}}.
 }
 \examples{
 data(GDPC1)
-LGDP_cycle <- yth_cycle(100*log(GDPC1), h = 8, p = 4)
-plot(LGDP_cycle)
+l_GDPC1 <- 100*log(GDPC1)
+
+GDPC1_trend <- yth_trend(l_GDPC1, h = 8, p = 4)
+
+main <- "Trend component of 100*log(Real GDP)"
+
+plot(GDPC1_trend  grid.col = "white", legend.loc = "topleft", main = main)
+
 
 }
 \references{
