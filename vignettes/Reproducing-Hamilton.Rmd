@@ -16,7 +16,7 @@ vignette: >
 
 ## Introduction
 
-In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter" <doi:10.3386/w23429>, James D. Hamilton proposes an approach to economic time series filtering which achieve goals the HP-Filter attempts, but has proved unsucceful. The `neverHPfilter` package implements his approach.
+In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter" <doi:10.3386/w23429>, James D. Hamilton proposes an approach to economic time series filtering which achieve goals the HP-Filter attempts, but does not produce. Part of the evolution in any field is making right that which has been wrong. In this vein, the `neverhpfilter` package implements Hamilton's contribution to Econometric time series filtering. 
 
 
 The abstract from Hamilton(2017) offers an excellent introduction.
@@ -132,7 +132,7 @@ GDP.RanCorr. <- cor(gdp_filtered[,4]["/2016-1"],gdp_filtered[,4]["/2016-1"], use
 Sample <- gsub(" ","-",paste0(index(gdp_filtered[,1]),":",index(gdp_filtered["2016-1"])))
                  
 GDP <- cbind(GDP.St.Dev, GDP.GDPCorr., GDP.Random, GDP.RanCorr., Sample)
-colnames(GDP) <- c("yth_St.Dev", "yth_Corr.", "ran_St.Dev", "ran_Corr.", "Sample")
+colnames(GDP) <- names(Hamilton_table_2)
 kable(GDP)
 
 #round(sd(employ_filtered$PAYEMS.cycle["1947-1/2016-1"], na.rm=TRUE), 2)
