@@ -19,8 +19,8 @@ library(neverHPfilter)
 ?HL_filter_lm
 ```
 
-Load the [`vignette`](https://github.com/JustinMShea/HLfilter/blob/master/vignettes/Never-HP-Filter-Vignette.pdf) to build the research project and view the results.
+Load the [`vignettes`]() to build the research project and view the results.
 
 ```{r}
- vignette("neverHPfilter-vignette")
+vignette("Reproducing-Hamilton")
 ```

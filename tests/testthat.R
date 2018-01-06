@@ -1,4 +1,4 @@
 library(testthat)
-library(neverHPfilter)
+library(neverhpfilter)
 
-test_check("neverHPfilter")
+test_check("neverhpfilter")
