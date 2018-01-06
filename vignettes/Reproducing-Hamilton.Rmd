@@ -23,7 +23,6 @@ The abstract from Hamilton(2017) offers an excellent introduction.
 
 
   >Here's why. 
- 
   (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process. 
   (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
   (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
@@ -44,23 +43,7 @@ library(knitr)
 library(neverhpfilter)
 ```
 
-```{r eval=FALSE, include=FALSE}
-# Real GDP
-Real_Gross_Domestic_Product <- "https://fred.stlouisfed.org/data/GDPC1.txt"
-GDPC1 <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 16, index.column = 1,
-                        header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
-### Employment Rate ###
-Total_nonfarm_Payrolls   <- "https://fred.stlouisfed.org/data/PAYEMS.txt"
-PAYEMS <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", skip = 42, index.column = 1,
-                                            header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
-
-# US Recessions
-Recession_Indicators <- "https://fred.stlouisfed.org/data/USREC.txt"
-USREC <- as.xts(read.zoo(Recession_Indicators , sep = "", skip = 69, index.column = 1,
-                                   header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
-colnames(USREC) <- "USREC"
-```
 
 ```{r, warning=FALSE, message=FALSE}
 data(GDPC1)
@@ -75,21 +58,13 @@ kable(tail(gdp_filtered, 8))
 ```{r, warning = FALSE}
 main <- "Log of Real GDP (GDPC1) and trend"
 plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main,  panels = 'lines(gdp_filtered[,3], type="h", on=NA)')
-#abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")
-#plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main)
-#points(x=index(qtr_recc2), type="h", lwd = 2, on=1,col = "lightgrey")
-#abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")
 ```
 
 
 ```{r, warning = FALSE}
 main <- "Log of Real GDP cycle and random walk"
-
 plot(gdp_filtered[,3:4], grid.col = "white", legend.loc = "topright", main = main)
 abline(h = 0, lty = 2, lwd = 2, col = "darkgreen")
-#lines(panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))
-#addSeries(x = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")
-
 ```
 
 
@@ -97,6 +72,7 @@ abline(h = 0, lty = 2, lwd = 2, col = "darkgreen")
 # household
 Employment_log <- 100*log(PAYEMS["1947/"])
 employ_ar <- yth_glm(Employment_log, h = 24, p = 12)
+
 employ_filtered <- yth_filter(Employment_log, h = 24, p = 12)
 
 main <- "Log of Employment and trend"
@@ -135,5 +111,4 @@ colnames(GDP) <- names(Hamilton_table_2)
 kable(GDP)
 
 #round(sd(employ_filtered$PAYEMS.cycle["1947-1/2016-1"], na.rm=TRUE), 2)
-
 ```
