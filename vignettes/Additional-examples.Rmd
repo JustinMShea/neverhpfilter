@@ -16,9 +16,12 @@ vignette: >
 ```{r, message = FALSE, warning = FALSE}
 library(xts)
 library(knitr)
-library(broom)
 library(neverhpfilter)
 ```
+
+The `yth_glm` function returns an object of class "`glm`". Thus, one can use all
+generic functions associated with objects of that class. Here is an example of
+passing the `yth_glm` model to the plot function.
 
 ```{r, warning=FALSE, message=FALSE}
 data(GDPC1)
@@ -29,49 +32,33 @@ gdp_ar <- yth_glm(log_RGDP, h = 8, p = 4)
 plot(gdp_ar)
 ```
 
+In addition to all generic functions inherited in base R, one can also use any package 
+designed to work with model objects.
+
 ```{r, warning=FALSE, message=FALSE}
+library(broom)
 gdp_ar_df <- broom::tidy(gdp_ar)
 
 kable(gdp_ar_df)
 ```
 
-```{r}
-gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
 
-kable(tail(gdp_filtered, 8))
-```
-
-```{r, warning = FALSE}
+```{r, warning = FALSE, message = FALSE}
 library(PerformanceAnalytics)
 
-qtr_recc <- to.quarterly(USREC["1947-1/2017-3"], OHLC=FALSE)
-start <- index(qtr_recc[which(diff(qtr_recc$USREC)==1)])
-end   <- index(qtr_recc[which(diff(qtr_recc$USREC)==-1)])
-Recessions <- paste(format(start,"%Y-%q"),format(end,"%Y-%q"),sep="/")
+gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
+
+  qtr_recc <- to.quarterly(USREC["1947-1/2017-3"], OHLC=FALSE)
+     start <- index(qtr_recc[which(diff(qtr_recc$USREC)==1)])
+       end <- index(qtr_recc[which(diff(qtr_recc$USREC)==-1)])
+Recessions <- paste(format(start,"%Y-%q"), format(end,"%Y-%q"), sep="/")
 
 main <- "Log of Real GDP (GDPC1) and trend"
-chart.TimeSeries(GDPC1, period.areas = Recessions, period.color="lightgrey", lwd=2)
-
-```
-
-
-
-
-```{r, warning = FALSE}
-qtr_recc <- to.quarterly(USREC["1947-1/2017-3"], OHLC=FALSE)
-qtr_recc2 <- qtr_recc[qtr_recc$USREC==1,]
-
-main <- "Log of Real GDP (GDPC1) and trend"
-plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main)
-lines(gdp_filtered[,3], type="h", on=NA, panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))
-#plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main)
-#points(x=index(qtr_recc2), type="h", lwd = 2, on=1,col = "lightgrey")
-#abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")
+chart.TimeSeries(gdp_filtered[,1:2], main = main, period.areas = Recessions, period.color="lightgrey", lwd=2)
 ```
 
 ```{r, warning = FALSE}
 main <- "Log of Real GDP cycle and random walk"
-
 plot(gdp_filtered[,3:4], subset = "1982/", grid.col = "white", legend.loc = "topright", main = main)
 #lines(panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))
 #addSeries(x = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")
@@ -80,26 +67,11 @@ plot(gdp_filtered[,3:4], subset = "1982/", grid.col = "white", legend.loc = "top
 
 
 ```{r, warning = FALSE}
-main <- "Log of Real GDP cycle around trend"
-#Recessions <- as.yearqtr(index(USREC["1947/"]))
-plot(gdp_filtered[,3], grid.col = "white", legend.loc = "topright", main = main)
-#addEventLines(Recessions)
-#abline(h = 0, lty = 2, lwd = 1, col = "red")
-```
-
-```{r, warning = FALSE}
-# household
 Employment_log <- 100*log(PAYEMS["1947/"])
-employ_ar <- yth_glm(Employment_log, h = 24, p = 12)
-employ_filtered <- yth_filter(Employment_log, h = 24, p = 12)
 
-main <- "Log of Employment and trend"
-plot(employ_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main, panels = 'lines(employ_filtered[,3], type="h", on=NA)')
-```
+employ_cycle <- yth_cycle(Employment_log, h = 24, p = 12)
 
-
-```{r, warning = FALSE}
 main <- "Absolute Log of Employment cycle"
-plot(abs(employ_filtered[,3]), index(employ_filtered), col = "Black", grid.col = "white", main = main)
+plot(abs(employ_cycle), index(employ_filtered), col = "Black", grid.col = "white", main = main)
 ```
 
