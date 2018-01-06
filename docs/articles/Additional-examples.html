@@ -138,9 +138,68 @@ gdp_ar_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span cla
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PerformanceAnalytics)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
 
-gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
+<span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered, <span class="dv">8</span>))</code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">GDPC1</th>
+<th align="right">GDPC1.trend</th>
+<th align="right">GDPC1.cycle</th>
+<th align="right">GDPC1.yt8-Xt_0</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">971.3998</td>
+<td align="right">971.0746</td>
+<td align="right">0.32512275</td>
+<td align="right">4.661666</td>
+</tr>
+<tr class="even">
+<td align="right">971.5444</td>
+<td align="right">970.4246</td>
+<td align="right">1.11980556</td>
+<td align="right">5.036787</td>
+</tr>
+<tr class="odd">
+<td align="right">972.0977</td>
+<td align="right">971.9094</td>
+<td align="right">0.18831943</td>
+<td align="right">4.465194</td>
+</tr>
+<tr class="even">
+<td align="right">972.7833</td>
+<td align="right">973.3109</td>
+<td align="right">-0.52760922</td>
+<td align="right">3.880684</td>
+</tr>
+<tr class="odd">
+<td align="right">973.2190</td>
+<td align="right">973.2501</td>
+<td align="right">-0.03104638</td>
+<td align="right">3.817619</td>
+</tr>
+<tr class="even">
+<td align="right">973.5261</td>
+<td align="right">974.1597</td>
+<td align="right">-0.63363121</td>
+<td align="right">3.327926</td>
+</tr>
+<tr class="odd">
+<td align="right">974.2795</td>
+<td align="right">974.9659</td>
+<td align="right">-0.68630695</td>
+<td align="right">3.405300</td>
+</tr>
+<tr class="even">
+<td align="right">975.0563</td>
+<td align="right">975.2427</td>
+<td align="right">-0.18635065</td>
+<td align="right">3.777707</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PerformanceAnalytics)
 
   qtr_recc &lt;-<span class="st"> </span><span class="kw">to.quarterly</span>(USREC[<span class="st">"1947-1/2017-3"</span>], <span class="dt">OHLC=</span><span class="ot">FALSE</span>)
      start &lt;-<span class="st"> </span><span class="kw">index</span>(qtr_recc[<span class="kw">which</span>(<span class="kw">diff</span>(qtr_recc<span class="op">$</span>USREC)<span class="op">==</span><span class="dv">1</span>)])
@@ -149,10 +208,10 @@ Recessions &lt;-<span class="st"> </span><span class="kw">paste</span>(<span cla
 
 main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
 <span class="kw">chart.TimeSeries</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">main =</span> main, <span class="dt">period.areas =</span> Recessions, <span class="dt">period.color=</span><span class="st">"lightgrey"</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP cycle and random walk"</span>
 <span class="kw">plot</span>(gdp_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">subset =</span> <span class="st">"1982/"</span>, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#lines(panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))</span>
 <span class="co">#addSeries(x = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS[<span class="st">"1947/"</span>])
@@ -161,7 +220,7 @@ employ_cycle &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 
 main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
 <span class="kw">plot</span>(<span class="kw">abs</span>(employ_cycle), <span class="kw">index</span>(employ_filtered), <span class="dt">col =</span> <span class="st">"Black"</span>, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">main =</span> main)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 </div>
 </div>
   </div>

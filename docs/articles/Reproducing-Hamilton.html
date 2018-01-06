@@ -100,67 +100,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(GDPC1)
 log_RGDP &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(GDPC1)
 
-gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
-
-<span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered, <span class="dv">8</span>))</code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="right">GDPC1</th>
-<th align="right">GDPC1.trend</th>
-<th align="right">GDPC1.cycle</th>
-<th align="right">GDPC1.yt8-Xt_0</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="right">971.3998</td>
-<td align="right">971.0746</td>
-<td align="right">0.32512275</td>
-<td align="right">4.661666</td>
-</tr>
-<tr class="even">
-<td align="right">971.5444</td>
-<td align="right">970.4246</td>
-<td align="right">1.11980556</td>
-<td align="right">5.036787</td>
-</tr>
-<tr class="odd">
-<td align="right">972.0977</td>
-<td align="right">971.9094</td>
-<td align="right">0.18831943</td>
-<td align="right">4.465194</td>
-</tr>
-<tr class="even">
-<td align="right">972.7833</td>
-<td align="right">973.3109</td>
-<td align="right">-0.52760922</td>
-<td align="right">3.880684</td>
-</tr>
-<tr class="odd">
-<td align="right">973.2190</td>
-<td align="right">973.2501</td>
-<td align="right">-0.03104638</td>
-<td align="right">3.817619</td>
-</tr>
-<tr class="even">
-<td align="right">973.5261</td>
-<td align="right">974.1597</td>
-<td align="right">-0.63363121</td>
-<td align="right">3.327926</td>
-</tr>
-<tr class="odd">
-<td align="right">974.2795</td>
-<td align="right">974.9659</td>
-<td align="right">-0.68630695</td>
-<td align="right">3.405300</td>
-</tr>
-<tr class="even">
-<td align="right">975.0563</td>
-<td align="right">975.2427</td>
-<td align="right">-0.18635065</td>
-<td align="right">3.777707</td>
-</tr>
-</tbody>
-</table>
+gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
 <span class="kw">plot</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_filtered[,3], type="h", on=NA)'</span>)</code></pre></div>
 <p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
