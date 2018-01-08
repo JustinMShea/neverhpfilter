@@ -80,6 +80,6 @@ represented using the peak method can be found at: \url{https://fred.stlouisfed.
 
 \examples{
 data(USREC)
-tail(USREC)
+USREC["2007/2009"]
 }
 \keyword{datasets}

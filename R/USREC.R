@@ -74,5 +74,5 @@
 #'
 #' @examples
 #' data(USREC)
-#' tail(USREC)
+#' USREC["2007/2009"]
 "USREC"
