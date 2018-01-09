@@ -12,18 +12,20 @@
 #'  \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 #' This function estimates \eqn{\hat{v}_{t}}.
 #'
-#' @return This function returns an xts object of the cyclical component, or the residual of the \code{\link{yth_glm}} model, \eqn{\hat{v}_{t}}.
+#' @return This function returns an \code{\link{xts}} object of the cyclical component, or the residual of the \code{\link{yth_glm}} model, \eqn{\hat{v}_{t}}.
 #'
-#' @param x A univariate xts series of zoo index class, such as \code{Date, yearmon},
-#'  or \code{yearqtr}.
+#' @param x A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
+#'  such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
+#'  For converting objects of type \code{timeSeries, ts, irts, fts, matrix, data.frame}
+#'  or \code{zoo} to \code{\link{xts}}, please read  \code{\link{as.xts}}.
 #'
-#' @param h An \code{integer}, defining the lookahead period.
+#' @param h An \code{\link{integer}}, defining the lookahead period.
 #'  Defaults to \code{h = 8}, suggested by Hamilton. The default assumes
 #'  economic data of quarterly periodicity with a lookahead period of 2 years.
 #'  This function is not limited by the default parameter, , and Econometricians may
 #'  change it as required.
 #'
-#' @param p An \code{integer}, indicating the number of lags. A Default of \code{p = 4},
+#' @param p An \code{\link{integer}}, indicating the number of lags. A Default of \code{p = 4},
 #'  suggested by Hamilton, assumes data is of quarterly periodicity. If data is
 #'  of monthly periodicity, one may choose \code{p = 12} or aggregate the series
 #'  to quarterly periodicity and maintain the default. Econometricians should
@@ -70,14 +72,15 @@ yth_cycle <- function(x, h = 8, p = 4, ...) {
 
                 # run yth_ar(p) model and store results
                 data <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
-                lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
-                colnames(data) <- lagnames
+                colnames(data) <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
                 formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
                 neverHP <- stats::glm(formula, data = data, ...)
 
                 # cycle xts object
                 cycle <- xts::as.xts(unname(neverHP$residuals),
                                      order.by = get(paste0("as.",class(index(x))))(names(neverHP$residuals)))
+
+                colnames(cycle) <- paste0(names(x),".cycle")
 
                 cycle
         }

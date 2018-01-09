@@ -7,16 +7,18 @@
 yth_cycle(x, h = 8, p = 4, ...)
 }
 \arguments{
-\item{x}{A univariate xts series of zoo index class, such as \code{Date, yearmon},
-or \code{yearqtr}.}
+\item{x}{A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
+such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
+For converting objects of type \code{timeSeries, ts, irts, fts, matrix, data.frame}
+or \code{zoo} to \code{\link{xts}}, please read  \code{\link{as.xts}}.}
 
-\item{h}{An \code{integer}, defining the lookahead period.
+\item{h}{An \code{\link{integer}}, defining the lookahead period.
 Defaults to \code{h = 8}, suggested by Hamilton. The default assumes
 economic data of quarterly periodicity with a lookahead period of 2 years.
 This function is not limited by the default parameter, , and Econometricians may
 change it as required.}
 
-\item{p}{An \code{integer}, indicating the number of lags. A Default of \code{p = 4},
+\item{p}{An \code{\link{integer}}, indicating the number of lags. A Default of \code{p = 4},
 suggested by Hamilton, assumes data is of quarterly periodicity. If data is
 of monthly periodicity, one may choose \code{p = 12} or aggregate the series
 to quarterly periodicity and maintain the default. Econometricians should
@@ -25,7 +27,7 @@ use this parameter to accomodate the Seasonality of their data.}
 \item{...}{other arguments passed to the function \code{\link[stats]{glm}}}
 }
 \value{
-This function returns an xts object of the cyclical component, or the residual of the \code{\link{yth_glm}} model, \eqn{\hat{v}_{t}}.
+This function returns an \code{\link{xts}} object of the cyclical component, or the residual of the \code{\link{yth_glm}} model, \eqn{\hat{v}_{t}}.
 }
 \description{
 \code{yth_cycle} returns the cyclical component of Hamilton's alternative to the HP-Filter.

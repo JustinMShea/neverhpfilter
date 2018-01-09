@@ -1,6 +1,7 @@
 #' Filtered xts object
 #'
-#' \code{yth_filter} returns an xts zoo indexed original, trend, cycle, and "random walk" series.
+#' \code{yth_filter} returns an \code{\link{xts}} object containing the original,
+#'  trend, cycle, and "random walk" series.
 #'
 #' For time series of quarterly periodicity, Hamilton suggests parameters of
 #'  h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8}
@@ -11,20 +12,23 @@
 #'  \deqn{y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}}
 #'  \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 #'
-#' @return \code{yth_filter} returns an xts object containing four time series.
-#'  They include the original series, model fitted values (trend component), model residuals (cycle component),
-#'  and a "random walk" series represented by differencing \eqn{y_{t+h}} and \eqn{y_t}.
+#' @return \code{yth_filter} returns an \code{\link{xts}} object containing four time series.
+#'  They include the original series, model fitted values (\code{\link{yth_trend}}),
+#'  model residuals (\code{\link{yth_cycle}}), and a "random walk" series defined
+#'  by differencing \eqn{y_{t+h}} and \eqn{y_t}.
 #'
-#' @param x A univariate xts series of zoo index class, such as \code{Date, yearmon},
-#'  or \code{yearqtr}.
+#' @param x A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
+#'  such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
+#'  For converting objects of type \code{timeSeries, ts, irts, fts, matrix, data.frame}
+#'  or \code{zoo} to \code{\link{xts}}, please read  \code{\link{as.xts}}.
 #'
-#' @param h An \code{integer}, defining the lookahead period.
+#' @param h An \code{\link{integer}}, defining the lookahead period.
 #'  Defaults to \code{h = 8}, suggested by Hamilton. The default assumes
 #'  economic data of quarterly periodicity with a lookahead period of 2 years.
 #'  This function is not limited by the default parameter, and Econometricians may
 #'  change it as required.
 #'
-#' @param p An \code{integer}, indicating the number of lags. A Default of \code{p = 4},
+#' @param p An \code{\link{integer}}, indicating the number of lags. A Default of \code{p = 4},
 #'  suggested by Hamilton, assumes data is of quarterly periodicity. If data is
 #'  of monthly periodicity, one may choose \code{p = 12} or aggregate the series
 #'  to quarterly periodicity and maintain the default. Econometricians should
@@ -89,8 +93,7 @@ yth_filter <- function(x, h = 8, p = 4, ...) {
 
         # merge together relevant components and name accordingly
                   output <- merge(data[,1], trend, cycle, data[,1] - data[,2])
-                  x_name <- names(x)
-            output_names <- c(x_name, paste0(x_name,".", c("trend", "cycle", paste0(lagnames[1],"-",lagnames[2]))))
+            output_names <- c(names(x), paste0(names(x),".", c("trend", "cycle", paste0(lagnames[1],"-",lagnames[2]))))
         colnames(output) <- output_names
 
         output
