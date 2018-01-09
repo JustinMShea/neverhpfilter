@@ -19,6 +19,9 @@ library(knitr)
 library(neverhpfilter)
 ```
 
+
+## yth_glm
+
 The `yth_glm` function returns an object of class "`glm`". Thus, one can use all
 generic functions associated with objects of that class. Here is an example of
 passing the `yth_glm` model to the plot function.
@@ -27,9 +30,24 @@ passing the `yth_glm` model to the plot function.
 data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
-gdp_ar <- yth_glm(log_RGDP, h = 8, p = 4)
+gdp_model <- yth_glm(log_RGDP, h = 8, p = 4)
 
-plot(gdp_ar)
+plot(gdp_model)
+```
+
+Additional parameters supported by the `glm` function can be used as well. An example ussing a different error distribution, defined with the `family` arguement, is illustrated below.
+
+```{r, warning=FALSE, message=FALSE}
+gdp_poisson <- yth_glm(log_RGDP["1950/"], h = 8, p = 4, family = quasipoisson)
+
+summary(gdp_poisson)
+
+plot(gdp_poisson)
+```
+
+```{r, warning=FALSE, message=FALSE}
+par(mfrow=c(2,2))
+plot(gdp_model)
 ```
 
 In addition to all generic functions inherited in base R, one can also use any package 
@@ -37,10 +55,12 @@ designed to work with model objects.
 
 ```{r, warning=FALSE, message=FALSE}
 library(broom)
-gdp_ar_df <- broom::tidy(gdp_ar)
+gdp_model_df <- broom::tidy(gdp_model)
 
-kable(gdp_ar_df)
+kable(gdp_model_df)
 ```
+
+## yth_filtered
 
 ```{r, warning = FALSE, message = FALSE}
 gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
