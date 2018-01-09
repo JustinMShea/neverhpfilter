@@ -75,6 +75,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -104,8 +107,10 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A univariate xts series of zoo index class, such as <code>Date, yearmon</code>,
-or <code>yearqtr</code>.</p></td>
+      <td><p>A univariate <code>xts</code> object of any <code>zoo</code> index class,
+such as <code>Date</code>, <code>yearmon</code>, or <code>yearqtr</code>.
+For converting objects of type <code>timeSeries, ts, irts, fts, matrix, data.frame</code>
+or <code>zoo</code> to <code>xts</code>, please read  <code>as.xts</code>.</p></td>
     </tr>
     <tr>
       <th>h</th>
@@ -131,7 +136,8 @@ use this parameter to accomodate the Seasonality of their data.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>yth_glm</code> returns a generalized linear model object of class "glm", which inherits from "lm".</p>
+    <p><code>yth_glm</code> returns a generalized linear model object of class <code>glm</code>,
+ which inherits from "<code>lm</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -186,7 +192,7 @@ use this parameter to accomodate the Seasonality of their data.</p></td>
 #&gt; 
 #&gt; Number of Fisher Scoring iterations: 2
 #&gt; </div><div class='input'>
-<span class='fu'>plot</span>(<span class='no'>GDP_model</span>)</div><div class='img'><img src='yth_glm-5.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='yth_glm-6.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='yth_glm-7.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='yth_glm-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>GDP_model</span>)</div><div class='img'><img src='yth_glm-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='yth_glm-2.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='yth_glm-3.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='yth_glm-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

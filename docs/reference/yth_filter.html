@@ -75,6 +75,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -94,7 +97,8 @@
     </div>
 
     
-    <p><code>yth_filter</code> returns an xts zoo indexed original, trend, cycle, and "random walk" series.</p>
+    <p><code>yth_filter</code> returns an <code>xts</code> object containing the original,
+ trend, cycle, and "random walk" series.</p>
     
 
     <pre class="usage"><span class='fu'>yth_filter</span>(<span class='no'>x</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='no'>...</span>)</pre>
@@ -104,8 +108,10 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A univariate xts series of zoo index class, such as <code>Date, yearmon</code>,
-or <code>yearqtr</code>.</p></td>
+      <td><p>A univariate <code>xts</code> object of any <code>zoo</code> index class,
+such as <code>Date</code>, <code>yearmon</code>, or <code>yearqtr</code>.
+For converting objects of type <code>timeSeries, ts, irts, fts, matrix, data.frame</code>
+or <code>zoo</code> to <code>xts</code>, please read  <code>as.xts</code>.</p></td>
     </tr>
     <tr>
       <th>h</th>
@@ -131,9 +137,10 @@ use this parameter to accomodate the Seasonality of their data.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>yth_filter</code> returns an xts object containing four time series.
- They include the original series, model fitted values (trend component), model residuals (cycle component),
- and a "random walk" series represented by differencing \(y_{t+h}\) and \(y_t\).</p>
+    <p><code>yth_filter</code> returns an <code>xts</code> object containing four time series.
+ They include the original series, model fitted values (<code><a href='yth_trend.html'>yth_trend</a></code>),
+ model residuals (<code><a href='yth_cycle.html'>yth_cycle</a></code>), and a "random walk" series defined
+ by differencing \(y_{t+h}\) and \(y_t\).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -173,7 +180,7 @@ use this parameter to accomodate the Seasonality of their data.</p></td>
 #&gt; 2017 Q2 974.2795    974.9659 -0.68630695       3.405300
 #&gt; 2017 Q3 975.0563    975.2427 -0.18635065       3.777707</div><div class='input'>
 <span class='no'>main</span> <span class='kw'>&lt;-</span> <span class='st'>"Log of Real GDP (GDPC1)"</span>
-<span class='fu'>plot</span>(<span class='no'>GDPC1_filter</span>[,<span class='fl'>3</span>:<span class='fl'>4</span>], <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>legend.loc</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>main</span>)</div><div class='img'><img src='yth_filter-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>GDPC1_filter</span>[,<span class='fl'>3</span>:<span class='fl'>4</span>], <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>legend.loc</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>main</span>)</div><div class='img'><img src='yth_filter-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

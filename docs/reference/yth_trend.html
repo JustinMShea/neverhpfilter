@@ -75,6 +75,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -104,8 +107,10 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A univariate xts series of zoo index class, such as <code>Date, yearmon</code>,
-or <code>yearqtr</code>.</p></td>
+      <td><p>A univariate <code>xts</code> object of any <code>zoo</code> index class,
+such as <code>Date</code>, <code>yearmon</code>, or <code>yearqtr</code>.
+For converting objects of type <code>timeSeries, ts, irts, fts, matrix, data.frame</code>
+or <code>zoo</code> to <code>xts</code>, please read  <code>as.xts</code>.</p></td>
     </tr>
     <tr>
       <th>h</th>
@@ -158,11 +163,11 @@ use this parameter to accomodate the Seasonality of their data.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>GDPC1</span>)
 
-<span class='no'>l_GDPC1</span> <span class='kw'>&lt;-</span> <span class='fl'>100</span>*<span class='fu'>log</span>(<span class='no'>GDPC1</span>)
+<span class='no'>log_GDPC1</span> <span class='kw'>&lt;-</span> <span class='fl'>100</span>*<span class='fu'>log</span>(<span class='no'>GDPC1</span>)
 
-<span class='no'>GDPC1_trend</span> <span class='kw'>&lt;-</span> <span class='fu'>yth_trend</span>(<span class='no'>l_GDPC1</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='no'>GDPC1_trend</span> <span class='kw'>&lt;-</span> <span class='fu'>yth_trend</span>(<span class='no'>log_GDPC1</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 
-<span class='fu'>plot</span>(<span class='no'>GDPC1_trend</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Trend component of 100*log(Real GDP)"</span>)</div><div class='img'><img src='yth_trend-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>GDPC1_trend</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Trend component of 100*log(Real GDP)"</span>)</div><div class='img'><img src='yth_trend-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 
 </div></pre>
   </div>

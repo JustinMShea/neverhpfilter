@@ -52,6 +52,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
 </div>
@@ -79,19 +82,58 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xts)
 <span class="kw">library</span>(knitr)
 <span class="kw">library</span>(neverhpfilter)</code></pre></div>
+</div>
+<div id="yth_glm" class="section level2">
+<h2 class="hasAnchor">
+<a href="#yth_glm" class="anchor"></a>yth_glm</h2>
 <p>The <code>yth_glm</code> function returns an object of class “<code>glm</code>”. Thus, one can use all generic functions associated with objects of that class. Here is an example of passing the <code>yth_glm</code> model to the plot function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(GDPC1)
 log_RGDP &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(GDPC1)
 
-gdp_ar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
+gdp_model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
 
-<span class="kw">plot</span>(gdp_ar)</code></pre></div>
+<span class="kw">plot</span>(gdp_model)</code></pre></div>
 <p><img src="Additional-examples_files/figure-html/unnamed-chunk-2-1.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-2.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-3.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-4.png" width="672"></p>
+<p>Additional parameters supported by the <code>glm</code> function can be used as well. An example ussing a different error distribution, defined with the <code>family</code> arguement, is illustrated below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_poisson &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP[<span class="st">"1950/"</span>], <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">family =</span> quasipoisson)
+
+<span class="kw">summary</span>(gdp_poisson)</code></pre></div>
+<pre><code>## 
+## Call:
+## stats::glm(formula = formula, family = ..1, data = data)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -0.34569  -0.08536   0.00809   0.09575   0.30258  
+## 
+## Coefficients:
+##               Estimate Std. Error  t value Pr(&gt;|t|)    
+## (Intercept)  5.8065022  0.0043398 1337.956  &lt; 2e-16 ***
+## Xt_0         0.0015535  0.0003354    4.632 5.78e-06 ***
+## Xt_1        -0.0005016  0.0005509   -0.910    0.363    
+## Xt_2        -0.0001500  0.0005493   -0.273    0.785    
+## Xt_3         0.0002094  0.0003284    0.638    0.524    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for quasipoisson family taken to be 0.01747363)
+## 
+##     Null deviance: 1003.5703  on 259  degrees of freedom
+## Residual deviance:    4.4578  on 255  degrees of freedom
+##   (11 observations deleted due to missingness)
+## AIC: NA
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(gdp_poisson)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-3-1.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-2.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-3.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-4.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
+<span class="kw">plot</span>(gdp_model)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 <p>In addition to all generic functions inherited in base R, one can also use any package designed to work with model objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
-gdp_ar_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">tidy</a></span>(gdp_ar)
+gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">tidy</a></span>(gdp_model)
 
-<span class="kw">kable</span>(gdp_ar_df)</code></pre></div>
+<span class="kw">kable</span>(gdp_model_df)</code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">term</th>
@@ -138,6 +180,10 @@ gdp_ar_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span cla
 </tr>
 </tbody>
 </table>
+</div>
+<div id="yth_filtered" class="section level2">
+<h2 class="hasAnchor">
+<a href="#yth_filtered" class="anchor"></a>yth_filtered</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
 
 <span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered, <span class="dv">8</span>))</code></pre></div>
@@ -208,10 +254,10 @@ Recessions &lt;-<span class="st"> </span><span class="kw">paste</span>(<span cla
 
 main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
 <span class="kw">chart.TimeSeries</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">main =</span> main, <span class="dt">period.areas =</span> Recessions, <span class="dt">period.color=</span><span class="st">"lightgrey"</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP cycle and random walk"</span>
 <span class="kw">plot</span>(gdp_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">subset =</span> <span class="st">"1982/"</span>, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#lines(panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))</span>
 <span class="co">#addSeries(x = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS[<span class="st">"1947/"</span>])
@@ -220,7 +266,7 @@ employ_cycle &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 
 main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
 <span class="kw">plot</span>(<span class="kw">abs</span>(employ_cycle), <span class="kw">index</span>(employ_filtered), <span class="dt">col =</span> <span class="st">"Black"</span>, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">main =</span> main)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
 </div>
 </div>
   </div>
@@ -231,6 +277,8 @@ main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#implementation-in-r">Implementation in R</a></li>
+      <li><a href="#yth_glm">yth_glm</a></li>
+      <li><a href="#yth_filtered">yth_filtered</a></li>
       </ul>
 </div>
       </div>
