@@ -136,7 +136,7 @@ main &lt;-<span class="st"> "Log of Real GDP cycle and random walk"</span>
 <a href="#comparing-our-estimates-with-hamiltons" class="anchor"></a>Comparing our estimates with Hamilton’s</h1>
 <p>When attempting to recreate the methods if others, one may perform surprisingly well “eyeballing” the minuet curvatures of the authors graphs whilst comparing with thy own. Better still a table presenting numerical estimations.</p>
 <p>Fortunately, the Appendix displays just such a table (Hamilton 40). Continuing to work with Real GDP (<code>GDPC1</code>) and Employment (<code>PAYEMS</code>) data, I compare Hamilton’s original results for these series with those estimated by functions written for the <strong><code>neverhpfilter</code></strong> package.</p>
-<p>Presenting Hamilton’s results, which are stored as a <code>data.table</code> in this package.</p>
+<p>Presenting Hamilton’s results, which are stored as a <code>data.frame</code> in this package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"Hamilton_table_2"</span>)
 
 ?Hamilton_table_<span class="dv">2</span></code></pre></div>
@@ -172,7 +172,7 @@ main &lt;-<span class="st"> "Log of Real GDP cycle and random walk"</span>
 </tr>
 </tbody>
 </table>
-<p>I replicate the table with base R functions and the results of the using <code>yth_filter</code> function on <code>100 * log</code> of <code>PAYEMS</code> and <code>GDPC1</code> earlier in the vignette.</p>
+<p>I’ll replicate the table above, combining base R functions with earlier estimates of the <code>yth_filter</code> function on <code>100 * log</code> of <code>PAYEMS</code> and <code>GDPC1</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># Real Gross Domestic Product</span>
         GDP_f &lt;-<span class="st"> </span>gdp_filtered[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)][<span class="st">"/2016-3"</span>]
   

@@ -99,7 +99,7 @@ When attempting to recreate the methods if others, one may perform surprisingly 
 Fortunately, the Appendix displays just such a table (Hamilton 40). Continuing to 
 work with Real GDP (`GDPC1`) and Employment (`PAYEMS`) data, I compare Hamilton's original results for these series with those estimated by functions written for the **`neverhpfilter`** package.
 
-Presenting Hamilton's results, which are stored as a `data.table` in this package.
+Presenting Hamilton's results, which are stored as a `data.frame` in this package.
 
 ```{r, eval=FALSE}
 data("Hamilton_table_2")
@@ -114,7 +114,7 @@ kable(Hamilton_table_2[index,], align = 'l', caption = "Hamilton's results: tabl
 ```
 
 
-I replicate the table with base R functions and the results of the using `yth_filter` function on `100 * log` of `PAYEMS` and `GDPC1` earlier in the vignette.
+I'll replicate the table above, combining base R functions with earlier estimates of the `yth_filter` function on `100 * log` of `PAYEMS` and `GDPC1`.
 
 ```{r, warning = FALSE, message = FALSE}
  # Real Gross Domestic Product
