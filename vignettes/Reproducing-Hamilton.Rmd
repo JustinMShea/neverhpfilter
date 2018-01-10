@@ -14,28 +14,36 @@ vignette: >
 
 \newpage
 
-## Introduction
+  In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an approach to economic time series filtering which achieves goals the HP-Filter attempts, but ultimately does not produce. 
 
-In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter" <doi:10.3386/w23429>, James D. Hamilton proposes an approach to economic time series filtering which achieve goals the HP-Filter attempts, but does not produce. Part of the evolution in any field is making right that which has been wrong. In this vein, the `neverhpfilter` package implements Hamilton's contribution to Econometric time series filtering. 
-
-
-The abstract from Hamilton(2017) offers an excellent introduction.
+The abstract offers an excellent introduction.
 
 
-  >Here's why. 
-  (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process. 
+  > 
+  (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process.  
   (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
   (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
-  (4) There’s a better alternative. A regression of the variable at date $t + h$ on the four most recent values as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
+  (4) There's a better alternative. A regression of the variable at date $t + h$ on the four most recent values as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
+
+The **`neverhpfilter`** package provides functions for implementing his solution.
+[Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
 
 ## A Better Alternative
 
-Fortunately, Hamilton doesn't just add to the list of critiques plaguing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as an AR(4) process, additionally lagged by $h$ lookahead periods.
+Using an example of quarterly economic data, Hamilton suggests a linear model dependent on an `h = 8` look-ahead period, which is independent of `p = 4` lagged variables. An auto-regressive $AR(p)$ model, with a $t+h$ look-ahead twist, if you will. This can be expressed more specifically by:
 
-$$y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}$$
-$$\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
+$$y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}$$
+$$\hat{v}_{t+8} = y_{t+8} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
 
-## Implementation in R
+Which can be rewritten as:
+
+$$y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}$$
+
+$$\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}$$
+
+
+
+## Implementation
 
 ```{r, message = FALSE, warning = FALSE}
 library(xts)
@@ -43,70 +51,107 @@ library(knitr)
 library(neverhpfilter)
 ```
 
+In this next section, I reproduce a few of Hamilton's tables and graphs, to make
+sure the functions approximately match his results.
 
+In the Appendix, Employment is plotted in the form of $100 * log($`PAYEMS`$)$, 
+or the All Employees: Total Non-farm series (Hamilton 44).
+
+```{r, warning = FALSE, message = FALSE}
+data(PAYEMS)
+PAYEMS_qtr <- xts::to.quarterly(PAYEMS["1947/"], OHLC = FALSE)
+log_Employment <- 100*log(PAYEMS_qtr)
+
+employ_filtered <- yth_filter(log_Employment, h = 8, p = 4, family = gaussian)
+
+main <- "Log of Employment and trend"
+plot(employ_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main)
+```
+
+The cycle component is of great interest. Here, it is graphed alongside
+a random walk representation, defined as the difference between the current observation $t$,
+and the look-ahead parameter, $h$ (Hamilton 44).
+
+```{r, warning = FALSE}
+main <- "Log of Employment cycle and random walk"
+plot(employ_filtered[,3:4], grid.col = "white", legend.loc = "topright", main = main)
+```
+
+
+Turning the page, we find a similar graph of the cyclical component of $100 * log($`GDPC1`$)$, or Real Gross Domestic Product, superimposed with it's random walk representation. (Hamilton 45).
 
 ```{r, warning=FALSE, message=FALSE}
 data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
-gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
-```
+gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4, family = gaussian)
 
-
-```{r, warning = FALSE}
-main <- "Log of Real GDP (GDPC1) and trend"
-plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main,  panels = 'lines(gdp_filtered[,3], type="h", on=NA)')
-```
-
-
-```{r, warning = FALSE}
 main <- "Log of Real GDP cycle and random walk"
 plot(gdp_filtered[,3:4], grid.col = "white", legend.loc = "topright", main = main)
-abline(h = 0, lty = 2, lwd = 2, col = "darkgreen")
 ```
 
 
-```{r, warning = FALSE}
-# household
-Employment_log <- 100*log(PAYEMS["1947/"])
-employ_ar <- yth_glm(Employment_log, h = 24, p = 12)
 
-employ_filtered <- yth_filter(Employment_log, h = 24, p = 12)
+# Comparing our estimates with Hamilton's
 
-main <- "Log of Employment and trend"
-plot(employ_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main, panels = 'lines(employ_filtered[,3], type="h", on=NA)')
+When attempting to recreate the methods if others, one may perform surprisingly well "eyeballing" the minuet curvatures of the authors graphs whilst comparing with thy own. Better still a table presenting numerical estimations.
+
+Fortunately, the Appendix displays just such a table (Hamilton 40). Continuing to 
+work with Real GDP (`GDPC1`) and Employment (`PAYEMS`) data, I compare Hamilton's original results for these series with those estimated by functions written for the **`neverhpfilter`** package.
+
+Presenting Hamilton's results, which are stored as a `data.table` in this package.
+
+```{r, eval=FALSE}
+data("Hamilton_table_2")
+
+?Hamilton_table_2
 ```
-
-
-```{r, warning = FALSE}
-main <- "Log of Employment cycle and random walk"
-plot(employ_filtered[,3:4], grid.col = "white", legend.loc = "topright", main = main)
-abline(h = 0, lty = 2, lwd = 2, col = "darkgreen")
-```
-
-# Comparing results to Hamilton's
-
-Below is Table 2, found on pg. 40 of "Why You Should Never Use the Hodrick-Prescott Filter".
 
 ```{r}
-data("Hamilton_table_2")
-kable(Hamilton_table_2)
+index <- rownames(Hamilton_table_2)=="GDP" | rownames(Hamilton_table_2)=="Employment"
+
+kable(Hamilton_table_2[index,], align = 'l', caption = "Hamilton's results: table 2, pg. 40")
 ```
 
 
+I replicate the table with base R functions and the results of the using `yth_filter` function on `100 * log` of `PAYEMS` and `GDPC1` earlier in the vignette.
 
-```{r, warning = FALSE}
-GDP.St.Dev <- round(sd(gdp_filtered$GDPC1.cycle["/2016-1"], na.rm=TRUE), 2)
-GDP.GDPCorr. <- cor(gdp_filtered$GDPC1.cycle["/2016-1"], gdp_filtered$GDPC1.cycle["/2016-1"], use = "complete.obs")
+```{r, warning = FALSE, message = FALSE}
+ # Real Gross Domestic Product
+        GDP_f <- gdp_filtered[,c(3,4)]["/2016-3"]
+  
+   GDP.St.Dev <- round(sd(GDP_f[,1], na.rm=TRUE), 4)
+  GDP.GDPCorr <- cor(GDP_f[,1], GDP_f[,1], use = "complete.obs")
+   GDP.Random <- round(sd(GDP_f[,2], na.rm=TRUE), 4)
+  GDP.RanCorr <- cor(GDP_f[,2], GDP_f[,2], use = "complete.obs")
+       Sample <- gsub(" ", "-", paste0(index(GDP_f[1,]), "/", index(GDP_f["2016"])))
 
-GDP.Random <- round(sd(coredata(gdp_filtered[,4]["/2016-1"]), na.rm=TRUE), 2)
-GDP.RanCorr. <- cor(gdp_filtered[,4]["/2016-1"],gdp_filtered[,4]["/2016-1"], use = "complete.obs")
-
-Sample <- gsub(" ","-",paste0(index(gdp_filtered[,1]),":",index(gdp_filtered["2016-1"])))
-                 
-GDP <- cbind(GDP.St.Dev, GDP.GDPCorr., GDP.Random, GDP.RanCorr., Sample)
+          GDP <- cbind(GDP.St.Dev, GDP.GDPCorr, GDP.Random, GDP.RanCorr, Sample)
 colnames(GDP) <- names(Hamilton_table_2)
-kable(GDP)
 
-#round(sd(employ_filtered$PAYEMS.cycle["1947-1/2016-1"], na.rm=TRUE), 2)
+
+ # Employment Situation
+        employ_f <- employ_filtered[,c(3,4)]["/2016-6"]
+
+   employ.St.Dev <- round(sd(employ_f[,1], na.rm=TRUE), 4)
+ employ.GDPCorr. <- round(cor(employ_f[,1], gdp_filtered[,3]["/2016-6"], use = "complete.obs"), 4)
+   employ.Random <- round(sd(employ_f[,2], na.rm=TRUE), 3)
+ employ.RanCorr. <- round(cor(employ_f[,2], gdp_filtered[,4]["/2016-6"], use = "complete.obs"), 4)
+          Sample <- gsub(" ","-",paste0(index(employ_f[1,]), "/", index(employ_f["2016-4"])))
+
+          employ <- cbind(employ.St.Dev,employ.GDPCorr.,employ.Random,employ.RanCorr., Sample)
+colnames(employ) <- names(Hamilton_table_2)
 ```
+
+Finally, row-bind the original table with the new table and compare. They are nearly identical.
+
+```{r, warning = FALSE, message = FALSE, caption = "Comparison table: Hamilton vs neverhpfilter"}
+ # Combined table
+kable(rbind(Hamilton_table_2[index,], GDP, employ), align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter")
+
+```
+
+# Summary
+
+The estimates generated with the `neverhpfilter` package are nearly identical to those displayed by Hamilton(2017). If one has the use case, the collection of generalized functions will estimate higher frequency time series as well as error distributions other than Gaussian. In addition to consulting the paper which inspired this package, documention of each function is highly recommended reading.
+

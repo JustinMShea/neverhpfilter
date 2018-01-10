@@ -12,7 +12,7 @@
 #'  \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 #'
 #' @return \code{yth_glm} returns a generalized linear model object of class \code{\link{glm}},
-#'  which inherits from "\code{\link{lm}}.
+#'  which inherits from \code{\link{lm}}.
 #'
 #' @param x A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
 #'  such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
@@ -29,7 +29,7 @@
 #'  suggested by Hamilton, assumes data is of quarterly periodicity. If data is
 #'  of monthly periodicity, one may choose \code{p = 12} or aggregate the series
 #'  to quarterly periodicity and maintain the default. Econometricians should
-#'  use this parameter to accomodate the Seasonality of their data.
+#'  use this parameter to accommodate the Seasonality of their data.
 #'
 #'
 #' @param ... all arguments passed to the function \code{\link[stats]{glm}}

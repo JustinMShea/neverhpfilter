@@ -65,7 +65,7 @@
 #'
 #' @usage data(USREC)
 #'
-#' @format An xts object containing monthly observations of NBER based Recession Indicators
+#' @format An \code{\link{xts}} object containing monthly observations of NBER based Recession Indicators
 #'  \itemize{
 #'  \item\strong{USREC}{ Not Seasonally Adjusted, units of +1 for recession, 0 for no recession.}
 #' }
@@ -75,4 +75,6 @@
 #' @examples
 #' data(USREC)
 #' USREC["2007/2009"]
+#' plot(USREC["1947/"], grid.col = "white", col="red")
+#'
 "USREC"

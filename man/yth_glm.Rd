@@ -22,13 +22,13 @@ change it as required.}
 suggested by Hamilton, assumes data is of quarterly periodicity. If data is
 of monthly periodicity, one may choose \code{p = 12} or aggregate the series
 to quarterly periodicity and maintain the default. Econometricians should
-use this parameter to accomodate the Seasonality of their data.}
+use this parameter to accommodate the Seasonality of their data.}
 
 \item{...}{all arguments passed to the function \code{\link[stats]{glm}}}
 }
 \value{
 \code{yth_glm} returns a generalized linear model object of class \code{\link{glm}},
- which inherits from "\code{\link{lm}}.
+ which inherits from \code{\link{lm}}.
 }
 \description{
 \code{yth_glm} fits a generalized linear model suggested by James D. Hamilton as a better alternative to the Hodrick-Prescott Filter.

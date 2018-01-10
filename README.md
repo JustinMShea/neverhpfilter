@@ -4,21 +4,36 @@
 
 ## Introduction
 
-In his working paper titled "Why You Should Never Use the 
-  Hodrick-Prescott Filter", James D. Hamilton proposes an alternative approach to 
-  economic time series filtering. The `neverhpfilter` package implements his approach.
-  By fitting a Generalized Linear Model of the `y` variable at date `t+h` on `p` 
-  lagged values of a time series, all the objectives sought by users of the 
-  Hodrick-Prescott filter are met, with none of its drawbacks. [Hamilton (2017) 
-  <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
+  In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an approach to economic time series filtering which achieves goals the HP-Filter attempts, but ultimately does not produce. 
+
+The abstract offers an excellent introduction.
+
+  > 
+  (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process.  
+  (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
+  (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
+  (4) There's a better alternative. A regression of the variable at date $t + h$ on the four most recent values as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
+
+The **`neverhpfilter`** package provides functions for implementing his solution.
+[Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
   
 ## Getting Started
+
+Install from CRAN R version >= 3.4.0.
+
+```{r}
+install.packages("neverhpfilter")
+```
 
 Install from the Github master branch on R version >= 3.4.0.
 
 ```{r}
 devtools::install_github("JustinMShea/neverhpfilter")
+```
 
+Load the package
+
+```{r}
 library(neverhpfilter)
 ```
 
@@ -27,7 +42,7 @@ Read the vignette [Reproducing Hamilton.](https://justinmshea.github.io/neverhpf
 
 ## Package Documentation
 
-The package consists of 4 core functions, clearly documented here:
+The package consists of 4 core functions documented here:
 
  * [yth_glm](https://justinmshea.github.io/neverhpfilter/reference/yth_glm.html)
 

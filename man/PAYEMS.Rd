@@ -4,7 +4,7 @@
 \name{PAYEMS}
 \alias{PAYEMS}
 \title{Employment Situation}
-\format{An xts object containing monthly observations of All Employees: Total Nonfarm.
+\format{An \code{\link{xts}} object containing monthly observations of All Employees: Total Nonfarm.
  \itemize{
  \item\strong{PAYEMS} {Seasonally Adjusted, Thousands of Persons. }
 }}
@@ -55,5 +55,6 @@ The source code is: CES0000000001
 \examples{
 data(PAYEMS)
 tail(PAYEMS)
+plot(PAYEMS["1947/"], grid.col = "white", col="green")
 }
 \keyword{datasets}

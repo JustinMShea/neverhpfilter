@@ -35,20 +35,14 @@ gdp_model <- yth_glm(log_RGDP, h = 8, p = 4)
 plot(gdp_model)
 ```
 
-Additional parameters supported by the `glm` function can be used as well. An example ussing a different error distribution, defined with the `family` arguement, is illustrated below.
+Additional parameters supported by the `glm` function can be used as well. An example ussing a different error distribution, defined with the `family` argument, is illustrated below.
 
 ```{r, warning=FALSE, message=FALSE}
 gdp_poisson <- yth_glm(log_RGDP["1950/"], h = 8, p = 4, family = quasipoisson)
 
 summary(gdp_poisson)
-
-plot(gdp_poisson)
 ```
 
-```{r, warning=FALSE, message=FALSE}
-par(mfrow=c(2,2))
-plot(gdp_model)
-```
 
 In addition to all generic functions inherited in base R, one can also use any package 
 designed to work with model objects.
@@ -62,11 +56,27 @@ kable(gdp_model_df)
 
 ## yth_filtered
 
+The function outputs an xts object of all series discussed in Hamilton.
+They are the original series, trend, cycle, and random walk.
+
 ```{r, warning = FALSE, message = FALSE}
 gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
 
 kable(tail(gdp_filtered, 8))
 ```
+
+Because it an xts object, it can be easily graphed with `plot.xts`, 
+the task beautifully with a simple function call. Note the `panels` arguement,
+which we used to plot bars of the cycle.
+
+```{r, warning = FALSE}
+main <- "Log of Real GDP (GDPC1) and trend"
+plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main,  panels = 'lines(gdp_filtered[,3], type="h", on=NA)')
+```
+
+Once can use packages which recognize xts objects such as `PerformanceAnalytics`.
+Recession bars are created easily with the `period.areas` arguement of the
+`chart.TimeSeries` function
 
 ```{r, warning = FALSE, message = FALSE}
 library(PerformanceAnalytics)
@@ -88,13 +98,18 @@ plot(gdp_filtered[,3:4], subset = "1982/", grid.col = "white", legend.loc = "top
 
 ```
 
+## yth_cycle
+
+While Hamilton converts the PAYEMS series into quarterly periodicity and then uses
+the default parameters of `h = 8` and `p = 4`, one can choose to retain the monthly series and adjust the parameters to `h = 24` and `p = 12`. This approach removes the parsimony associated with estimating a linear model on 4 lags, as now one will have 12. 
 
 ```{r, warning = FALSE}
 Employment_log <- 100*log(PAYEMS["1947/"])
 
-employ_cycle <- yth_cycle(Employment_log, h = 24, p = 12)
+employment_cycle <- yth_cycle(Employment_log, h = 24, p = 12)
 
 main <- "Absolute Log of Employment cycle"
-plot(abs(employ_cycle), index(employ_filtered), col = "Black", grid.col = "white", main = main)
+plot(abs(employment_cycle), grid.col = "white", main = main)
 ```
+
 

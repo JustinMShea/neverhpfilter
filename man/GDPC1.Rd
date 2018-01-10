@@ -4,7 +4,7 @@
 \name{GDPC1}
 \alias{GDPC1}
 \title{Gross Domestic Product}
-\format{An xts object containing quarterly observations of Real Gross Domestic Product.
+\format{An \code{\link{xts}} object containing quarterly observations of Real Gross Domestic Product.
  \itemize{
  \item\strong{GDPC1} {Seasonally Adjusted Annual Rate, in Billions of Chained 2009 Dollars.}
 }}
@@ -19,7 +19,7 @@ data(GDPC1)
 }
 \section{Notes}{
 
-Real gross deomstic product is the inflation adjusted value of the goods and
+Real gross domestic product is the inflation adjusted value of the goods and
 services produced by labor and property located in the United States.
 
 For more information see the Guide to the National Income and Product Accounts
@@ -31,5 +31,6 @@ BEA Account Code: A191RX
 \examples{
 data(GDPC1)
 tail(GDPC1)
+plot(GDPC1,grid.col = "white", col="blue")
 }
 \keyword{datasets}

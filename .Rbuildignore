@@ -5,7 +5,5 @@
 ^appveyor\.yml$
 ^codecov\.yml$
 ^vignettes/additional-examples\.Rmd$
-^w23429\.pdf$
-^testplots.R$
 ^docs$
 ^cran-comments.md$
