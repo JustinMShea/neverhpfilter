@@ -94,7 +94,7 @@ plot(gdp_filtered[,3:4], grid.col = "white", legend.loc = "topright", main = mai
 
 # Comparing our estimates with Hamilton's
 
-When attempting to recreate the methods if others, one may perform surprisingly well "eyeballing" the minuet curvatures of the authors graphs whilst comparing with thy own. Better still a table presenting numerical estimations.
+When attempting to recreate the methods of others, one may perform surprisingly well "eyeballing" the authors graphs whilst comparing with thy own. Better still is a table presenting numerical estimations.
 
 Fortunately, the Appendix displays just such a table (Hamilton 40). Continuing to 
 work with Real GDP (`GDPC1`) and Employment (`PAYEMS`) data, I compare Hamilton's original results for these series with those estimated by functions written for the **`neverhpfilter`** package.
