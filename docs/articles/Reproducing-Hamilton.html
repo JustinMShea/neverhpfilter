@@ -77,188 +77,74 @@
     
 <div class="contents">
 
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>In the working paper titled “Why You Should Never Use the <strong>H</strong>odrick-<strong>P</strong>rescott Filter” <a href="doi:10.3386/w23429" class="uri">doi:10.3386/w23429</a>, James D. Hamilton proposes an approach to economic time series filtering which achieve goals the HP-Filter attempts, but does not produce. Part of the evolution in any field is making right that which has been wrong. In this vein, the <code>neverhpfilter</code> package implements Hamilton’s contribution to Econometric time series filtering.</p>
-<p>The abstract from Hamilton(2017) offers an excellent introduction.</p>
+<p>In the working paper titled “Why You Should Never Use the <strong>H</strong>odrick-<strong>P</strong>rescott Filter”, James D. Hamilton proposes an approach to economic time series filtering which achieves goals the HP-Filter attempts, but ultimately does not produce.</p>
+<p>The abstract offers an excellent introduction.</p>
 <blockquote>
-<p>Here’s why. (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process. (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.<br>
-(3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for <span class="math inline">\(\lambda\)</span> far below 1600 for quarterly data.<br>
-(4) There’s a better alternative. A regression of the variable at date <span class="math inline">\(t + h\)</span> on the four most recent values as of date <span class="math inline">\(t\)</span> offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.</p>
+<ol style="list-style-type: decimal">
+<li>The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process.<br>
+</li>
+<li>Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.<br>
+</li>
+<li>A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for <span class="math inline">\(\lambda\)</span> far below 1600 for quarterly data.<br>
+</li>
+<li>There’s a better alternative. A regression of the variable at date <span class="math inline">\(t + h\)</span> on the four most recent values as of date <span class="math inline">\(t\)</span> offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.</li>
+</ol>
 </blockquote>
-</div>
+<p>The <strong><code>neverhpfilter</code></strong> package provides functions for implementing his solution. <a href="https://www.nber.org/papers/w23429">Hamilton (2017) &lt;doi:10.3386/w23429&gt;</a></p>
 <div id="a-better-alternative" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-better-alternative" class="anchor"></a>A Better Alternative</h2>
-<p>Fortunately, Hamilton doesn’t just add to the list of critiques plaguing the Hodrick-Prescott filter, he offers a solution as well. For quarterly economic data, it can be described as an AR(4) process, additionally lagged by <span class="math inline">\(h\)</span> lookahead periods.</p>
-<p><span class="math display">\[y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}\]</span> <span class="math display">\[\hat{v}_{t+h} = y_{t+h} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}\]</span></p>
+<p>Using an example of quarterly economic data, Hamilton suggests a linear model dependent on an <code>h = 8</code> look-ahead period, which is independent of <code>p = 4</code> lagged variables. An auto-regressive <span class="math inline">\(AR(p)\)</span> model, with a <span class="math inline">\(t+h\)</span> look-ahead twist, if you will. This can be expressed more specifically by:</p>
+<p><span class="math display">\[y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}\]</span> <span class="math display">\[\hat{v}_{t+8} = y_{t+8} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}\]</span></p>
+<p>Which can be rewritten as:</p>
+<p><span class="math display">\[y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}\]</span></p>
+<p><span class="math display">\[\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}\]</span></p>
 </div>
-<div id="implementation-in-r" class="section level2">
+<div id="implementation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#implementation-in-r" class="anchor"></a>Implementation in R</h2>
+<a href="#implementation" class="anchor"></a>Implementation</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xts)
 <span class="kw">library</span>(knitr)
 <span class="kw">library</span>(neverhpfilter)</code></pre></div>
+<p>In this next section, I reproduce a few of Hamilton’s tables and graphs, to make sure the functions approximately match his results.</p>
+<p>In the Appendix, Employment is plotted in the form of <span class="math inline">\(100 * log(\)</span><code>PAYEMS</code><span class="math inline">\()\)</span>, or the All Employees: Total Non-farm series (Hamilton 44).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(PAYEMS)
+PAYEMS_qtr &lt;-<span class="st"> </span>xts<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/xts/topics/to.period">to.quarterly</a></span>(PAYEMS[<span class="st">"1947/"</span>], <span class="dt">OHLC =</span> <span class="ot">FALSE</span>)
+log_Employment &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS_qtr)
+
+employ_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_Employment, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">family =</span> gaussian)
+
+main &lt;-<span class="st"> "Log of Employment and trend"</span>
+<span class="kw">plot</span>(employ_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main)</code></pre></div>
+<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
+<p>The cycle component is of great interest. Here, it is graphed alongside a random walk representation, defined as the difference between the current observation <span class="math inline">\(t\)</span>, and the look-ahead parameter, <span class="math inline">\(h\)</span> (Hamilton 44).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Employment cycle and random walk"</span>
+<span class="kw">plot</span>(employ_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)</code></pre></div>
+<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+<p>Turning the page, we find a similar graph of the cyclical component of <span class="math inline">\(100 * log(\)</span><code>GDPC1</code><span class="math inline">\()\)</span>, or Real Gross Domestic Product, superimposed with it’s random walk representation. (Hamilton 45).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(GDPC1)
 log_RGDP &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(GDPC1)
 
-gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
-<span class="kw">plot</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_filtered[,3], type="h", on=NA)'</span>)</code></pre></div>
-<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP cycle and random walk"</span>
-<span class="kw">plot</span>(gdp_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)
-<span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"darkgreen"</span>)</code></pre></div>
+gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">family =</span> gaussian)
+
+main &lt;-<span class="st"> "Log of Real GDP cycle and random walk"</span>
+<span class="kw">plot</span>(gdp_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)</code></pre></div>
 <p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># household</span>
-Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS[<span class="st">"1947/"</span>])
-employ_ar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>)
-
-employ_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>)
-
-main &lt;-<span class="st"> "Log of Employment and trend"</span>
-<span class="kw">plot</span>(employ_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main, <span class="dt">panels =</span> <span class="st">'lines(employ_filtered[,3], type="h", on=NA)'</span>)</code></pre></div>
-<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Employment cycle and random walk"</span>
-<span class="kw">plot</span>(employ_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)
-<span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"darkgreen"</span>)</code></pre></div>
-<p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 </div>
-<div id="comparing-results-to-hamiltons" class="section level1">
+<div id="comparing-our-estimates-with-hamiltons" class="section level1">
 <h1 class="hasAnchor">
-<a href="#comparing-results-to-hamiltons" class="anchor"></a>Comparing results to Hamilton’s</h1>
-<p>Below is Table 2, found on pg. 40 of “Why You Should Never Use the Hodrick-Prescott Filter”.</p>
+<a href="#comparing-our-estimates-with-hamiltons" class="anchor"></a>Comparing our estimates with Hamilton’s</h1>
+<p>When attempting to recreate the methods if others, one may perform surprisingly well “eyeballing” the minuet curvatures of the authors graphs whilst comparing with thy own. Better still a table presenting numerical estimations.</p>
+<p>Fortunately, the Appendix displays just such a table (Hamilton 40). Continuing to work with Real GDP (<code>GDPC1</code>) and Employment (<code>PAYEMS</code>) data, I compare Hamilton’s original results for these series with those estimated by functions written for the <strong><code>neverhpfilter</code></strong> package.</p>
+<p>Presenting Hamilton’s results, which are stored as a <code>data.table</code> in this package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"Hamilton_table_2"</span>)
-<span class="kw">kable</span>(Hamilton_table_<span class="dv">2</span>)</code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th></th>
-<th align="right">cycle.sd</th>
-<th align="right">gdp.cor</th>
-<th align="right">random.sd</th>
-<th align="right">gdp.rand.cor</th>
-<th align="left">Sample</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>GDP</td>
-<td align="right">3.38</td>
-<td align="right">1.00</td>
-<td align="right">3.69</td>
-<td align="right">1.00</td>
-<td align="left">1947-1/2016-1</td>
-</tr>
-<tr class="even">
-<td>Consumption</td>
-<td align="right">2.85</td>
-<td align="right">0.79</td>
-<td align="right">3.04</td>
-<td align="right">0.82</td>
-<td align="left">1947-1/2016-1</td>
-</tr>
-<tr class="odd">
-<td>Investment</td>
-<td align="right">13.19</td>
-<td align="right">0.84</td>
-<td align="right">13.74</td>
-<td align="right">0.80</td>
-<td align="left">1947-1/2016-1</td>
-</tr>
-<tr class="even">
-<td>Exports</td>
-<td align="right">10.77</td>
-<td align="right">0.33</td>
-<td align="right">11.33</td>
-<td align="right">0.30</td>
-<td align="left">1947-1/2016-1</td>
-</tr>
-<tr class="odd">
-<td>Imports</td>
-<td align="right">9.79</td>
-<td align="right">0.77</td>
-<td align="right">9.98</td>
-<td align="right">0.75</td>
-<td align="left">1947-1/2016-1</td>
-</tr>
-<tr class="even">
-<td>Government-spending</td>
-<td align="right">7.13</td>
-<td align="right">0.31</td>
-<td align="right">8.60</td>
-<td align="right">0.38</td>
-<td align="left">1947-1/2016-1</td>
-</tr>
-<tr class="odd">
-<td>Employment</td>
-<td align="right">3.09</td>
-<td align="right">0.85</td>
-<td align="right">3.32</td>
-<td align="right">0.85</td>
-<td align="left">1947-1/2016-2</td>
-</tr>
-<tr class="even">
-<td>Unemployment-rate</td>
-<td align="right">1.44</td>
-<td align="right">-0.81</td>
-<td align="right">1.72</td>
-<td align="right">-0.79</td>
-<td align="left">1948-1/2016-2</td>
-</tr>
-<tr class="odd">
-<td>GDP-Deflator</td>
-<td align="right">2.99</td>
-<td align="right">0.04</td>
-<td align="right">4.11</td>
-<td align="right">-0.13</td>
-<td align="left">1947-1/2016-1</td>
-</tr>
-<tr class="even">
-<td>S&amp;P500</td>
-<td align="right">21.80</td>
-<td align="right">0.41</td>
-<td align="right">22.08</td>
-<td align="right">0.38</td>
-<td align="left">1950-1/2016-2</td>
-</tr>
-<tr class="odd">
-<td>10-year-Treasury-yield</td>
-<td align="right">1.46</td>
-<td align="right">-0.05</td>
-<td align="right">1.51</td>
-<td align="right">0.08</td>
-<td align="left">1953-2/2016-2</td>
-</tr>
-<tr class="even">
-<td>Fedfunds-rate</td>
-<td align="right">2.78</td>
-<td align="right">0.33</td>
-<td align="right">3.03</td>
-<td align="right">0.40</td>
-<td align="left">1954-3/2016-2</td>
-</tr>
-<tr class="odd">
-<td>Real-rate</td>
-<td align="right">2.25</td>
-<td align="right">0.39</td>
-<td align="right">2.60</td>
-<td align="right">0.42</td>
-<td align="left">1958-1/2014-3</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GDP.St.Dev &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">sd</span>(gdp_filtered<span class="op">$</span>GDPC1.cycle[<span class="st">"/2016-1"</span>], <span class="dt">na.rm=</span><span class="ot">TRUE</span>), <span class="dv">2</span>)
-GDP.GDPCorr. &lt;-<span class="st"> </span><span class="kw">cor</span>(gdp_filtered<span class="op">$</span>GDPC1.cycle[<span class="st">"/2016-1"</span>], gdp_filtered<span class="op">$</span>GDPC1.cycle[<span class="st">"/2016-1"</span>], <span class="dt">use =</span> <span class="st">"complete.obs"</span>)
 
-GDP.Random &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">sd</span>(<span class="kw">coredata</span>(gdp_filtered[,<span class="dv">4</span>][<span class="st">"/2016-1"</span>]), <span class="dt">na.rm=</span><span class="ot">TRUE</span>), <span class="dv">2</span>)
-GDP.RanCorr. &lt;-<span class="st"> </span><span class="kw">cor</span>(gdp_filtered[,<span class="dv">4</span>][<span class="st">"/2016-1"</span>],gdp_filtered[,<span class="dv">4</span>][<span class="st">"/2016-1"</span>], <span class="dt">use =</span> <span class="st">"complete.obs"</span>)
+?Hamilton_table_<span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">index &lt;-<span class="st"> </span><span class="kw">rownames</span>(Hamilton_table_<span class="dv">2</span>)<span class="op">==</span><span class="st">"GDP"</span> <span class="op">|</span><span class="st"> </span><span class="kw">rownames</span>(Hamilton_table_<span class="dv">2</span>)<span class="op">==</span><span class="st">"Employment"</span>
 
-Sample &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">" "</span>,<span class="st">"-"</span>,<span class="kw">paste0</span>(<span class="kw">index</span>(gdp_filtered[,<span class="dv">1</span>]),<span class="st">":"</span>,<span class="kw">index</span>(gdp_filtered[<span class="st">"2016-1"</span>])))
-                 
-GDP &lt;-<span class="st"> </span><span class="kw">cbind</span>(GDP.St.Dev, GDP.GDPCorr., GDP.Random, GDP.RanCorr., Sample)
-<span class="kw">colnames</span>(GDP) &lt;-<span class="st"> </span><span class="kw">names</span>(Hamilton_table_<span class="dv">2</span>)
-<span class="kw">kable</span>(GDP)</code></pre></div>
+<span class="kw">kable</span>(Hamilton_table_<span class="dv">2</span>[index,], <span class="dt">align =</span> <span class="st">'l'</span>, <span class="dt">caption =</span> <span class="st">"Hamilton's results: table 2, pg. 40"</span>)</code></pre></div>
 <table class="table">
+<caption>Hamilton’s results: table 2, pg. 40</caption>
 <thead><tr class="header">
 <th></th>
 <th align="left">cycle.sd</th>
@@ -267,16 +153,103 @@ GDP &lt;-<span class="st"> </span><span class="kw">cbind</span>(GDP.St.Dev, GDP.
 <th align="left">gdp.rand.cor</th>
 <th align="left">Sample</th>
 </tr></thead>
-<tbody><tr class="odd">
-<td>GDPC1.cycle</td>
+<tbody>
+<tr class="odd">
+<td>GDP</td>
 <td align="left">3.38</td>
+<td align="left">1.00</td>
+<td align="left">3.69</td>
+<td align="left">1.00</td>
+<td align="left">1947-1/2016-1</td>
+</tr>
+<tr class="even">
+<td>Employment</td>
+<td align="left">3.09</td>
+<td align="left">0.85</td>
+<td align="left">3.32</td>
+<td align="left">0.85</td>
+<td align="left">1947-1/2016-2</td>
+</tr>
+</tbody>
+</table>
+<p>I replicate the table with base R functions and the results of the using <code>yth_filter</code> function on <code>100 * log</code> of <code>PAYEMS</code> and <code>GDPC1</code> earlier in the vignette.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># Real Gross Domestic Product</span>
+        GDP_f &lt;-<span class="st"> </span>gdp_filtered[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)][<span class="st">"/2016-3"</span>]
+  
+   GDP.St.Dev &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">sd</span>(GDP_f[,<span class="dv">1</span>], <span class="dt">na.rm=</span><span class="ot">TRUE</span>), <span class="dv">4</span>)
+  GDP.GDPCorr &lt;-<span class="st"> </span><span class="kw">cor</span>(GDP_f[,<span class="dv">1</span>], GDP_f[,<span class="dv">1</span>], <span class="dt">use =</span> <span class="st">"complete.obs"</span>)
+   GDP.Random &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">sd</span>(GDP_f[,<span class="dv">2</span>], <span class="dt">na.rm=</span><span class="ot">TRUE</span>), <span class="dv">4</span>)
+  GDP.RanCorr &lt;-<span class="st"> </span><span class="kw">cor</span>(GDP_f[,<span class="dv">2</span>], GDP_f[,<span class="dv">2</span>], <span class="dt">use =</span> <span class="st">"complete.obs"</span>)
+       Sample &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">" "</span>, <span class="st">"-"</span>, <span class="kw">paste0</span>(<span class="kw">index</span>(GDP_f[<span class="dv">1</span>,]), <span class="st">"/"</span>, <span class="kw">index</span>(GDP_f[<span class="st">"2016"</span>])))
+
+          GDP &lt;-<span class="st"> </span><span class="kw">cbind</span>(GDP.St.Dev, GDP.GDPCorr, GDP.Random, GDP.RanCorr, Sample)
+<span class="kw">colnames</span>(GDP) &lt;-<span class="st"> </span><span class="kw">names</span>(Hamilton_table_<span class="dv">2</span>)
+
+
+ <span class="co"># Employment Situation</span>
+        employ_f &lt;-<span class="st"> </span>employ_filtered[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)][<span class="st">"/2016-6"</span>]
+
+   employ.St.Dev &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">sd</span>(employ_f[,<span class="dv">1</span>], <span class="dt">na.rm=</span><span class="ot">TRUE</span>), <span class="dv">4</span>)
+ employ.GDPCorr. &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">cor</span>(employ_f[,<span class="dv">1</span>], gdp_filtered[,<span class="dv">3</span>][<span class="st">"/2016-6"</span>], <span class="dt">use =</span> <span class="st">"complete.obs"</span>), <span class="dv">4</span>)
+   employ.Random &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">sd</span>(employ_f[,<span class="dv">2</span>], <span class="dt">na.rm=</span><span class="ot">TRUE</span>), <span class="dv">3</span>)
+ employ.RanCorr. &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">cor</span>(employ_f[,<span class="dv">2</span>], gdp_filtered[,<span class="dv">4</span>][<span class="st">"/2016-6"</span>], <span class="dt">use =</span> <span class="st">"complete.obs"</span>), <span class="dv">4</span>)
+          Sample &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">" "</span>,<span class="st">"-"</span>,<span class="kw">paste0</span>(<span class="kw">index</span>(employ_f[<span class="dv">1</span>,]), <span class="st">"/"</span>, <span class="kw">index</span>(employ_f[<span class="st">"2016-4"</span>])))
+
+          employ &lt;-<span class="st"> </span><span class="kw">cbind</span>(employ.St.Dev,employ.GDPCorr.,employ.Random,employ.RanCorr., Sample)
+<span class="kw">colnames</span>(employ) &lt;-<span class="st"> </span><span class="kw">names</span>(Hamilton_table_<span class="dv">2</span>)</code></pre></div>
+<p>Finally, row-bind the original table with the new table and compare. They are nearly identical.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># Combined table</span>
+<span class="kw">kable</span>(<span class="kw">rbind</span>(Hamilton_table_<span class="dv">2</span>[index,], GDP, employ), <span class="dt">align =</span> <span class="st">'l'</span>, <span class="dt">caption =</span> <span class="st">"Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter"</span>)</code></pre></div>
+<table class="table">
+<caption>Hamilton’s table 2 compared with estimates from neverhpfilter::yth_filter</caption>
+<thead><tr class="header">
+<th></th>
+<th align="left">cycle.sd</th>
+<th align="left">gdp.cor</th>
+<th align="left">random.sd</th>
+<th align="left">gdp.rand.cor</th>
+<th align="left">Sample</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>GDP</td>
+<td align="left">3.38</td>
+<td align="left">1</td>
+<td align="left">3.69</td>
+<td align="left">1</td>
+<td align="left">1947-1/2016-1</td>
+</tr>
+<tr class="even">
+<td>Employment</td>
+<td align="left">3.09</td>
+<td align="left">0.85</td>
+<td align="left">3.32</td>
+<td align="left">0.85</td>
+<td align="left">1947-1/2016-2</td>
+</tr>
+<tr class="odd">
+<td>GDPC1.cycle</td>
+<td align="left">3.3826</td>
 <td align="left">1</td>
 <td align="left">3.68</td>
 <td align="left">1</td>
-<td align="left">1947-Q1:2016-Q1</td>
-</tr></tbody>
+<td align="left">1947-Q1/2016-Q1</td>
+</tr>
+<tr class="even">
+<td>PAYEMS.cycle</td>
+<td align="left">3.0918</td>
+<td align="left">0.8493</td>
+<td align="left">3.321</td>
+<td align="left">0.8493</td>
+<td align="left">1947-Q1/2016-Q2</td>
+</tr>
+</tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#round(sd(employ_filtered$PAYEMS.cycle["1947-1/2016-1"], na.rm=TRUE), 2)</span></code></pre></div>
+</div>
+<div id="summary" class="section level1">
+<h1 class="hasAnchor">
+<a href="#summary" class="anchor"></a>Summary</h1>
+<p>The estimates generated with the <code>neverhpfilter</code> package are nearly identical to those displayed by Hamilton(2017). If one has the use case, the collection of generalized functions will estimate higher frequency time series as well as error distributions other than Gaussian. In addition to consulting the paper which inspired this package, documention of each function is highly recommended reading.</p>
 </div>
 </div>
   </div>
@@ -286,10 +259,10 @@ GDP &lt;-<span class="st"> </span><span class="kw">cbind</span>(GDP.St.Dev, GDP.
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li><a href="#a-better-alternative">A Better Alternative</a></li>
-      <li><a href="#implementation-in-r">Implementation in R</a></li>
-      <li><a href="#comparing-results-to-hamiltons">Comparing results to Hamilton’s</a></li>
+<li><a href="#a-better-alternative">A Better Alternative</a></li>
+      <li><a href="#implementation">Implementation</a></li>
+      <li><a href="#comparing-our-estimates-with-hamiltons">Comparing our estimates with Hamilton’s</a></li>
+      <li><a href="#summary">Summary</a></li>
       </ul>
 </div>
       </div>

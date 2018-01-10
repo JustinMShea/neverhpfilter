@@ -94,7 +94,7 @@ gdp_model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/y
 
 <span class="kw">plot</span>(gdp_model)</code></pre></div>
 <p><img src="Additional-examples_files/figure-html/unnamed-chunk-2-1.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-2.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-3.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-4.png" width="672"></p>
-<p>Additional parameters supported by the <code>glm</code> function can be used as well. An example ussing a different error distribution, defined with the <code>family</code> arguement, is illustrated below.</p>
+<p>Additional parameters supported by the <code>glm</code> function can be used as well. An example ussing a different error distribution, defined with the <code>family</code> argument, is illustrated below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_poisson &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP[<span class="st">"1950/"</span>], <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">family =</span> quasipoisson)
 
 <span class="kw">summary</span>(gdp_poisson)</code></pre></div>
@@ -124,11 +124,6 @@ gdp_model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/y
 ## AIC: NA
 ## 
 ## Number of Fisher Scoring iterations: 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(gdp_poisson)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-3-1.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-2.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-3.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-3-4.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
-<span class="kw">plot</span>(gdp_model)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 <p>In addition to all generic functions inherited in base R, one can also use any package designed to work with model objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
 gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">tidy</a></span>(gdp_model)
@@ -184,6 +179,7 @@ gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span 
 <div id="yth_filtered" class="section level2">
 <h2 class="hasAnchor">
 <a href="#yth_filtered" class="anchor"></a>yth_filtered</h2>
+<p>The function outputs an xts object of all series discussed in Hamilton. They are the original series, trend, cycle, and random walk.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
 
 <span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered, <span class="dv">8</span>))</code></pre></div>
@@ -245,6 +241,11 @@ gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span 
 </tr>
 </tbody>
 </table>
+<p>Because it an xts object, it can be easily graphed with <code>plot.xts</code>, the task beautifully with a simple function call. Note the <code>panels</code> arguement, which we used to plot bars of the cycle.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
+<span class="kw">plot</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_filtered[,3], type="h", on=NA)'</span>)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<p>Once can use packages which recognize xts objects such as <code>PerformanceAnalytics</code>. Recession bars are created easily with the <code>period.areas</code> arguement of the <code>chart.TimeSeries</code> function</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PerformanceAnalytics)
 
   qtr_recc &lt;-<span class="st"> </span><span class="kw">to.quarterly</span>(USREC[<span class="st">"1947-1/2017-3"</span>], <span class="dt">OHLC=</span><span class="ot">FALSE</span>)
@@ -260,12 +261,17 @@ main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
 <p><img src="Additional-examples_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#lines(panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))</span>
 <span class="co">#addSeries(x = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")</span></code></pre></div>
+</div>
+<div id="yth_cycle" class="section level2">
+<h2 class="hasAnchor">
+<a href="#yth_cycle" class="anchor"></a>yth_cycle</h2>
+<p>While Hamilton converts the PAYEMS series into quarterly periodicity and then uses the default parameters of <code>h = 8</code> and <code>p = 4</code>, one can choose to retain the monthly series and adjust the parameters to <code>h = 24</code> and <code>p = 12</code>. This approach removes the parsimony associated with estimating a linear model on 4 lags, as now one will have 12.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS[<span class="st">"1947/"</span>])
 
-employ_cycle &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_cycle.html">yth_cycle</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>)
+employment_cycle &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_cycle.html">yth_cycle</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>)
 
 main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
-<span class="kw">plot</span>(<span class="kw">abs</span>(employ_cycle), <span class="kw">index</span>(employ_filtered), <span class="dt">col =</span> <span class="st">"Black"</span>, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">main =</span> main)</code></pre></div>
+<span class="kw">plot</span>(<span class="kw">abs</span>(employment_cycle), <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">main =</span> main)</code></pre></div>
 <p><img src="Additional-examples_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
 </div>
 </div>
@@ -279,6 +285,7 @@ main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
 <li><a href="#implementation-in-r">Implementation in R</a></li>
       <li><a href="#yth_glm">yth_glm</a></li>
       <li><a href="#yth_filtered">yth_filtered</a></li>
+      <li><a href="#yth_cycle">yth_cycle</a></li>
       </ul>
 </div>
       </div>
