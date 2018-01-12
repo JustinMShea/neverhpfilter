@@ -6,10 +6,9 @@
 
   In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an approach to economic time series filtering which achieves goals the HP-Filter attempts, but ultimately does not produce. 
 
-The abstract offers an excellent introduction.
+Hamilton's abstract offers an excellent introduction:
 
-  > 
-  (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process.  
+  > (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process.  
   (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
   (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
   (4) There's a better alternative. A regression of the variable at date $t + h$ on the four most recent values as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
@@ -19,11 +18,6 @@ The **`neverhpfilter`** package provides functions for implementing his solution
   
 ## Getting Started
 
-Install from CRAN R version >= 3.4.0.
-
-```{r}
-install.packages("neverhpfilter")
-```
 
 Install from the Github master branch on R version >= 3.4.0.
 
