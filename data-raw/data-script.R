@@ -31,6 +31,39 @@ Hamilton_table_2 <- read.table(paste0(getwd(),"/data-raw/Hamilton-table-2.txt"),
 Hamilton_table_2$Sample <- gsub("-","/", Hamilton_table_2$Sample)
 Hamilton_table_2$Sample <- gsub(":", "-", Hamilton_table_2$Sample)
 
+# Real Gross Private Domestic Investment
+GDPIC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GPDIC1.txt", skip = 13, index.column = 1,
+                          header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+# Real Personal Consumption Expenditures
+PCECC96 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PCECC96.txt", skip = 13, index.column = 1,
+                        header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+# Real Exports of Goods and Services
+EXPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/EXPGSC1.txt", skip = 13, index.column = 1,
+                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+# Real imports of goods and services
+IMPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/IMPGSC1.txt", skip = 13, index.column = 1,
+                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+# Real imports of goods and services
+GCEC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GCEC1.txt", skip = 13, index.column = 1,
+                            header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+
+# Civilian Unemployment Rate
+UNRATENSA <- as.xts(read.zoo("https://fred.stlouisfed.org/data/UNRATENSA.txt",
+                             skip = 24, index.column = 1, header = TRUE,
+                             format = "%Y-%m-%d", FUN = as.yearmon))
+
+# Gross Domestic Product: Implicit Price Deflator
+GDPDEF <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GDPDEF.txt", skip = 15,
+                          index.column = 1, header = TRUE, format = "%Y-%m-%d",
+                          FUN = as.yearqtr))
+
+
+
   ###################################################
  # compression data sets to xz level 9 .Rdata files #
 ####################################################
