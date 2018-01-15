@@ -64,25 +64,7 @@
 #' @export
 yth_filter <- function(x, h = 8, p = 4, ...) {
 
-         if(!"xts" %in% class(x)) {
-
-    stop(paste("Argument 'x' must be an object of type xts.", class(x), " is not an xts object"))
-
-  } else if(h %% 1 != 0) {
-
-    stop(paste("Argument 'h' must be a whole number.", h, "is not a whole number."))
-
-  } else if(p %% 1 != 0) {
-
-    stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
-
-  } else {
-        # run yth_ar(p) model and store results
-                  data <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
-              lagnames <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
-        colnames(data) <- lagnames
-               formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
-               neverHP <- stats::glm(formula, data = data, ...)
+      neverHP <- yth_glm(x = x , h = h, p = p, ...)
 
         #fitted and residuals into trend and cycle xts objects
         trend <- xts::as.xts(unname(neverHP$fitted.values),
@@ -92,11 +74,10 @@ yth_filter <- function(x, h = 8, p = 4, ...) {
                              order.by = get(paste0("as.",class(index(x))))(names(neverHP$residuals)))
 
         # merge together relevant components and name accordingly
-                  output <- merge(data[,1], trend, cycle, data[,1] - data[,2])
-            output_names <- c(names(x), paste0(names(x),".", c("trend", "cycle", paste0(lagnames[1],"-",lagnames[2]))))
+                  output <- merge(x, trend, cycle, x - trend)
+            output_names <- c(names(x), paste0(names(x),".", c("trend", "cycle", "random")))
         colnames(output) <- output_names
 
         output
 
-        }
 }
