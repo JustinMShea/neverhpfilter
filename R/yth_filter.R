@@ -12,10 +12,11 @@
 #'  \deqn{y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}}
 #'  \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 #'
-#' @return \code{yth_filter} returns an \code{\link{xts}} object containing four time series.
-#'  They include the original series, model fitted values (\code{\link{yth_trend}}),
-#'  model residuals (\code{\link{yth_cycle}}), and a "random walk" series defined
-#'  by differencing \eqn{y_{t+h}} and \eqn{y_t}.
+#' @return \code{yth_filter} If the default parameter of output = "All" is used, 
+#'  the function returns an \code{\link{xts}} object containing the original time series, 
+#'  model fitted values (\code{\link{yth_glm}}), model residuals (\code{\link{yth_glm}}), 
+#'  and a "random walk" series defined by differencing \eqn{y_{t+h}} and \eqn{y_t}.
+#'  Other output choices lead to various combinations of these time series.
 #'
 #' @param x A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
 #'  such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
@@ -33,6 +34,11 @@
 #'  of monthly periodicity, one may choose \code{p = 12} or aggregate the series
 #'  to quarterly periodicity and maintain the default. Econometricians should
 #'  use this parameter to accommodate the Seasonality of their data.
+#'  
+#' @param component Controls the output of this function. Default = "All" which returns 
+#'  the original time series, model fitted values (\code{\link{yth_trend}}), model 
+#'  residuals (\code{\link{yth_cycle}}), and a "random walk" series defined by 
+#'  differencing \eqn{y_{t+h}} and \eqn{y_t}.
 #'
 #'
 #' @param ... other arguments passed to the function \code{\link[stats]{glm}}
@@ -54,15 +60,15 @@
 #'
 #' l_GDPC1 <- 100*log(GDPC1)
 #'
-#' GDPC1_filter <- yth_filter(l_GDPC1, h = 8, p = 4)
+#' GDPC1_filter <- yth_filter(l_GDPC1, h = 8, p = 4, component = "yth_cycle")
 #'
 #' tail(GDPC1_filter, 8)
 #'
 #' main <- "Log of Real GDP (GDPC1)"
-#' plot(GDPC1_filter[,3:4], grid.col = "white", legend.loc = "topright", main = main)
+#' plot(GDPC1_filter, grid.col = "white", legend.loc = "topright", main = main)
 #'
 #' @export
-yth_filter <- function(x, h = 8, p = 4, ...) {
+yth_filter <- function(x, h = 8, p = 4, component = "All", ...) {
 
       neverHP <- yth_glm(x = x , h = h, p = p, ...)
 
@@ -78,6 +84,29 @@ yth_filter <- function(x, h = 8, p = 4, ...) {
             output_names <- c(names(x), paste0(names(x),".", c("trend", "cycle", "random")))
         colnames(output) <- output_names
 
-        output
-
+        # Choose output
+               if (component == "All") {
+          
+                   return(output)
+        
+        } else if (component == "yth_trend") {
+          
+                   return(output[,1:2])
+          
+        } else if (component == "trend") {
+          
+                   return(output[,2])
+          
+        } else if (component == "cycle") {
+          
+                   return(output[,3])
+          
+        } else if (component == "yth_cycle") {
+          
+                   return(output[,3:4])
+          
+        } else if (component == "random") {
+          
+                   return(output[,4])
+        }
 }
