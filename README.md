@@ -36,13 +36,9 @@ Read the vignette [Reproducing Hamilton.](https://justinmshea.github.io/neverhpf
 
 ## Package Documentation
 
-The package consists of 4 core functions documented here:
+The package consists of 2 core functions documented here:
 
  * [yth_glm](https://justinmshea.github.io/neverhpfilter/reference/yth_glm.html)
-
- * [yth_trend](https://justinmshea.github.io/neverhpfilter/reference/yth_trend.html)
-
- * [yth_cycle](https://justinmshea.github.io/neverhpfilter/reference/yth_cycle.html)
 
  * [yth_filter](https://justinmshea.github.io/neverhpfilter/reference/yth_filter.html)
 
