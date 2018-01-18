@@ -46,7 +46,7 @@
 #'@examples
 #' data(GDPC1)
 #'
-#' GDP_model <- yth_glm(GDPC1, h = 8, p = 4)
+#' GDP_model <- yth_glm(GDPC1, h = 8, p = 4, family = gaussian)
 #'
 #' summary(GDP_model)
 #'
@@ -71,9 +71,9 @@ yth_glm <- function(x, h = 8, p = 4, ...) {
 
             data  <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
 
-            colnames(data)  <- c(paste0("yt",h), paste0('Xt_',0:(p-1)))
+            colnames(data)  <- c(paste0("yt",h), paste0('xt_',0:(p-1)))
 
-            formula <- paste0(c(paste0(paste0("yt",h)," ~ Xt_0"), paste0('+ Xt_',1:(p-1))), collapse = " ")
+            formula <- paste0(c(paste0(paste0("yt",h)," ~ xt_0"), paste0('+ xt_',1:(p-1))), collapse = " ")
 
             stats::glm(formula, data = data, ...)
 
