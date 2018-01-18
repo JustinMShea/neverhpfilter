@@ -4,42 +4,55 @@
 \alias{yth_filter}
 \title{Filtered xts object}
 \usage{
-yth_filter(x, h = 8, p = 4, ...)
+yth_filter(x, h = 8, p = 4, extract = "All", ...)
 }
 \arguments{
 \item{x}{A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
 such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
 For converting objects of type \code{timeSeries, ts, irts, fts, matrix, data.frame}
-or \code{zoo} to \code{\link{xts}}, please read  \code{\link{as.xts}}.}
+or \code{zoo} to \code{\link{xts}}, please read \code{\link{as.xts}}.}
 
 \item{h}{An \code{\link{integer}}, defining the lookahead period.
-Defaults to \code{h = 8}, suggested by Hamilton. The default assumes
-economic data of quarterly periodicity with a lookahead period of 2 years.
-This function is not limited by the default parameter, and Econometricians may
-change it as required.}
+Defaults to \code{h = 8}. The default assumes economic data of quarterly 
+periodicity with a lookahead period of 2 years. This function is not limited 
+by the default parameter, and Econometricians may change it as required.}
 
-\item{p}{An \code{\link{integer}}, indicating the number of lags. A Default of \code{p = 4},
-suggested by Hamilton, assumes data is of quarterly periodicity. If data is
-of monthly periodicity, one may choose \code{p = 12} or aggregate the series
-to quarterly periodicity and maintain the default. Econometricians should
-use this parameter to accommodate the Seasonality of their data.}
+\item{p}{An \code{\link{integer}}, indicating the number of lags. A Default of 
+\code{p = 4}, assumes data is of quarterly periodicity. If data is of monthly 
+periodicity, one may choose \code{p = 12} or aggregate the series to quarterly 
+periodicity and maintain the default. Econometricians should use this parameter 
+to accommodate the Seasonality of their data.}
+
+\item{extract}{A character vector determining the output of this function. 
+Defaults to \code{extract = "All"}, which returns the original time series 
+(\code{x}), \code{\link{fitted.values}} (\code{"trend"}), \code{\link{residuals}}
+(\code{"cycle"}), and a random walk series defined by differencing \eqn{y_{t+h}} 
+and \eqn{y_t} (\code{"random"}). Arguments \code{"trend"}, \code{"cycle"}, and 
+\code{"random"} extract their corresponding univariate series. \code{"yth_trend"} 
+returns both the original series \code{x} and the \code{"trend"} component.
+\code{"yth_cycle"} will return both the \code{"cycle"} and \code{"random"} 
+components.}
 
 \item{...}{other arguments passed to the function \code{\link[stats]{glm}}}
 }
 \value{
-\code{yth_filter} returns an \code{\link{xts}} object containing four time series.
- They include the original series, model fitted values (\code{\link{yth_trend}}),
- model residuals (\code{\link{yth_cycle}}), and a "random walk" series defined
- by differencing \eqn{y_{t+h}} and \eqn{y_t}.
+If the default parameter of output = "All" is used, the function returns 
+ an \code{\link{xts}} object containing the original time series (x), 
+ \code{\link{yth_glm}} model \code{\link{fitted.values}},  \code{\link{yth_glm}} model 
+ \code{\link{residuals}}, and a random walk series defined by differencing 
+ \eqn{y_{t+h}} and \eqn{y_t}. Other output choices lead to various combinations 
+ of these time series.
 }
 \description{
-\code{yth_filter} returns an \code{\link{xts}} object containing the original,
- trend, cycle, and "random walk" series.
+\code{yth_filter} returns an \code{\link{xts}} object containing user defined
+ combinations of the original, trend, cycle, and random walk series.
 }
 \details{
 For time series of quarterly periodicity, Hamilton suggests parameters of
  h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8}
- lookahead periods. Econometricians may explore variations of h. However, p is designed to correspond with the seasonality of a given periodicity and should be matched accordingly.
+ lookahead periods. Econometricians may explore variations of h. However, p 
+ is designed to correspond with the seasonality of a given periodicity and 
+ should be matched accordingly.
  \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
  \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
  Which can be rewritten as:
@@ -48,15 +61,14 @@ For time series of quarterly periodicity, Hamilton suggests parameters of
 }
 \examples{
 data(GDPC1)
+log_GDP <- 100*log(GDPC1)
 
-l_GDPC1 <- 100*log(GDPC1)
+GDP_filtered <- yth_filter(log_GDP, h = 8, p = 4)
+tail(GDP_filtered, 8)
 
-GDPC1_filter <- yth_filter(l_GDPC1, h = 8, p = 4)
-
-tail(GDPC1_filter, 8)
-
-main <- "Log of Real GDP (GDPC1)"
-plot(GDPC1_filter[,3:4], grid.col = "white", legend.loc = "topright", main = main)
+GDP_yth_cycle <- yth_filter(log_GDP, h = 8, p = 4, extract = "yth_cycle")
+main <- "Cyclical and random component of 100*log(Real GDP)"
+plot(GDP_yth_cycle, grid.col = "white", legend.loc = "topright", main = main)
 
 }
 \references{
