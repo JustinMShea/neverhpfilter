@@ -62,10 +62,10 @@ data(PAYEMS)
 PAYEMS_qtr <- xts::to.quarterly(PAYEMS["1947/"], OHLC = FALSE)
 log_Employment <- 100*log(PAYEMS_qtr)
 
-employ_filtered <- yth_filter(log_Employment, h = 8, p = 4, family = gaussian)
+employ_trend <- yth_filter(log_Employment, h = 8, p = 4, extract = "yth_trend", family = gaussian)
 
 main <- "Log of Employment and trend"
-plot(employ_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main)
+plot(employ_trend, grid.col = "white", legend.loc = "topleft", main = main)
 ```
 
 The cycle component is of great interest. Here, it is graphed alongside
@@ -73,23 +73,23 @@ a random walk representation, defined as the difference between the current obse
 and the look-ahead parameter, $h$ (Hamilton 44).
 
 ```{r, warning = FALSE}
+employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, extract = "yth_cycle", family = gaussian)
+
 main <- "Log of Employment cycle and random walk"
-plot(employ_filtered[,3:4], grid.col = "white", legend.loc = "topright", main = main)
+plot(employ_cycle, grid.col = "white", legend.loc = "topright", main = main)
 ```
 
-
-Turning the page, we find a similar graph of the cyclical component of $100 * log($`GDPC1`$)$, or Real Gross Domestic Product, superimposed with it's random walk representation. (Hamilton 45).
+Turning the page, we find a similar graph of the cyclical component of Real Gross Domestic Product ( $100 * log($`GDPC1`$)$) superimposed with it's random walk representation. (Hamilton 45).
 
 ```{r, warning=FALSE, message=FALSE}
 data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
-gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4, family = gaussian)
+gdp_cycle <- yth_filter(log_RGDP, h = 8, p = 4, extract = "yth_cycle", family = gaussian)
 
 main <- "Log of Real GDP cycle and random walk"
-plot(gdp_filtered[,3:4], grid.col = "white", legend.loc = "topright", main = main)
+plot(gdp_cycle, grid.col = "white", legend.loc = "topright", main = main)
 ```
-
 
 
 # Comparing our estimates with Hamilton's
@@ -118,7 +118,7 @@ I'll replicate the table above, combining base R functions with earlier estimate
 
 ```{r, warning = FALSE, message = FALSE}
  # Real Gross Domestic Product
-        GDP_f <- gdp_filtered[,c(3,4)]["/2016-3"]
+        GDP_f <- gdp_cycle["/2016-3"]
   
    GDP.St.Dev <- round(sd(GDP_f[,1], na.rm=TRUE), 4)
   GDP.GDPCorr <- cor(GDP_f[,1], GDP_f[,1], use = "complete.obs")
@@ -131,12 +131,12 @@ colnames(GDP) <- names(Hamilton_table_2)
 
 
  # Employment Situation
-        employ_f <- employ_filtered[,c(3,4)]["/2016-6"]
+        employ_f <- employ_cycle["/2016-6"]
 
    employ.St.Dev <- round(sd(employ_f[,1], na.rm=TRUE), 4)
- employ.GDPCorr. <- round(cor(employ_f[,1], gdp_filtered[,3]["/2016-6"], use = "complete.obs"), 4)
+ employ.GDPCorr. <- round(cor(employ_f[,1], gdp_cycle[,1]["/2016-6"], use = "complete.obs"), 4)
    employ.Random <- round(sd(employ_f[,2], na.rm=TRUE), 3)
- employ.RanCorr. <- round(cor(employ_f[,2], gdp_filtered[,4]["/2016-6"], use = "complete.obs"), 4)
+ employ.RanCorr. <- round(cor(employ_f[,2], gdp_cycle[,2]["/2016-6"], use = "complete.obs"), 4)
           Sample <- gsub(" ","-",paste0(index(employ_f[1,]), "/", index(employ_f["2016-4"])))
 
           employ <- cbind(employ.St.Dev,employ.GDPCorr.,employ.Random,employ.RanCorr., Sample)
