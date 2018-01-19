@@ -38,14 +38,13 @@
 #'  to accommodate the Seasonality of their data.
 #'  
 #' @param output A character vector determining the output of this function. 
-#'  Defaults to \code{output = "all"}, which returns the original time series 
-#'  (\code{x}), \code{\link{fitted.values}} (\code{"trend"}), \code{\link{residuals}}
+#'  Defaults to \code{output = c("x","trend", "cycle", "random")}, which returns the original time series 
+#'  (\code{x}), yth_glm \code{\link{fitted.values}} (\code{"trend"}), yth_glm \code{\link{residuals}}
 #'  (\code{"cycle"}), and a random walk series defined by differencing \eqn{y_{t+h}} 
-#'  and \eqn{y_t} (\code{"random"}). Arguments \code{"trend"}, \code{"cycle"}, and 
-#'  \code{"random"} extract their corresponding univariate series. \code{"yth_trend"} 
-#'  returns both the original series \code{x} and the \code{"trend"} component.
-#'  \code{"yth_cycle"} will return both the \code{"cycle"} and \code{"random"} 
-#'  components.
+#'  and \eqn{y_t} (\code{"random"}). Arguments \code{"x"}, \code{"trend"}, \code{"cycle"}, and 
+#'  \code{"random"} extract their corresponding univariate series and can be merged in any combination.
+#'  For example \code{c("x", "trend")} returns both the original series "x" and the "trend" components. 
+#'  \code{c("cycle", "random")} will return both the "cycle" and "random" components.
 #'
 #'
 #' @param ... other arguments passed to the function \code{\link[stats]{glm}}
@@ -69,59 +68,69 @@
 #' GDP_filtered <- yth_filter(log_GDP, h = 8, p = 4)
 #' tail(GDP_filtered, 8)
 #'
-#' GDP_yth_cycle <- yth_filter(log_GDP, h = 8, p = 4, output = "yth_cycle")
+#' GDP_yth_cycle <- yth_filter(log_GDP, h = 8, p = 4, output = c("cycle", "random"))
 #' main <- "Cyclical and random component of 100*log(Real GDP)"
 #' plot(GDP_yth_cycle, grid.col = "white", legend.loc = "topright", main = main)
 #'
 #' @export
-yth_filter <- function(x, h = 8, p = 4, output = "all", ...) {
-  
-  if(!output %in% c("all","trend", "cycle", "random", "yth_trend", "yth_cycle")) {
-  
-        stop(paste("Argument 'output' must be a character vector of 'all', 'trend',
-                   'cycle', 'random', 'yth_trend', or 'yth_cycle'"))
-  
-      } else {
-
-      neverHP <- yth_glm(x = x , h = h, p = p, ...)
-
-        #fitted and residuals into trend and cycle xts objects
-        trend <- xts::as.xts(unname(neverHP$fitted.values),
-                             order.by = get(paste0("as.",class(index(x))))(names(neverHP$fitted.values)))
-
-        cycle <- xts::as.xts(unname(neverHP$residuals),
-                             order.by = get(paste0("as.",class(index(x))))(names(neverHP$residuals)))
-
-        random  <- lag(x, k = h, na.pad = TRUE)
-        # merge together relevant components and name accordingly
-                filtered <- merge(x, trend, cycle, x-random)
-            output_names <- c(names(x), paste0(names(x),".", c("trend", "cycle", "random")))
-      colnames(filtered) <- output_names
-
-        # Choose output
-               if (output == "all") {
-          
-                   return(filtered)
+yth_filter <- function(x, h = 8, p = 4, output = c("x", "trend", "cycle", "random"), ...) {
         
-        } else if (output == c("yth_trend")) {
+     # Test output paramter and halt function if it doesn't match
+           output_args <- c("x","trend", "cycle", "random")
+           
+     if(length(output) != sum(grepl(paste(output_args, collapse = "|"), output))) {
+  
+       stop(paste0("Incorrect argument '", 
+                  output[!grepl(paste(output_args, collapse = "|"), output)], 
+                  "' present in 'output' argument. Must be a character vector 
+                   containing `x`, 'trend', 'cycle', or 'random'."))
+         
+     } else {     
+               # After test passes, run the yth_function
+               neverHP <- yth_glm(x = x , h = h, p = p, ...) 
+  
+     }
+           
+      # Begin extracting and transforming model series. 
+      # If univariate output is specified, return individual series.
+                 trend <- xts::as.xts(unname(neverHP$fitted.values),
+                             order.by = get(paste0("as.",class(index(x))))(names(neverHP$fitted.values)))
+                 names(trend) <- paste0(names(x),".trend")
+                 
+        if (any(length(output) == 1 & output == "trend")) {return(trend)}
+        
+                 cycle <- xts::as.xts(unname(neverHP$residuals),
+                             order.by = get(paste0("as.",class(index(x))))(names(neverHP$residuals)))
+                 names(cycle) <- paste0(names(x),".cycle")
+                 
+        if (any(length(output) == 1 & output == "cycle")) {return(cycle)}
+        
+                random <- lag(x, k = h, na.pad = TRUE)
+                names(random) <- paste0(names(x),".random")
+                
+        if (any(length(output) == 1 & output == "random")) {return(random)}
+        
+                
+       # If multivariate output is specified, merge/extract specified series.
+                   all <- merge(x, trend, cycle, x-random)
+                   names(all) <- c(names(x), paste0(names(x),".", c("trend", "cycle", "random")))
+        
+         if (any(output == "x")) {
+ 
+                 index <- grep(paste(output, collapse = "|"), names(all))
+                 
+                 return(all[,c(1, index)])
           
-                   return(filtered[,1:2])
-          
-        } else if (output == "trend") {
-          
-                   return(filtered[,2])
-          
-        } else if (output == "cycle") {
-          
-                   return(filtered[,3])
-          
-        } else if (output == "yth_cycle") {
-          
-                   return(filtered[,3:4])
-          
-        } else if (output == "random") {
-          
-                   return(filtered[,4])
-        }
-    }
+         } else {
+      
+                 index <- grep(paste(output, collapse = "|"), names(all))
+                 
+                 return(all[,c(index)])   
+         
+        }         
+ 
 }
+              
+
+
+
