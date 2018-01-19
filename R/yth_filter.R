@@ -37,8 +37,8 @@
 #'  periodicity and maintain the default. Econometricians should use this parameter 
 #'  to accommodate the Seasonality of their data.
 #'  
-#' @param extract A character vector determining the output of this function. 
-#'  Defaults to \code{extract = "All"}, which returns the original time series 
+#' @param output A character vector determining the output of this function. 
+#'  Defaults to \code{output = "all"}, which returns the original time series 
 #'  (\code{x}), \code{\link{fitted.values}} (\code{"trend"}), \code{\link{residuals}}
 #'  (\code{"cycle"}), and a random walk series defined by differencing \eqn{y_{t+h}} 
 #'  and \eqn{y_t} (\code{"random"}). Arguments \code{"trend"}, \code{"cycle"}, and 
@@ -69,16 +69,16 @@
 #' GDP_filtered <- yth_filter(log_GDP, h = 8, p = 4)
 #' tail(GDP_filtered, 8)
 #'
-#' GDP_yth_cycle <- yth_filter(log_GDP, h = 8, p = 4, extract = "yth_cycle")
+#' GDP_yth_cycle <- yth_filter(log_GDP, h = 8, p = 4, output = "yth_cycle")
 #' main <- "Cyclical and random component of 100*log(Real GDP)"
 #' plot(GDP_yth_cycle, grid.col = "white", legend.loc = "topright", main = main)
 #'
 #' @export
-yth_filter <- function(x, h = 8, p = 4, extract = "All", ...) {
+yth_filter <- function(x, h = 8, p = 4, output = "all", ...) {
   
-  if(!extract %in% c("All","trend", "cycle", "random", "yth_trend", "yth_cycle")) {
+  if(!output %in% c("all","trend", "cycle", "random", "yth_trend", "yth_cycle")) {
   
-        stop(paste("Argument 'extract' must be a character vector of 'All', 'trend',
+        stop(paste("Argument 'output' must be a character vector of 'all', 'trend',
                    'cycle', 'random', 'yth_trend', or 'yth_cycle'"))
   
       } else {
@@ -94,34 +94,34 @@ yth_filter <- function(x, h = 8, p = 4, extract = "All", ...) {
 
         random  <- lag(x, k = h, na.pad = TRUE)
         # merge together relevant components and name accordingly
-                  output <- merge(x, trend, cycle, x-random)
+                filtered <- merge(x, trend, cycle, x-random)
             output_names <- c(names(x), paste0(names(x),".", c("trend", "cycle", "random")))
-        colnames(output) <- output_names
+      colnames(filtered) <- output_names
 
         # Choose output
-               if (extract == "All") {
+               if (output == "all") {
           
-                   return(output)
+                   return(filtered)
         
-        } else if (extract == "yth_trend") {
+        } else if (output == c("yth_trend")) {
           
-                   return(output[,1:2])
+                   return(filtered[,1:2])
           
-        } else if (extract == "trend") {
+        } else if (output == "trend") {
           
-                   return(output[,2])
+                   return(filtered[,2])
           
-        } else if (extract == "cycle") {
+        } else if (output == "cycle") {
           
-                   return(output[,3])
+                   return(filtered[,3])
           
-        } else if (extract == "yth_cycle") {
+        } else if (output == "yth_cycle") {
           
-                   return(output[,3:4])
+                   return(filtered[,3:4])
           
-        } else if (extract == "random") {
+        } else if (output == "random") {
           
-                   return(output[,4])
+                   return(filtered[,4])
         }
     }
 }
