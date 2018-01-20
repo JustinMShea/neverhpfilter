@@ -4,7 +4,8 @@
 \alias{yth_filter}
 \title{Filtered xts object}
 \usage{
-yth_filter(x, h = 8, p = 4, extract = "All", ...)
+yth_filter(x, h = 8, p = 4, output = c("x", "trend", "cycle", "random"),
+  ...)
 }
 \arguments{
 \item{x}{A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
@@ -23,15 +24,14 @@ periodicity, one may choose \code{p = 12} or aggregate the series to quarterly
 periodicity and maintain the default. Econometricians should use this parameter 
 to accommodate the Seasonality of their data.}
 
-\item{extract}{A character vector determining the output of this function. 
-Defaults to \code{extract = "All"}, which returns the original time series 
-(\code{x}), \code{\link{fitted.values}} (\code{"trend"}), \code{\link{residuals}}
+\item{output}{A character vector determining the output of this function. 
+Defaults to \code{output = c("x","trend", "cycle", "random")}, which returns the original time series 
+(\code{x}), yth_glm \code{\link{fitted.values}} (\code{"trend"}), yth_glm \code{\link{residuals}}
 (\code{"cycle"}), and a random walk series defined by differencing \eqn{y_{t+h}} 
-and \eqn{y_t} (\code{"random"}). Arguments \code{"trend"}, \code{"cycle"}, and 
-\code{"random"} extract their corresponding univariate series. \code{"yth_trend"} 
-returns both the original series \code{x} and the \code{"trend"} component.
-\code{"yth_cycle"} will return both the \code{"cycle"} and \code{"random"} 
-components.}
+and \eqn{y_t} (\code{"random"}). Arguments \code{"x"}, \code{"trend"}, \code{"cycle"}, and 
+\code{"random"} extract their corresponding univariate series and can be merged in any combination.
+For example \code{c("x", "trend")} returns both the original series "x" and the "trend" components. 
+\code{c("cycle", "random")} will return both the "cycle" and "random" components.}
 
 \item{...}{other arguments passed to the function \code{\link[stats]{glm}}}
 }
@@ -66,7 +66,7 @@ log_GDP <- 100*log(GDPC1)
 GDP_filtered <- yth_filter(log_GDP, h = 8, p = 4)
 tail(GDP_filtered, 8)
 
-GDP_yth_cycle <- yth_filter(log_GDP, h = 8, p = 4, extract = "yth_cycle")
+GDP_yth_cycle <- yth_filter(log_GDP, h = 8, p = 4, output = c("cycle", "random"))
 main <- "Cyclical and random component of 100*log(Real GDP)"
 plot(GDP_yth_cycle, grid.col = "white", legend.loc = "topright", main = main)
 
