@@ -62,7 +62,7 @@ data(PAYEMS)
 PAYEMS_qtr <- xts::to.quarterly(PAYEMS["1947/"], OHLC = FALSE)
 log_Employment <- 100*log(PAYEMS_qtr)
 
-employ_trend <- yth_filter(log_Employment, h = 8, p = 4, extract = "yth_trend", family = gaussian)
+employ_trend <- yth_filter(log_Employment, h = 8, p = 4, output = c("x", "trend"), family = gaussian)
 
 main <- "Log of Employment and trend"
 plot(employ_trend, grid.col = "white", legend.loc = "topleft", main = main)
@@ -73,7 +73,7 @@ a random walk representation, defined as the difference between the current obse
 and the look-ahead parameter, $h$ (Hamilton 44).
 
 ```{r, warning = FALSE}
-employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, extract = "yth_cycle", family = gaussian)
+employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
 
 main <- "Log of Employment cycle and random walk"
 plot(employ_cycle, grid.col = "white", legend.loc = "topright", main = main)
@@ -85,7 +85,7 @@ Turning the page, we find a similar graph of the cyclical component of Real Gros
 data(GDPC1)
 log_RGDP <- 100*log(GDPC1)
 
-gdp_cycle <- yth_filter(log_RGDP, h = 8, p = 4, extract = "yth_cycle", family = gaussian)
+gdp_cycle <- yth_filter(log_RGDP, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
 
 main <- "Log of Real GDP cycle and random walk"
 plot(gdp_cycle, grid.col = "white", legend.loc = "topright", main = main)
