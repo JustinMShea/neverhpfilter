@@ -75,16 +75,13 @@ FEDFUNDS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/FEDFUNDS.txt", ski
                         FUN = as.yearmon))
 
 
-
-
-
   ###################################################
  # compression data sets to xz level 9 .Rdata files #
 ####################################################
 
 dir.create("data")
 
-dataset_list <- c("PAYEMS", "GDPC1", "USREC", "Hamilton_table_2")
+dataset_list <- ls()
 
 for (i in dataset_list) {
 
