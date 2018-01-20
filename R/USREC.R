@@ -67,7 +67,12 @@
 #'
 #' @format An \code{\link{xts}} object containing monthly observations of NBER based Recession Indicators
 #'  \itemize{
-#'  \item\strong{USREC}{ Not Seasonally Adjusted, units of +1 for recession, 0 for no recession.}
+#' #\item\strong{Release:} {Recession Indicators Series (Not a Press Release)}
+#'  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted} 
+#'  \item\strong{Frequency:} {Monthly}
+#'  \item\strong{Units:} {+1 or 0}
+#'  \item\strong{Date Range:} {1854-12-01 to 2017-12-01}
+#'  \item\strong{Last Updated} {2018-01-03 3:21 PM CST}
 #' }
 #'
 #' @source Federal Reserve Bank of St. Louis \url{https://fred.stlouisfed.org/data/USREC.txt}

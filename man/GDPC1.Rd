@@ -6,7 +6,12 @@
 \title{Gross Domestic Product}
 \format{An \code{\link{xts}} object containing quarterly observations of Real Gross Domestic Product.
  \itemize{
- \item\strong{GDPC1} {Seasonally Adjusted Annual Rate, in Billions of Chained 2009 Dollars.}
+ \item\strong{Release:} {Gross Domestic Product}
+ \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
+ \item\strong{Frequency:} {Quarterly}
+ \item\strong{Units:} {Billions of Chained 2009 Dollars}
+ \item\strong{Date Range:} {1947-01-01 to 2017-07-01}
+ \item\strong{Last Updated} {2017-12-21 7:51 AM CST}
 }}
 \source{
 U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPC1.txt}

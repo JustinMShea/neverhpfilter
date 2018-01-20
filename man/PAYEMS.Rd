@@ -6,7 +6,12 @@
 \title{Employment Situation}
 \format{An \code{\link{xts}} object containing monthly observations of All Employees: Total Nonfarm.
  \itemize{
- \item\strong{PAYEMS} {Seasonally Adjusted, Thousands of Persons. }
+ \item\strong{Release:} {Employment Situation}
+ \item\strong{Seasonal Adjustment:} {Seasonally Adjusted}
+ \item\strong{Frequency:} {Monthly}
+ \item\strong{Units:} {Thousands of Persons}
+ \item\strong{Date Range:} {1939-01-01 to 2017-12-01}
+ \item\strong{Last Updated} {2018-01-05 9:13 AM CST}
 }}
 \source{
 U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PAYEMS.txt}
@@ -44,7 +49,7 @@ participation in the labor force; or a general decline in the number
 of employees, a possible indication of a downturn in the economy. To
 closely examine seasonal and non-seasonal changes, the BLS releases
 two monthly statistical measures: the seasonally adjusted All
-Employees: Total Nonfarm (PAYEMS) and All Employees: Total Nonfarm
+Employees: Total Nonfarm (FEDFUNDS) and All Employees: Total Nonfarm
 (PAYNSA), which is not seasonally adjusted.
 
 The series comes from the 'Current Employment Statistics (Establishment Survey).
