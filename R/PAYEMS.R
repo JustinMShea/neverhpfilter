@@ -62,4 +62,10 @@
 #' 
 #' main <- "Log of Employment and trend"
 #' plot(employ_trend, grid.col = "white", legend.loc = "topleft", main = main)
+#' 
+#' 
+#' employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
+#' 
+#' main <- "Log of Employment cycle and random walk"
+#' plot(employ_cycle, grid.col = "white", legend.loc = "topright", main = main)
 "PAYEMS"
