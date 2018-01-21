@@ -54,5 +54,12 @@
 #' @examples
 #' data(PAYEMS)
 #' tail(PAYEMS)
-#' plot(PAYEMS["1947/"], grid.col = "white", col="green")
+#' 
+#' PAYEMS_qtr <- xts::to.quarterly(PAYEMS["1947/"], OHLC = FALSE)
+#' log_Employment <- 100*log(PAYEMS_qtr)
+#' 
+#' employ_trend <- yth_filter(log_Employment, h = 8, p = 4, output = c("x", "trend"), family = gaussian)
+#' 
+#' main <- "Log of Employment and trend"
+#' plot(employ_trend, grid.col = "white", legend.loc = "topleft", main = main)
 "PAYEMS"
