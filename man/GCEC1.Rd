@@ -4,7 +4,7 @@
 \name{GCEC1}
 \alias{GCEC1}
 \title{Real Government Consumption Expenditures and Gross Investment}
-\format{An \code{\link{xts}} object containing quarterly observations of Real Exports of Goods and Services.
+\format{An \code{\link{xts}} object containing observations of Real Exports of Goods and Services.
  \itemize{
  \item\strong{Release:} {Gross Domestic Product}
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
@@ -25,6 +25,7 @@ data(GCEC1)
 \section{Notes}{
 
 BEA Account Code: A822RX
+
 A Guide to the National Income and Product Accounts of the United States (NIPA) 
 - (http://www.bea.gov/national/pdf/nipaguid.pdf)
 }

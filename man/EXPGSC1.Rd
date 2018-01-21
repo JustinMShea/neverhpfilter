@@ -4,7 +4,7 @@
 \name{EXPGSC1}
 \alias{EXPGSC1}
 \title{Real Exports of Goods and Services}
-\format{An \code{\link{xts}} object containing quarterly observations of Real Exports of Goods and Services.
+\format{An \code{\link{xts}} object of Real Exports of Goods and Services.
  \itemize{
  \item\strong{Release:} {Gross Domestic Product}
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 

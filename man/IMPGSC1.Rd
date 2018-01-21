@@ -4,7 +4,7 @@
 \name{IMPGSC1}
 \alias{IMPGSC1}
 \title{Real imports of goods and services}
-\format{An \code{\link{xts}} object containing quarterly observations of Real imports of goods and services.
+\format{An \code{\link{xts}} object of Real imports of goods and services.
  \itemize{
  \item\strong{Release:} {Gross Domestic Product}
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
@@ -25,6 +25,7 @@ data(IMPGSC1)
 \section{Notes}{
 
 BEA Account Code: A021RX
+
 A Guide to the National Income and Product Accounts of the United States (NIPA) 
 - (http://www.bea.gov/national/pdf/nipaguid.pdf)
 }

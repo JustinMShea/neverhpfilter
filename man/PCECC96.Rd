@@ -4,7 +4,7 @@
 \name{PCECC96}
 \alias{PCECC96}
 \title{Real Personal Consumption Expenditures}
-\format{An \code{\link{xts}} object containing quarterly observations of Real Personal Consumption Expenditures.
+\format{An \code{\link{xts}} object of Real Personal Consumption Expenditures.
  \itemize{
  \item\strong{Release:} {Gross Domestic Product}
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
@@ -25,6 +25,7 @@ data(PCECC96)
 \section{Notes}{
 
 BEA Account Code: DPCERX
+
 A Guide to the National Income and Product Accounts of the United States (NIPA) 
 - (http://www.bea.gov/national/pdf/nipaguid.pdf)
 }

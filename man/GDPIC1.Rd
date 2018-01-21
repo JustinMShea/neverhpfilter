@@ -4,7 +4,7 @@
 \name{GDPIC1}
 \alias{GDPIC1}
 \title{Real Gross Private Domestic Investment}
-\format{An \code{\link{xts}} object containing quarterly observations of Real Exports of Goods and Services.
+\format{An \code{\link{xts}} object of Real Exports of Goods and Services.
  \itemize{
  \item\strong{Release:} {Gross Domestic Product}
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 

@@ -4,7 +4,7 @@
 \name{GDPC1}
 \alias{GDPC1}
 \title{Gross Domestic Product}
-\format{An \code{\link{xts}} object containing quarterly observations of Real Gross Domestic Product.
+\format{An \code{\link{xts}} object of Real Gross Domestic Product.
  \itemize{
  \item\strong{Release:} {Gross Domestic Product}
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
@@ -35,7 +35,11 @@ BEA Account Code: A191RX
 
 \examples{
 data(GDPC1)
-tail(GDPC1)
-plot(GDPC1,grid.col = "white", col="blue")
+log_RGDP <- 100*log(GDPC1)
+
+gdp_cycle <- yth_filter(log_RGDP, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
+
+main <- "Log of Real GDP cycle and random walk"
+plot(gdp_cycle, grid.col = "white", legend.loc = "topright", main = main)
 }
 \keyword{datasets}

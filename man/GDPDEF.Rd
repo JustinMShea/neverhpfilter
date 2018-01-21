@@ -4,7 +4,7 @@
 \name{GDPDEF}
 \alias{GDPDEF}
 \title{Gross Domestic Product: Implicit Price Deflator}
-\format{An \code{\link{xts}} object containing quarterly observations of Real Exports of Goods and Services.
+\format{An \code{\link{xts}} object containing observations of Real Exports of Goods and Services.
  \itemize{
  \item\strong{Release:} {Gross Domestic Product}
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 

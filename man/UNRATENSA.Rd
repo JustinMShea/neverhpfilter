@@ -4,7 +4,7 @@
 \name{UNRATENSA}
 \alias{UNRATENSA}
 \title{Civilian Unemployment Rate}
-\format{An \code{\link{xts}} object containing monthly observations of the Civilian Unemployment Rate.
+\format{An \code{\link{xts}} object of the Civilian Unemployment Rate.
  \itemize{
  \item\strong{Release:} {Employment Situation}
  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}

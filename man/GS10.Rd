@@ -4,7 +4,7 @@
 \name{GS10}
 \alias{GS10}
 \title{10-Year Treasury Constant Maturity Rate}
-\format{An \code{\link{xts}} object containing monthly observatons of the 10-Year Treasury Constant Maturity Rate.
+\format{An \code{\link{xts}} object containing observatons of the 10-Year Treasury Constant Maturity Rate.
  \itemize{
  \item\strong{Release:} {H.15 Selected Interest Rates}
  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
@@ -24,7 +24,9 @@ data(GS10)
 }
 \section{Notes}{
 
- Averages of business days. For further information regarding treasury
+ Averages of business days. 
+ 
+ For further information regarding treasury
  constant maturity data, please refer to http://www.federalreserve.gov/releases/h15/current/h15.pdf and
  http://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/yieldmethod.aspx.
 }

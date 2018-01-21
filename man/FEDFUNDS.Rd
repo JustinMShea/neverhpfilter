@@ -4,7 +4,7 @@
 \name{FEDFUNDS}
 \alias{FEDFUNDS}
 \title{Effective Federal Funds Rate}
-\format{An \code{\link{xts}} object containing monthly observatons of the Fed Funds figures.
+\format{An \code{\link{xts}} object of the Fed Funds figures.
  \itemize{
  \item\strong{Release:} {H.15 Selected Interest Rates}
  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
@@ -25,6 +25,7 @@ data(FEDFUNDS)
 \section{Notes}{
 
  Averages of daily figures.
+ 
  The federal funds rate is the interest rate at which depository institutions 
  trade federal funds (balances held at Federal Reserve Banks) with each other 
  overnight. When a depository institution has surplus balances in its reserve 
