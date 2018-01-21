@@ -105,14 +105,14 @@ yth_filter <- function(x, h = 8, p = 4, output = c("x", "trend", "cycle", "rando
                  
         if (any(length(output) == 1 & output == "cycle")) {return(cycle)}
         
-                random <- lag(x, k = h, na.pad = TRUE)
+                random <- x-lag(x, k = h, na.pad = TRUE)
                 names(random) <- paste0(names(x),".random")
                 
         if (any(length(output) == 1 & output == "random")) {return(random)}
         
                 
        # If multivariate output is specified, merge/extract specified series.
-                   all <- merge(x, trend, cycle, x-random)
+                   all <- merge(x, trend, cycle, random)
                    names(all) <- c(names(x), paste0(names(x),".", c("trend", "cycle", "random")))
         
          if (any(output == "x")) {
