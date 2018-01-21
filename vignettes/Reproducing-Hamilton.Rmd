@@ -94,12 +94,11 @@ plot(gdp_cycle, grid.col = "white", legend.loc = "topright", main = main)
 
 # Comparing our estimates with Hamilton's
 
-When attempting to recreate the methods of others, one may perform surprisingly well "eyeballing" the authors graphs whilst comparing with thy own. Better still is a table presenting numerical estimations.
+When striving to recreate a statistical method found in a journal or paper, one can perform surprisingly well by thoroughly digesting the relevant sections and "eyeballing" the output graphs usually included in the authors work. Better still, is a table presenting the authors results, which one may use to compare against their own reproduction.
 
-Fortunately, the Appendix displays just such a table (Hamilton 40). Continuing to 
-work with Real GDP (`GDPC1`) and Employment (`PAYEMS`) data, I compare Hamilton's original results for these series with those estimated by functions written for the **`neverhpfilter`** package.
+Fortunately for us, the Appendix displays such a table. I compare Hamilton's results with those estimated by functions contained in the **`neverhpfilter`** package.
 
-Presenting Hamilton's results, which are stored as a `data.frame` in this package.
+Below are Hamilton's results from table 2 (Hamilton 40), which are stored as a `data.frame` in this package.
 
 ```{r, eval=FALSE}
 data("Hamilton_table_2")
@@ -108,15 +107,42 @@ data("Hamilton_table_2")
 ```
 
 ```{r}
-index <- rownames(Hamilton_table_2)=="GDP" | rownames(Hamilton_table_2)=="Employment"
-
-kable(Hamilton_table_2[index,], align = 'l', caption = "Hamilton's results: table 2, pg. 40")
+kable(Hamilton_table_2, align = 'l', caption = "Hamilton's results: table 2, pg. 40")
 ```
 
 
-I'll replicate the table above, combining base R functions with earlier estimates of the `yth_filter` function on `100 * log` of `PAYEMS` and `GDPC1`.
+I'll replicate the table above, combining base R functions with estimates of the `yth_filter` function.
 
 ```{r, warning = FALSE, message = FALSE}
+quarterly_data <- 100*log(merge(GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF)["1947/2016-1"])
+
+# Transform monthly to quarterly series and match Hamiltons date range for the series.
+monthly_data <- merge(100*log(PAYEMS), 100*log(SP500$SP500), UNRATENSA, GS10, FEDFUNDS)
+to_quarterly_data <- do.call(merge, lapply(monthly_data, to.quarterly, OHLC = FALSE))["1947/2016-6"]
+
+# Merge series, and log transform monthly to quarterly series.
+quarterly_data <- merge(quarterly_data, to_quarterly_data)
+
+# Calculate cycle and correlation
+cycle <- do.call(merge, lapply(quarterly_data, yth_filter, output = "cycle"))
+
+cycle.sd <- t(data.frame(lapply(cycle, sd, na.rm = TRUE)))
+GDP.cor <- t(data.frame(lapply(cycle, cor, cycle[,1], use = "complete.obs")))
+
+# Calculate random and correlation
+random <- do.call(merge, lapply(quarterly_data, yth_filter, output = "random"))
+
+random.sd <- t(data.frame(lapply(random, sd, na.rm = TRUE)))
+random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")))
+
+my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 4)
+names(my_table_2) <- names(Hamilton_table_2[,-5])
+
+my_table_2
+```
+
+
+```{r, warning = FALSE, message = FALSE, eval = FALSE}
  # Real Gross Domestic Product
         GDP_f <- gdp_cycle["/2016-3"]
   
@@ -147,7 +173,7 @@ Finally, row-bind the original table with the new table and compare. They are ne
 
 ```{r, warning = FALSE, message = FALSE, caption = "Comparison table: Hamilton vs neverhpfilter"}
  # Combined table
-kable(rbind(Hamilton_table_2[index,], GDP, employ), align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter")
+kable(rbind(Hamilton_table_2, my_table_2), align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter")
 
 ```
 
