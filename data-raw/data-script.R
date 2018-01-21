@@ -74,7 +74,25 @@ FEDFUNDS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/FEDFUNDS.txt", ski
                         index.column = 1, header = TRUE, format = "%Y-%m-%d",
                         FUN = as.yearmon))
 
+# S&P 500
+library(readxl)
+ie_data <- paste0(getwd(),"/data-raw/ie_data.xls")
+SP <- read_excel(ie_data, sheet = 3, skip = 7)[,-6]
+names(SP) <- c("Date", "SP500", "Dividend", "Earnings", "CPI", "GS10",
+"Real_SP500", "Real_Dividend", "Real_Earnings", "CAPE")
 
+SP$CAPE <- as.numeric(SP$CAPE)
+
+# clean up non-standard excel Date formate. Example 2018.1, for January 2018.
+SP$Date <- as.character(SP$Date)
+SP$Date <- gsub("\\.", "-", SP$Date)
+SP$Date <- gsub("-1$", "-10", SP$Date)
+
+# conver to xts
+SP500 <- as.xts(SP[-NROW(SP),-1], order.by = as.yearmon(SP$Date[-NROW(SP)], "%Y-%m"))
+SP500 <- SP500["/2017"]
+
+rm(SP, ie_data)
   ###################################################
  # compression data sets to xz level 9 .Rdata files #
 ####################################################
