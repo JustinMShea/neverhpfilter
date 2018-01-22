@@ -77,20 +77,30 @@ employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, output = c("cycle", "ra
 
 main <- "Log of Employment cycle and random walk"
 plot(employ_cycle, grid.col = "white", legend.loc = "topright", main = main)
+abline(h=0)
 ```
 
-Turning the page, we find a similar graph of the cyclical component of Real Gross Domestic Product ( $100 * log($`GDPC1`$)$) superimposed with it's random walk representation. (Hamilton 45).
+Turning the page, we find a similar graph of the cyclical component of $100 * log$ of GDP, Exports, Consumption, Imports, Investment, and Government superimposed with their random walk representations. (Hamilton 45).
 
-```{r, warning=FALSE, message=FALSE}
-data(GDPC1)
-log_RGDP <- 100*log(GDPC1)
+```{r, message=FALSE, warning=FALSE}
+fig6_data <- 100*log(merge(GDPC1, EXPGSC1, PCECC96, IMPGSC1, GDPIC1, GCEC1)["1947/2016-1"])
 
-gdp_cycle <- yth_filter(log_RGDP, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
-
-main <- "Log of Real GDP cycle and random walk"
-plot(gdp_cycle, grid.col = "white", legend.loc = "topright", main = main)
+fig6_plots <- function(x, ...) {
+               cycle <-  yth_filter(x, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
+              main <- paste0(names(cycle)[1]," and random")
+              plot(cycle, grid.col = "white", lwd=1, main = main)
+}
 ```
 
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+par(mfrow=c(3,2))
+lapply(fig6_data, fig6_plots)
+```
+
+```{r, echo=FALSE,results='hide',fig.keep='all'}
+par(mfrow=c(3,2))
+lapply(fig6_data, fig6_plots)
+```
 
 # Comparing our estimates with Hamilton's
 
@@ -114,6 +124,7 @@ kable(Hamilton_table_2, align = 'l', caption = "Hamilton's results: table 2, pg.
 I'll replicate the table above, combining base R functions with estimates of the `yth_filter` function.
 
 ```{r, warning = FALSE, message = FALSE}
+# Merge series with default quarterly frequency
 quarterly_data <- 100*log(merge(GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF)["1947/2016-1"])
 
 # Transform monthly to quarterly series and match Hamiltons date range for the series.
