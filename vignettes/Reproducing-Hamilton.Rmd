@@ -64,8 +64,7 @@ log_Employment <- 100*log(PAYEMS_qtr)
 
 employ_trend <- yth_filter(log_Employment, h = 8, p = 4, output = c("x", "trend"), family = gaussian)
 
-main <- "Log of Employment and trend"
-plot(employ_trend, grid.col = "white", legend.loc = "topleft", main = main)
+plot(employ_trend, grid.col = "white", legend.loc = "topleft", main = "Log of Employment and trend")
 ```
 
 The cycle component is of great interest. Here, it is graphed alongside
@@ -75,129 +74,130 @@ and the look-ahead parameter, $h$ (Hamilton 44).
 ```{r, warning = FALSE}
 employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
 
-main <- "Log of Employment cycle and random walk"
-plot(employ_cycle, grid.col = "white", legend.loc = "topright", main = main)
+plot(employ_cycle, grid.col = "white", legend.loc = "topright", main="Log of Employment cycle and random walk")
 abline(h=0)
 ```
 
-Turning the page, we find a similar graph of the cyclical component of $100 * log$ of GDP, Exports, Consumption, Imports, Investment, and Government superimposed with their random walk representations. (Hamilton 45).
+Turning the page, we find a similar graph of the cyclical component of $100 * log$ of GDP, Exports, Consumption, Imports, Investment, and Government superimposed with their random walk representations. (Hamilton 45). 
+
+Below I `merge` these data into one `xts` object and write a function wrapper around `yth_filter` and `plot`, which is then `lapply`'d over each series, producing a plot for each one.
 
 ```{r, message=FALSE, warning=FALSE}
-fig6_data <- 100*log(merge(GDPC1, EXPGSC1, PCECC96, IMPGSC1, GDPIC1, GCEC1)["1947/2016-1"])
+fig6_data <- 100*log(merge(GDPC1, EXPGSC1, PCECC96, IMPGSC1, GDPIC1, GCEC1)["1947/2016-3"])
 
-fig6_plots <- function(x, ...) {
+fig6_wrapper <- function(x, ...) {
+  
                cycle <-  yth_filter(x, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
-              main <- paste0(names(cycle)[1]," and random")
-              plot(cycle, grid.col = "white", lwd=1, main = main)
+               plot(cycle, grid.col = "white", lwd=1, main = paste0(names(cycle)[1]," and random"))
 }
 ```
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 par(mfrow=c(3,2))
-lapply(fig6_data, fig6_plots)
+lapply(fig6_data, fig6_wrapper)
 ```
 
 ```{r, echo=FALSE,results='hide',fig.keep='all'}
 par(mfrow=c(3,2))
-lapply(fig6_data, fig6_plots)
+lapply(fig6_data, fig6_wrapper)
 ```
 
 # Comparing our estimates with Hamilton's
 
-When striving to recreate a statistical method found in a journal or paper, one can perform surprisingly well by thoroughly digesting the relevant sections and "eyeballing" the output graphs usually included in the authors work. Better still, is a table presenting the authors results, which one may use to compare against their own reproduction.
+When striving to recreate a statistical method found in a journal or paper, one can perform surprisingly well by thoroughly digesting the relevant sections and "eyeballing" graphs included in the authors work. 
 
-Fortunately for us, the Appendix displays such a table. I compare Hamilton's results with those estimated by functions contained in the **`neverhpfilter`** package.
+Better still, is a table presenting the authors results, which one may use to direclty
+compare with their own reproduction. Fortunately for us, Hamilton's Appendix displays such a table which I use to test against estimates computed with functions contained in **`neverhpfilter`**.
 
-Below are Hamilton's results from table 2 (Hamilton 40), which are stored as a `data.frame` in this package.
+His results are displayed below in table 2 (Hamilton 40), which I've stored as a `data.frame` in this package.
 
 ```{r, eval=FALSE}
 data("Hamilton_table_2")
 ?Hamilton_table_2
+```
 
-kable(Hamilton_table_2, align = 'l', caption = "Hamilton's results: table 2, pg. 40")
+```{r}
+kable(Hamilton_table_2[-NROW(Hamilton_table_2),], align = 'l', caption = "Hamilton's results: table 2, pg. 40")
 ```
 
 
 I'll replicate the table above, combining base R functions with estimates of the `yth_filter` function.
 
-```{r, warning = FALSE, message = FALSE}
-# Merge series with default quarterly frequency
-quarterly_data <- 100*log(merge(GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF)["1947/2016-1"])
+Per the usual protocol when approaching such a problem, the first step is to combine
+data in manner that allows for convenient iteration of computations across all data sets.
+First, I `merge` series which already have a quarterly frequency. These are `GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF`. At this step, we can also subset observations by the date range used by Hamilton. As all series of which units are measured in prices need to be given the $100*log$ treatment, I add that to this step as well.
 
-# Transform monthly to quarterly series and match Hamiltons date range for the series.
-monthly_data <- merge(100*log(PAYEMS), 100*log(SP500$SP500), UNRATENSA, GS10, FEDFUNDS)
+```{r, warning = FALSE, message = FALSE}
+quarterly_data <- 100*log(merge(GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF)["1947/2016-3"])
+```
+
+Some of the series we wish to compare have a monthly periodicity, so we need to lower their frequency `to.quarterly`. First, `merge` monthly series and $100*log$ those expressed in prices, not percentages. Then, functionally iterate over every series and transform them `to.quarterly`.
+Presumably because more data was available at the time of Hamilton's work, monthly series include observations from the second quarter of 2016 and so I subset accordingly. Finally, all series are combined into one `xts` object, `quarterly_data`.
+
+```{r, warning = FALSE, message = FALSE}
+monthly_data <- merge(100*log(PAYEMS), 100*log(SP500$SP500)["1950/"], UNRATENSA, GS10, FEDFUNDS)
+
 to_quarterly_data <- do.call(merge, lapply(monthly_data, to.quarterly, OHLC = FALSE))["1947/2016-6"]
 
-# Merge series, and log transform monthly to quarterly series.
 quarterly_data <- merge(quarterly_data, to_quarterly_data)
+```
 
-# Calculate cycle and correlation
+Now that the data has been prepped, its time to functionally iterate over each series, `lapply`ing the `yth_filter` to all. The optional argument of `output = "cycle"` comes in handy because it returns the labeled univariate cycle component for each series. The same can be done for the `random` component as well.
+
+```{r, warning = FALSE, message = FALSE}
 cycle <- do.call(merge, lapply(quarterly_data, yth_filter, output = "cycle"))
 
+random <- do.call(merge, lapply(quarterly_data, yth_filter, output = "random"))
+```
+
+Now that all data have been transformed into both cycle and random components, its 
+time to estimate the standard deviation for each, as well as each components correlation 
+with GDP. This is also a good opportunity to `t`ranspose each of our estimates into vertical columned `data.frames`, matching Hamilton's format. 
+
+```{r, warning = FALSE, message = FALSE}
 cycle.sd <- t(data.frame(lapply(cycle, sd, na.rm = TRUE)))
 GDP.cor <- t(data.frame(lapply(cycle, cor, cycle[,1], use = "complete.obs")))
-
-# Calculate random and correlation
-random <- do.call(merge, lapply(quarterly_data, yth_filter, output = "random"))
-
 random.sd <- t(data.frame(lapply(random, sd, na.rm = TRUE)))
 random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")))
 
-# Extract date ranges for display
-Sample_range <- function(x) {
+my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 2)
+```
+
+Hamilton displays the date ranges of his samples so we will do the same. 
+
+I use a simple function I call `sample_range` to extract the first and last observation of each
+series' `index.xts`. This approach serves as a check on the work, as oppose to 
+manually creating labels.
+
+Sample ranges are then `t`ransposed into vertical `data.frames` and `cbind`'d to 
+the existing table of estimates. 
+
+```{r, warning = FALSE, message = FALSE}
+sample_range <- function(x) {
   x <- na.omit(x)
   gsub(" ", "-", paste0(index(x[1,]), "/", index(x[NROW(x),])))
 }
 
-data_sample <- t(data.frame(lapply(quarterly_data, Sample_range)))
+data_sample <- t(data.frame(lapply(quarterly_data, sample_range)))
 
-# merge tables today, round, and output
-my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 2)
 my_table_2 <- cbind(my_table_2, data_sample)
 names(my_table_2) <- names(Hamilton_table_2)
-
-kable(my_table_2)
 ```
 
 
-```{r, warning = FALSE, message = FALSE, eval = FALSE}
- # Real Gross Domestic Product
-        GDP_f <- gdp_cycle["/2016-3"]
-  
-   GDP.St.Dev <- round(sd(GDP_f[,1], na.rm=TRUE), 4)
-  GDP.GDPCorr <- cor(GDP_f[,1], GDP_f[,1], use = "complete.obs")
-   GDP.Random <- round(sd(GDP_f[,2], na.rm=TRUE), 4)
-  GDP.RanCorr <- cor(GDP_f[,2], GDP_f[,2], use = "complete.obs")
-       Sample <- gsub(" ", "-", paste0(index(GDP_f[1,]), "/", index(GDP_f["2016"])))
-
-          GDP <- cbind(GDP.St.Dev, GDP.GDPCorr, GDP.Random, GDP.RanCorr, Sample)
-colnames(GDP) <- names(Hamilton_table_2)
-
-
- # Employment Situation
-        employ_f <- employ_cycle["/2016-6"]
-
-   employ.St.Dev <- round(sd(employ_f[,1], na.rm=TRUE), 4)
- employ.GDPCorr. <- round(cor(employ_f[,1], gdp_cycle[,1]["/2016-6"], use = "complete.obs"), 4)
-   employ.Random <- round(sd(employ_f[,2], na.rm=TRUE), 3)
- employ.RanCorr. <- round(cor(employ_f[,2], gdp_cycle[,2]["/2016-6"], use = "complete.obs"), 4)
-          Sample <- gsub(" ","-",paste0(index(employ_f[1,]), "/", index(employ_f["2016-4"])))
-
-          employ <- cbind(employ.St.Dev,employ.GDPCorr.,employ.Random,employ.RanCorr., Sample)
-colnames(employ) <- names(Hamilton_table_2)
-```
-
-Finally, row-bind the original table with the new table and compare. They are nearly identical.
+Finally, `rbind` Hamilton's table 2 with my table and compare. They are nearly 
+identical, inspiring confidence in the repilcation of this approach.
 
 
 ```{r, warning = FALSE, message = FALSE, caption = "Comparison table: Hamilton vs neverhpfilter"}
  # Combined table
-combined_table <- rbind(Hamilton_table_2, my_table_2)
-combined_table <- combined_table[order(combined_table$gdp.cor, decreasing = TRUE),]
-kable(combined_table, align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter")
+combined_table <- rbind(Hamilton_table_2[-NROW(Hamilton_table_2),], my_table_2)
+combined_table <- combined_table[order(combined_table$cycle.sd),]
+kable(combined_table, align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter, sorted by sd. of the cycle component.")
 ```
 
 # Summary
 
-The estimates generated with the `neverhpfilter` package are nearly identical to those displayed by Hamilton(2017). If one has the use case, the collection of generalized functions will estimate higher frequency time series as well as error distributions other than Gaussian. In addition to consulting the paper which inspired this package, documention of each function is highly recommended reading.
+The estimates generated with the `neverhpfilter` package are nearly identical to those displayed by Hamilton(2017). If one has the use case, the generalized functions will estimate higher frequency time series as well as error distributions other than Gaussian. In addition to consulting the paper which inspired this package, check out the documentation for
+`yth_filter` to learn more.
 
