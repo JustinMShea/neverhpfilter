@@ -138,7 +138,7 @@ random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")
 my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 4)
 names(my_table_2) <- names(Hamilton_table_2[,-5])
 
-kable(my_table_2)
+kable(my_table_2, digits = 2)
 ```
 
 
@@ -171,7 +171,8 @@ colnames(employ) <- names(Hamilton_table_2)
 
 Finally, row-bind the original table with the new table and compare. They are nearly identical.
 
-```{r, eval=FALSE,warning = FALSE, message = FALSE, caption = "Comparison table: Hamilton vs neverhpfilter"}
+
+```{r, eval=FALSE, warning = FALSE, message = FALSE, caption = "Comparison table: Hamilton vs neverhpfilter"}
  # Combined table
 kable(rbind(Hamilton_table_2, my_table_2), align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter")
 
