@@ -146,8 +146,18 @@ random <- do.call(merge, lapply(quarterly_data, yth_filter, output = "random"))
 random.sd <- t(data.frame(lapply(random, sd, na.rm = TRUE)))
 random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")))
 
-my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 4)
-names(my_table_2) <- names(Hamilton_table_2[,-5])
+# Extract date ranges for display
+Sample_range <- function(x) {
+  x <- na.omit(x)
+  gsub(" ", "-", paste0(index(x[1,]), "/", index(x[NROW(x),])))
+}
+
+data_sample <- t(data.frame(lapply(quarterly_data, Sample_range)))
+
+# merge tables today, round, and output
+my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 3)
+my_table_2 <- cbind(my_table_2, data_sample)
+names(my_table_2) <- names(Hamilton_table_2)
 
 kable(my_table_2, digits = 2)
 ```
