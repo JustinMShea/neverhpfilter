@@ -19,6 +19,9 @@ U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GPDIC1.tx
 \usage{
 data(GPDIC1)
 }
+\description{
+\code{GPDIC1} Real Gross Private Domestic Investment
+}
 \section{Notes}{
 
 BEA Account Code: A006RX

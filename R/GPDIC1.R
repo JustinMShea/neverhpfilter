@@ -1,6 +1,6 @@
 #' Real Gross Private Domestic Investment
 #'
-#' \code{GPDIC1 Real Gross Private Domestic Investment
+#' \code{GPDIC1} Real Gross Private Domestic Investment
 #'
 #'@section Notes:
 #' BEA Account Code: A006RX

@@ -106,7 +106,7 @@ the default parameters of `h = 8` and `p = 4`, one can choose to retain the mont
 ```{r, warning = FALSE}
 Employment_log <- 100*log(PAYEMS["1947/"])
 
-employment_cycle <- yth_cycle(Employment_log, h = 24, p = 12)
+employment_cycle <- yth_filter(Employment_log, h = 24, p = 12, output = "cycle")
 
 main <- "Absolute Log of Employment cycle"
 plot(abs(employment_cycle), grid.col = "white", main = main)
