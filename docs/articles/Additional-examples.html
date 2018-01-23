@@ -109,10 +109,10 @@ gdp_model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/y
 ## Coefficients:
 ##               Estimate Std. Error  t value Pr(&gt;|t|)    
 ## (Intercept)  5.8065022  0.0043398 1337.956  &lt; 2e-16 ***
-## Xt_0         0.0015535  0.0003354    4.632 5.78e-06 ***
-## Xt_1        -0.0005016  0.0005509   -0.910    0.363    
-## Xt_2        -0.0001500  0.0005493   -0.273    0.785    
-## Xt_3         0.0002094  0.0003284    0.638    0.524    
+## xt_0         0.0015535  0.0003354    4.632 5.78e-06 ***
+## xt_1        -0.0005016  0.0005509   -0.910    0.363    
+## xt_2        -0.0001500  0.0005493   -0.273    0.785    
+## xt_3         0.0002094  0.0003284    0.638    0.524    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -146,28 +146,28 @@ gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span 
 <td align="right">0.0000000</td>
 </tr>
 <tr class="even">
-<td align="left">Xt_0</td>
+<td align="left">xt_0</td>
 <td align="right">1.1722639</td>
 <td align="right">0.2336541</td>
 <td align="right">5.0170908</td>
 <td align="right">0.0000010</td>
 </tr>
 <tr class="odd">
-<td align="left">Xt_1</td>
+<td align="left">xt_1</td>
 <td align="right">-0.3432205</td>
 <td align="right">0.3858303</td>
 <td align="right">-0.8895632</td>
 <td align="right">0.3745012</td>
 </tr>
 <tr class="even">
-<td align="left">Xt_2</td>
+<td align="left">xt_2</td>
 <td align="right">-0.1296324</td>
 <td align="right">0.3856853</td>
 <td align="right">-0.3361092</td>
 <td align="right">0.7370525</td>
 </tr>
 <tr class="odd">
-<td align="left">Xt_3</td>
+<td align="left">xt_3</td>
 <td align="right">0.2769114</td>
 <td align="right">0.2320986</td>
 <td align="right">1.1930765</td>
@@ -188,7 +188,7 @@ gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span 
 <th align="right">GDPC1</th>
 <th align="right">GDPC1.trend</th>
 <th align="right">GDPC1.cycle</th>
-<th align="right">GDPC1.yt8-Xt_0</th>
+<th align="right">GDPC1.random</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -268,7 +268,7 @@ main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
 <p>While Hamilton converts the PAYEMS series into quarterly periodicity and then uses the default parameters of <code>h = 8</code> and <code>p = 4</code>, one can choose to retain the monthly series and adjust the parameters to <code>h = 24</code> and <code>p = 12</code>. This approach removes the parsimony associated with estimating a linear model on 4 lags, as now one will have 12.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS[<span class="st">"1947/"</span>])
 
-employment_cycle &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_cycle.html">yth_cycle</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>)
+employment_cycle &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>, <span class="dt">output =</span> <span class="st">"cycle"</span>)
 
 main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
 <span class="kw">plot</span>(<span class="kw">abs</span>(employment_cycle), <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">main =</span> main)</code></pre></div>

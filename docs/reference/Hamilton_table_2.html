@@ -106,9 +106,9 @@ component of GDP for assorted macroeconomic series.</p>
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A data.frame containing 13 economic time series observations of 5 variables.</p><ul>
-<li><p><strong>cycle.sd</strong> Standard deviation  of the cycle component, computed with function `yth_cycle`</p></li>
+<li><p><strong>cycle.sd</strong> Standard deviation  of the cycle component, computed with function `yth_filter(x, output = "cycle")`</p></li>
 <li><p><strong>gdp.cor</strong> Correlation of `cycle.sd` with the cycle.sd of 100 * log(RealGDP)</p></li>
-<li><p><strong>random.sd</strong> Standard deviation of a Random-walk, computed by a rolling differencing the series by period `h`, the same passed to `yth_cycle` to compute `cycle.sd`.</p></li>
+<li><p><strong>random.sd</strong> Standard deviation of a Random-walk, computed by a rolling differencing the series by period `h`, the same passed to `yth_filter(x, output = "cycle")` to compute `cycle.sd`.</p></li>
 <li><p><strong>gdp.rand.cor</strong> Correlation of `random.sd` with the random.sd of 100 * log(RealGDP).</p></li>
 </ul>
     

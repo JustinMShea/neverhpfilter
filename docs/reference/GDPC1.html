@@ -104,8 +104,13 @@
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An <code>xts</code> object containing quarterly observations of Real Gross Domestic Product.</p><ul>
-<li><p><strong>GDPC1</strong> Seasonally Adjusted Annual Rate, in Billions of Chained 2009 Dollars.</p></li>
+    <p>An <code>xts</code> object of Real Gross Domestic Product.</p><ul>
+<li><p><strong>Release:</strong> Gross Domestic Product</p></li>
+<li><p><strong>Seasonal Adjustment:</strong> Seasonally Adjusted Annual Rate</p></li>
+<li><p><strong>Frequency:</strong> Quarterly</p></li>
+<li><p><strong>Units:</strong> Billions of Chained 2009 Dollars</p></li>
+<li><p><strong>Date Range:</strong> 1947-01-01 to 2017-07-01</p></li>
+<li><p><strong>Last Updated</strong> 2017-12-21 7:51 AM CST</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
@@ -124,13 +129,12 @@ of the United States (NIPA) - <a href='http://www.bea.gov/national/pdf/nipaguid.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>GDPC1</span>)
-<span class='fu'>tail</span>(<span class='no'>GDPC1</span>)</div><div class='output co'>#&gt;            GDPC1
-#&gt; 2016 Q2 16663.52
-#&gt; 2016 Q3 16778.15
-#&gt; 2016 Q4 16851.42
-#&gt; 2017 Q1 16903.24
-#&gt; 2017 Q2 17031.08
-#&gt; 2017 Q3 17163.89</div><div class='input'><span class='fu'>plot</span>(<span class='no'>GDPC1</span>,<span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='img'><img src='GDPC1-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='no'>log_RGDP</span> <span class='kw'>&lt;-</span> <span class='fl'>100</span>*<span class='fu'>log</span>(<span class='no'>GDPC1</span>)
+
+<span class='no'>gdp_cycle</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='yth_filter.html'>yth_filter</a></span>(<span class='no'>log_RGDP</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"cycle"</span>, <span class='st'>"random"</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>gaussian</span>)
+
+<span class='no'>main</span> <span class='kw'>&lt;-</span> <span class='st'>"Log of Real GDP cycle and random walk"</span>
+<span class='fu'>plot</span>(<span class='no'>gdp_cycle</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>legend.loc</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>main</span>)</div><div class='img'><img src='GDPC1-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • neverhpfilter</title>
+<title>Gross Domestic Product: Implicit Price Deflator � GDPDEF • neverhpfilter</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-vignette-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -90,21 +90,64 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Articles <small>version&nbsp;0.2-0</small></h1>
-</div>
-
-<div class="row">
-  <div class="col-md-9">
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="Additional-examples.html">Additional examples</a></li>
-        <li><a href="Reproducing-Hamilton.html">Reproducing Hamilton</a></li>
-      </ul>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Gross Domestic Product: Implicit Price Deflator</h1>
     </div>
+
+    
+    <p><code>GDPDEF</code> Gross Domestic Product: Implicit Price Deflator</p>
+    
+
+    <pre class="usage"><span class='fu'>data</span>(<span class='no'>GDPDEF</span>)</pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An <code>xts</code> object containing observations of Real Exports of Goods and Services.</p><ul>
+<li><p><strong>Release:</strong> Gross Domestic Product</p></li>
+<li><p><strong>Seasonal Adjustment:</strong> Seasonally Adjusted Annual Rate</p></li>
+<li><p><strong>Frequency:</strong> Quarterly</p></li>
+<li><p><strong>Units:</strong> Index 2009 = 100</p></li>
+<li><p><strong>Date Range:</strong> 1947-01-01 to 2017-07-01</p></li>
+<li><p><strong>Last Updated</strong> 2017-12-21 7:51 AM CST</p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>U.S. Bureau of Economic Analysis <a href='https://fred.stlouisfed.org/data/GDPDEF.txt'>https://fred.stlouisfed.org/data/GDPDEF.txt</a></p>
+    
+    <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+
+    
+    <p>BEA Account Code: A191RD</p>
+<p>The number of decimal places reported varies over time. A Guide to the National 
+Income and Product Accounts of the United States (NIPA) - (http://www.bea.gov/national/pdf/nipaguid.pdf)</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>GDPDEF</span>)
+<span class='fu'>tail</span>(<span class='no'>GDPDEF</span>)</div><div class='output co'>#&gt;            [,1]
+#&gt; 2016 Q2 111.249
+#&gt; 2016 Q3 111.628
+#&gt; 2016 Q4 112.190
+#&gt; 2017 Q1 112.746
+#&gt; 2017 Q2 113.029
+#&gt; 2017 Q3 113.614</div><div class='input'><span class='fu'>plot</span>(<span class='no'>GDPDEF</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='img'><img src='GDPDEF-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+
+      <li><a href="#notes">Notes</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
