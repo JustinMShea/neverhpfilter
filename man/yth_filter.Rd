@@ -73,7 +73,7 @@ plot(employ_trend, grid.col = "white", legend.loc = "topleft",
 
 #----------------------------------------------------------------------------#
 
-quarterly_data <- 100*log(merge(GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF))
+quarterly_data <- 100*log(merge(GDPC1, PCECC96, GPDIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF))
 
 cycle <- do.call(merge, lapply(quarterly_data, yth_filter, output = "cycle"))
 random <- do.call(merge, lapply(quarterly_data, yth_filter, output = "random"))

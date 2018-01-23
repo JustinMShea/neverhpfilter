@@ -26,6 +26,8 @@
 #'
 #' @examples
 #' data(GPDIC1)
+#' 
 #' tail(GPDIC1)
+#' 
 #' plot(GPDIC1, grid.col = "white", col="blue")
 "GPDIC1"

@@ -29,7 +29,9 @@ A Guide to the National  Income and Product Accounts of the United States (NIPA)
 
 \examples{
 data(GPDIC1)
+
 tail(GPDIC1)
+
 plot(GPDIC1, grid.col = "white", col="blue")
 }
 \keyword{datasets}

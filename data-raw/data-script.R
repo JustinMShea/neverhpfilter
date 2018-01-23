@@ -37,9 +37,12 @@ colnames(USREC) <- "USREC"
 GPDIC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GPDIC1.txt", skip = 13, index.column = 1,
                           header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
+colnames(GPDIC1) <- "GPDIC1"
+
 # Real Personal Consumption Expenditures
 PCECC96 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PCECC96.txt", skip = 13, index.column = 1,
                         header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
 
 # Real Exports of Goods and Services
 EXPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/EXPGSC1.txt", skip = 13, index.column = 1,
