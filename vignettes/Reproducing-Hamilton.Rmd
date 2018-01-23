@@ -93,7 +93,7 @@ Turning the page, we find a similar graph of the cyclical component of $100 * lo
 Below I `merge` these data into one `xts` object and write a function wrapper around `yth_filter` and `plot`, which is then `lapply`'d over each series, producing a plot for each one.
 
 ```{r, message=FALSE, warning=FALSE}
-fig6_data <- 100*log(merge(GDPC1, EXPGSC1, PCECC96, IMPGSC1, GDPIC1, GCEC1)["1947/2016-3"])
+fig6_data <- 100*log(merge(GDPC1, EXPGSC1, PCECC96, IMPGSC1, GPDIC1, GCEC1)["1947/2016-3"])
 
 fig6_wrapper <- function(x, ...) {
                cycle <-  yth_filter(x, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
@@ -131,10 +131,10 @@ I'll replicate the table above, combining base R functions with estimates of the
 
 Per the usual protocol when approaching such a problem, the first step is to combine
 data in manner that allows for convenient iteration of computations across all data sets.
-First, I `merge` series which already have a quarterly frequency. These are `GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF`. At this step, we can also subset observations by the date range used by Hamilton. As all series of which units are measured in prices need to be given the $100*log$ treatment, I add that to this step as well.
+First, I `merge` series which already have a quarterly frequency. These are `GDPC1, PCECC96, GPDIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF`. At this step, we can also subset observations by the date range used by Hamilton. As all series of which units are measured in prices need to be given the $100*log$ treatment, I add that to this step as well.
 
 ```{r, warning = FALSE, message = FALSE}
-quarterly_data <- 100*log(merge(GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF)["1947/2016-3"])
+quarterly_data <- 100*log(merge(GDPC1, PCECC96, GPDIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF)["1947/2016-3"])
 ```
 
 Some of the series we wish to compare have a monthly periodicity, so we need to lower their frequency `to.quarterly`. First, `merge` monthly series and $100*log$ those expressed in prices. Leave those expressed in percentages alone. Then, functionally iterate over every series and transform them `to.quarterly`.
