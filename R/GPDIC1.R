@@ -1,6 +1,6 @@
 #' Real Gross Private Domestic Investment
 #'
-#' \code{GDPIC1} Real Gross Private Domestic Investment
+#' \code{GPDIC1 Real Gross Private Domestic Investment
 #'
 #'@section Notes:
 #' BEA Account Code: A006RX
@@ -10,7 +10,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(GDPIC1)
+#' @usage data(GPDIC1)
 #'
 #' @format An \code{\link{xts}} object of Real Exports of Goods and Services.
 #'  \itemize{
@@ -22,10 +22,10 @@
 #'  \item\strong{Last Updated} {2017-12-21 7:51 AM CST}
 #' }
 #'
-#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPIC1.txt}
+#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GPDIC1.txt}
 #'
 #' @examples
-#' data(GDPIC1)
-#' tail(GDPIC1)
-#' plot(GDPIC1, grid.col = "white", col="blue")
-"GDPIC1"
+#' data(GPDIC1)
+#' tail(GPDIC1)
+#' plot(GPDIC1, grid.col = "white", col="blue")
+"GPDIC1"

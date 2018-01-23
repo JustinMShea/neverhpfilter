@@ -34,7 +34,7 @@ colnames(USREC) <- "USREC"
 
 
 # Real Gross Private Domestic Investment
-GDPIC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GPDIC1.txt", skip = 13, index.column = 1,
+GPDIC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GPDIC1.txt", skip = 13, index.column = 1,
                           header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
 # Real Personal Consumption Expenditures
