@@ -14,17 +14,12 @@
 #'  \deqn{y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}}
 #'  \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
 #'
-#' @return If the default parameter of output = "All" is used, the function returns 
-#'  an \code{\link{xts}} object containing the original time series (x), 
-#'  \code{\link{yth_glm}} model \code{\link{fitted.values}},  \code{\link{yth_glm}} model 
-#'  \code{\link{residuals}}, and a random walk series defined by differencing 
-#'  \eqn{y_{t+h}} and \eqn{y_t}. Other output choices lead to various combinations 
-#'  of these time series.
+#' @return An \code{\link{xts}} object defined by the \code{output} parameter.
 #'
 #' @param x A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
 #'  such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
 #'  For converting objects of type \code{timeSeries, ts, irts, fts, matrix, data.frame}
-#'  or \code{zoo} to \code{\link{xts}}, please read \code{\link{as.xts}}.
+#'  or \code{zoo}, please read \code{\link{as.xts}}.
 #'
 #' @param h An \code{\link{integer}}, defining the lookahead period.
 #'  Defaults to \code{h = 8}. The default assumes economic data of quarterly 
@@ -37,8 +32,7 @@
 #'  periodicity and maintain the default. Econometricians should use this parameter 
 #'  to accommodate the Seasonality of their data.
 #'  
-#' @param output A character vector determining the output of this function. 
-#'  Defaults to \code{output = c("x","trend", "cycle", "random")}, which returns the original time series 
+#' @param output A \code{\link{character}} vector. Defaults to \code{output = c("x","trend", "cycle", "random")}, which returns the original time series 
 #'  (\code{x}), yth_glm \code{\link{fitted.values}} (\code{"trend"}), yth_glm \code{\link{residuals}}
 #'  (\code{"cycle"}), and a random walk series defined by differencing \eqn{y_{t+h}} 
 #'  and \eqn{y_t} (\code{"random"}). Arguments \code{"x"}, \code{"trend"}, \code{"cycle"}, and 
@@ -66,7 +60,7 @@
 #' 
 #' gdp_filter <- yth_filter(100*log(GDPC1), h = 8, p = 4)
 #' 
-#' head(gdp_filter, 15)
+#' knitr::kable(head(gdp_filter, 15), align = 'l')
 #' 
 #' #---------------------------------------------------------------------------#
 #' 
@@ -90,9 +84,10 @@
 #' GDP.cor <- t(data.frame(lapply(cycle, cor, cycle[,1], use = "complete.obs")))
 #' random.sd <- t(data.frame(lapply(random, sd, na.rm = TRUE)))
 #' random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")))
+#' 
 #' my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 2)
 #'
-#' knitr::kable(my_table_2)
+#' knitr::kable(my_table_2, align = 'l')
 #' @export
 yth_filter <- function(x, h = 8, p = 4, output = c("x", "trend", "cycle", "random"), ...) {
         
@@ -151,7 +146,3 @@ yth_filter <- function(x, h = 8, p = 4, output = c("x", "trend", "cycle", "rando
         }         
  
 }
-              
-
-
-

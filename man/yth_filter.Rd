@@ -11,7 +11,7 @@ yth_filter(x, h = 8, p = 4, output = c("x", "trend", "cycle", "random"),
 \item{x}{A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
 such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
 For converting objects of type \code{timeSeries, ts, irts, fts, matrix, data.frame}
-or \code{zoo} to \code{\link{xts}}, please read \code{\link{as.xts}}.}
+or \code{zoo}, please read \code{\link{as.xts}}.}
 
 \item{h}{An \code{\link{integer}}, defining the lookahead period.
 Defaults to \code{h = 8}. The default assumes economic data of quarterly 
@@ -24,8 +24,7 @@ periodicity, one may choose \code{p = 12} or aggregate the series to quarterly
 periodicity and maintain the default. Econometricians should use this parameter 
 to accommodate the Seasonality of their data.}
 
-\item{output}{A character vector determining the output of this function. 
-Defaults to \code{output = c("x","trend", "cycle", "random")}, which returns the original time series 
+\item{output}{A \code{\link{character}} vector. Defaults to \code{output = c("x","trend", "cycle", "random")}, which returns the original time series 
 (\code{x}), yth_glm \code{\link{fitted.values}} (\code{"trend"}), yth_glm \code{\link{residuals}}
 (\code{"cycle"}), and a random walk series defined by differencing \eqn{y_{t+h}} 
 and \eqn{y_t} (\code{"random"}). Arguments \code{"x"}, \code{"trend"}, \code{"cycle"}, and 
@@ -36,12 +35,7 @@ For example \code{c("x", "trend")} returns both the original series "x" and the 
 \item{...}{other arguments passed to the function \code{\link[stats]{glm}}}
 }
 \value{
-If the default parameter of output = "All" is used, the function returns 
- an \code{\link{xts}} object containing the original time series (x), 
- \code{\link{yth_glm}} model \code{\link{fitted.values}},  \code{\link{yth_glm}} model 
- \code{\link{residuals}}, and a random walk series defined by differencing 
- \eqn{y_{t+h}} and \eqn{y_t}. Other output choices lead to various combinations 
- of these time series.
+An \code{\link{xts}} object defined by the \code{output} parameter.
 }
 \description{
 \code{yth_filter} returns an \code{\link{xts}} object containing user defined
@@ -64,7 +58,7 @@ data(GDPC1)
 
 gdp_filter <- yth_filter(100*log(GDPC1), h = 8, p = 4)
 
-head(gdp_filter, 15)
+knitr::kable(head(gdp_filter, 15), align = 'l')
 
 #---------------------------------------------------------------------------#
 
@@ -88,9 +82,10 @@ cycle.sd <- t(data.frame(lapply(cycle, sd, na.rm = TRUE)))
 GDP.cor <- t(data.frame(lapply(cycle, cor, cycle[,1], use = "complete.obs")))
 random.sd <- t(data.frame(lapply(random, sd, na.rm = TRUE)))
 random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")))
+
 my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 2)
 
-knitr::kable(my_table_2)
+knitr::kable(my_table_2, align = 'l')
 }
 \references{
 James D. Hamilton. \href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.
