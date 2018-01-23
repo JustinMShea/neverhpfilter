@@ -14,9 +14,11 @@ vignette: >
 
 \newpage
 
-  In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an approach to economic time series filtering which achieves goals the HP-Filter attempts, but ultimately does not produce. 
+  In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an interesting new alternative to economic time series filtering. The **`neverhpfilter`** package provides functions for implementing his solution.
+[Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
 
-The abstract offers an excellent introduction.
+
+Hamilton's abstract offers an excellent introduction to the problem and alternative solution:
 
 
   > 
@@ -25,12 +27,8 @@ The abstract offers an excellent introduction.
   (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
   (4) There's a better alternative. A regression of the variable at date $t + h$ on the four most recent values as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
 
-The **`neverhpfilter`** package provides functions for implementing his solution.
-[Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
 
-## A Better Alternative
-
-Using an example of quarterly economic data, Hamilton suggests a linear model dependent on an `h = 8` look-ahead period, which is independent of `p = 4` lagged variables. An auto-regressive $AR(p)$ model, with a $t+h$ look-ahead twist, if you will. This can be expressed more specifically by:
+Using quarterly economic data, Hamilton suggests a linear model dependent on an `h = 8` look-ahead period, which is independent of `p = 4` lagged variables. An auto-regressive $AR(p)$ model, dependent on $t+h$ look-ahead, if you will. This is expressed more specifically by:
 
 $$y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}$$
 $$\hat{v}_{t+8} = y_{t+8} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
@@ -45,40 +43,52 @@ $$\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_
 
 ## Implementation
 
+First, lets run the `yth_filter` on Real GDP using the default settings suggested by Hamilton of an $h = 8$ lookahead period and $p = 4$ lags. The output is displayed below containing the original series, trend, cycle, and random components. 
+
+The random component is simply the difference between the original series and its $h$ look ahead, which is why it leads 8 `NA` observations. Due to the $h$ and $p$ parameters, trend and cycle components lead with 11 `NA` observations.
+
+
 ```{r, message = FALSE, warning = FALSE}
 library(xts)
 library(knitr)
 library(neverhpfilter)
 ```
 
+```{r, message = FALSE, warning = FALSE}
+data(GDPC1)
+
+gdp_filter <- yth_filter(100*log(GDPC1), h = 8, p = 4)
+
+kable(head(data.frame(Date=index(gdp_filter), coredata(gdp_filter)), 15), align = 'l')
+```
+
+## Comparing our estimates with Hamilton's
+
 In this next section, I reproduce a few of Hamilton's tables and graphs, to make
 sure the functions approximately match his results.
 
-In the Appendix, Employment is plotted in the form of $100 * log($`PAYEMS`$)$, 
-or the All Employees: Total Non-farm series (Hamilton 44).
+In the Appendix, Employment (All Employees: Total Non-farm series) is plotted in the form of $100 * log($`PAYEMS`$)$ and superimposed with it's random walk representation. (Hamilton 44). There are many good reasons to use `xts` when handling time series data. Two of them are illustrated below in efficiently transforming monthly series `to.quarterly` and in `plot`ing the results of `yth_filter`.
 
-```{r, warning = FALSE, message = FALSE}
+```{r, message = FALSE, warning = FALSE}
 data(PAYEMS)
-PAYEMS_qtr <- xts::to.quarterly(PAYEMS["1947/"], OHLC = FALSE)
-log_Employment <- 100*log(PAYEMS_qtr)
+log_Employment <- 100*log(xts::to.quarterly(PAYEMS["1947/2016-6"], OHLC = FALSE))
 
 employ_trend <- yth_filter(log_Employment, h = 8, p = 4, output = c("x", "trend"), family = gaussian)
 
-plot(employ_trend, grid.col = "white", legend.loc = "topleft", main = "Log of Employment and trend")
+plot.xts(employ_trend, grid.col = "white", legend.loc = "topleft", main = "Log of Employment and trend")
 ```
 
-The cycle component is of great interest. Here, it is graphed alongside
-a random walk representation, defined as the difference between the current observation $t$,
-and the look-ahead parameter, $h$ (Hamilton 44).
+When filtering time series, the cycle component is of great interest. Here, it is graphed alongside
+a random walk representation (Hamilton 44).
 
 ```{r, warning = FALSE}
 employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
 
-plot(employ_cycle, grid.col = "white", legend.loc = "topright", main="Log of Employment cycle and random walk")
+plot.xts(employ_cycle, grid.col = "white", legend.loc = "topright", main="Log of Employment cycle and random")
 abline(h=0)
 ```
 
-Turning the page, we find a similar graph of the cyclical component of $100 * log$ of GDP, Exports, Consumption, Imports, Investment, and Government superimposed with their random walk representations. (Hamilton 45). 
+Turning the page, we find a similar graph of the cyclical component of $100 * log$ of GDP, Exports, Consumption, Imports, Investment, and Government (Hamilton 45). 
 
 Below I `merge` these data into one `xts` object and write a function wrapper around `yth_filter` and `plot`, which is then `lapply`'d over each series, producing a plot for each one.
 
@@ -86,9 +96,8 @@ Below I `merge` these data into one `xts` object and write a function wrapper ar
 fig6_data <- 100*log(merge(GDPC1, EXPGSC1, PCECC96, IMPGSC1, GDPIC1, GCEC1)["1947/2016-3"])
 
 fig6_wrapper <- function(x, ...) {
-  
                cycle <-  yth_filter(x, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
-               plot(cycle, grid.col = "white", lwd=1, main = paste0(names(cycle)[1]," and random"))
+               plot.xts(cycle, grid.col = "white", lwd=1, main = names(x))
 }
 ```
 
@@ -102,12 +111,9 @@ par(mfrow=c(3,2))
 lapply(fig6_data, fig6_wrapper)
 ```
 
-# Comparing our estimates with Hamilton's
-
 When striving to recreate a statistical method found in a journal or paper, one can perform surprisingly well by thoroughly digesting the relevant sections and "eyeballing" graphs included in the authors work. 
 
-Better still, is a table presenting the authors results, which one may use to direclty
-compare with their own reproduction. Fortunately for us, Hamilton's Appendix displays such a table which I use to test against estimates computed with functions contained in **`neverhpfilter`**.
+Better still, is a table presenting the authors results, which one may use to directly compare with their own reproduction. Fortunately for us, Hamilton's Appendix displays such a table which I use to test against estimates computed with functions contained in **`neverhpfilter`**.
 
 His results are displayed below in table 2 (Hamilton 40), which I've stored as a `data.frame` in this package.
 
@@ -131,7 +137,7 @@ First, I `merge` series which already have a quarterly frequency. These are `GDP
 quarterly_data <- 100*log(merge(GDPC1, PCECC96, GDPIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF)["1947/2016-3"])
 ```
 
-Some of the series we wish to compare have a monthly periodicity, so we need to lower their frequency `to.quarterly`. First, `merge` monthly series and $100*log$ those expressed in prices, not percentages. Then, functionally iterate over every series and transform them `to.quarterly`.
+Some of the series we wish to compare have a monthly periodicity, so we need to lower their frequency `to.quarterly`. First, `merge` monthly series and $100*log$ those expressed in prices. Leave those expressed in percentages alone. Then, functionally iterate over every series and transform them `to.quarterly`.
 Presumably because more data was available at the time of Hamilton's work, monthly series include observations from the second quarter of 2016 and so I subset accordingly. Finally, all series are combined into one `xts` object, `quarterly_data`.
 
 ```{r, warning = FALSE, message = FALSE}
@@ -185,15 +191,19 @@ names(my_table_2) <- names(Hamilton_table_2)
 ```
 
 
-Finally, `rbind` Hamilton's table 2 with my table and compare. They are nearly 
-identical, inspiring confidence in the repilcation of this approach.
+Finally, `rbind` Hamilton's table 2 with my table and compare. The results are 
+nearly  identical, inspiring confidence in the replication of this approach.
 
+According to the 'code and data' link on the ['Current Working Papers'](http://econweb.ucsd.edu/~jhamilto/#working) page of Hamilton's site,
+both Matlab and RATS were used for computation of the table. It is not
+surprising that minor differences in estimates would occur, likely due to 
+differing internal computational choices made by each respective commercial software product, of which we cannot test.
 
 ```{r, warning = FALSE, message = FALSE, caption = "Comparison table: Hamilton vs neverhpfilter"}
  # Combined table
 combined_table <- rbind(Hamilton_table_2[-NROW(Hamilton_table_2),], my_table_2)
 combined_table <- combined_table[order(combined_table$cycle.sd),]
-kable(combined_table, align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter, sorted by sd. of the cycle component.")
+kable(combined_table, align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter, sorted by standard deviation of the cycle component. yth_filter estimates are labeled with the suffix '.cycle'")
 ```
 
 # Summary
