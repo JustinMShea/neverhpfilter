@@ -11,7 +11,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## Implementation in R
 
 ```{r, message = FALSE, warning = FALSE}
 library(xts)
@@ -65,18 +64,15 @@ gdp_filtered <- yth_filter(log_RGDP, h = 8, p = 4)
 kable(tail(gdp_filtered, 8))
 ```
 
-Because it an xts object, it can be easily graphed with `plot.xts`, 
-the task beautifully with a simple function call. Note the `panels` arguement,
-which we used to plot bars of the cycle.
+Because the output an xts object, it can be easily graphed with `plot.xts` with a simple function call. Note the `panels` arguement, which we used to plot bars of the cycle.
 
 ```{r, warning = FALSE}
 main <- "Log of Real GDP (GDPC1) and trend"
 plot(gdp_filtered[,1:2], grid.col = "white", legend.loc = "topleft", main = main,  panels = 'lines(gdp_filtered[,3], type="h", on=NA)')
 ```
 
-Once can use packages which recognize xts objects such as `PerformanceAnalytics`.
-Recession bars are created easily with the `period.areas` arguement of the
-`chart.TimeSeries` function
+In addition, many packages recognize xts objects such as `PerformanceAnalytics`.
+Recession bars are created easily by the `period.areas` arguement of the `chart.TimeSeries` function.
 
 ```{r, warning = FALSE, message = FALSE}
 library(PerformanceAnalytics)
