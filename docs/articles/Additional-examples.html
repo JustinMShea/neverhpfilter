@@ -76,13 +76,9 @@
     
     
 <div class="contents">
-<div id="implementation-in-r" class="section level2">
-<h2 class="hasAnchor">
-<a href="#implementation-in-r" class="anchor"></a>Implementation in R</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xts)
 <span class="kw">library</span>(knitr)
 <span class="kw">library</span>(neverhpfilter)</code></pre></div>
-</div>
 <div id="yth_glm" class="section level2">
 <h2 class="hasAnchor">
 <a href="#yth_glm" class="anchor"></a>yth_glm</h2>
@@ -241,11 +237,11 @@ gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span 
 </tr>
 </tbody>
 </table>
-<p>Because it an xts object, it can be easily graphed with <code>plot.xts</code>, the task beautifully with a simple function call. Note the <code>panels</code> arguement, which we used to plot bars of the cycle.</p>
+<p>Because the output an xts object, it can be easily graphed with <code>plot.xts</code> with a simple function call. Note the <code>panels</code> arguement, which we used to plot bars of the cycle.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
 <span class="kw">plot</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_filtered[,3], type="h", on=NA)'</span>)</code></pre></div>
 <p><img src="Additional-examples_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
-<p>Once can use packages which recognize xts objects such as <code>PerformanceAnalytics</code>. Recession bars are created easily with the <code>period.areas</code> arguement of the <code>chart.TimeSeries</code> function</p>
+<p>In addition, many packages recognize xts objects such as <code>PerformanceAnalytics</code>. Recession bars are created easily by the <code>period.areas</code> arguement of the <code>chart.TimeSeries</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PerformanceAnalytics)
 
   qtr_recc &lt;-<span class="st"> </span><span class="kw">to.quarterly</span>(USREC[<span class="st">"1947-1/2017-3"</span>], <span class="dt">OHLC=</span><span class="ot">FALSE</span>)
@@ -282,8 +278,7 @@ main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#implementation-in-r">Implementation in R</a></li>
-      <li><a href="#yth_glm">yth_glm</a></li>
+<li><a href="#yth_glm">yth_glm</a></li>
       <li><a href="#yth_filtered">yth_filtered</a></li>
       <li><a href="#yth_cycle">yth_cycle</a></li>
       </ul>
