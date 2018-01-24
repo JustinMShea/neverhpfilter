@@ -46,7 +46,7 @@
 #'  rate, which is the rate banks charge their customers with higher
 #'  credit ratings. Additionally, the federal funds rate indirectly
 #'  influences longer- term interest rates such as mortgages, loans, and
-#'  savings, all of which are very important to consumer wealth andconfidence.(2)
+#'  savings, all of which are very important to consumer wealth and confidence.(2)
 #'  
 #'  References (1) Federal Reserve Bank of New York. “Federal funds.” Fedpoints,
 #'  August 2007. (2) Board of Governors of the Federal Reserve System. “Monetary

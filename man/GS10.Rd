@@ -4,7 +4,7 @@
 \name{GS10}
 \alias{GS10}
 \title{10-Year Treasury Constant Maturity Rate}
-\format{An \code{\link{xts}} object containing observatons of the 10-Year Treasury Constant Maturity Rate.
+\format{An \code{\link{xts}} object containing observations of the 10-Year Treasury Constant Maturity Rate.
  \itemize{
  \item\strong{Release:} {H.15 Selected Interest Rates}
  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
