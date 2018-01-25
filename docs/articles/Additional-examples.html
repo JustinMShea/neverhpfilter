@@ -79,104 +79,14 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xts)
 <span class="kw">library</span>(knitr)
 <span class="kw">library</span>(neverhpfilter)</code></pre></div>
-<div id="yth_glm" class="section level2">
-<h2 class="hasAnchor">
-<a href="#yth_glm" class="anchor"></a>yth_glm</h2>
-<p>The <code>yth_glm</code> function returns an object of class “<code>glm</code>”. Thus, one can use all generic functions associated with objects of that class. Here is an example of passing the <code>yth_glm</code> model to the plot function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(GDPC1)
-log_RGDP &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(GDPC1)
-
-gdp_model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
-
-<span class="kw">plot</span>(gdp_model)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-2-1.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-2.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-3.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-2-4.png" width="672"></p>
-<p>Additional parameters supported by the <code>glm</code> function can be used as well. An example ussing a different error distribution, defined with the <code>family</code> argument, is illustrated below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_poisson &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP[<span class="st">"1950/"</span>], <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">family =</span> quasipoisson)
-
-<span class="kw">summary</span>(gdp_poisson)</code></pre></div>
-<pre><code>## 
-## Call:
-## stats::glm(formula = formula, family = ..1, data = data)
-## 
-## Deviance Residuals: 
-##      Min        1Q    Median        3Q       Max  
-## -0.34569  -0.08536   0.00809   0.09575   0.30258  
-## 
-## Coefficients:
-##               Estimate Std. Error  t value Pr(&gt;|t|)    
-## (Intercept)  5.8065022  0.0043398 1337.956  &lt; 2e-16 ***
-## xt_0         0.0015535  0.0003354    4.632 5.78e-06 ***
-## xt_1        -0.0005016  0.0005509   -0.910    0.363    
-## xt_2        -0.0001500  0.0005493   -0.273    0.785    
-## xt_3         0.0002094  0.0003284    0.638    0.524    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for quasipoisson family taken to be 0.01747363)
-## 
-##     Null deviance: 1003.5703  on 259  degrees of freedom
-## Residual deviance:    4.4578  on 255  degrees of freedom
-##   (11 observations deleted due to missingness)
-## AIC: NA
-## 
-## Number of Fisher Scoring iterations: 3</code></pre>
-<p>In addition to all generic functions inherited in base R, one can also use any package designed to work with model objects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
-gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">tidy</a></span>(gdp_model)
-
-<span class="kw">kable</span>(gdp_model_df)</code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">27.2025075</td>
-<td align="right">2.9638555</td>
-<td align="right">9.1780814</td>
-<td align="right">0.0000000</td>
-</tr>
-<tr class="even">
-<td align="left">xt_0</td>
-<td align="right">1.1722639</td>
-<td align="right">0.2336541</td>
-<td align="right">5.0170908</td>
-<td align="right">0.0000010</td>
-</tr>
-<tr class="odd">
-<td align="left">xt_1</td>
-<td align="right">-0.3432205</td>
-<td align="right">0.3858303</td>
-<td align="right">-0.8895632</td>
-<td align="right">0.3745012</td>
-</tr>
-<tr class="even">
-<td align="left">xt_2</td>
-<td align="right">-0.1296324</td>
-<td align="right">0.3856853</td>
-<td align="right">-0.3361092</td>
-<td align="right">0.7370525</td>
-</tr>
-<tr class="odd">
-<td align="left">xt_3</td>
-<td align="right">0.2769114</td>
-<td align="right">0.2320986</td>
-<td align="right">1.1930765</td>
-<td align="right">0.2338985</td>
-</tr>
-</tbody>
-</table>
-</div>
 <div id="yth_filtered" class="section level2">
 <h2 class="hasAnchor">
 <a href="#yth_filtered" class="anchor"></a>yth_filtered</h2>
-<p>The function outputs an xts object of all series discussed in Hamilton. They are the original series, trend, cycle, and random walk.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
+<p>The function outputs an xts object of relevant series discussed in Hamilton (2017). They are the original, trend, cycle, and random walk series.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(GDPC1)
+log_RGDP &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(GDPC1)
+
+gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
 
 <span class="kw">kable</span>(<span class="kw">tail</span>(gdp_filtered, <span class="dv">8</span>))</code></pre></div>
 <table class="table">
@@ -237,11 +147,11 @@ gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span 
 </tr>
 </tbody>
 </table>
-<p>Because the output an xts object, it can be easily graphed with <code>plot.xts</code> with a simple function call. Note the <code>panels</code> arguement, which we used to plot bars of the cycle.</p>
+<p>As the output is an xts object, it can be easily graphed with <code>plot.xts</code>. Note the <code>panels</code> argument, which I use to plot the cycle component.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
-<span class="kw">plot</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_filtered[,3], type="h", on=NA)'</span>)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
-<p>In addition, many packages recognize xts objects such as <code>PerformanceAnalytics</code>. Recession bars are created easily by the <code>period.areas</code> arguement of the <code>chart.TimeSeries</code> function.</p>
+<span class="kw">plot</span>(gdp_filtered[<span class="st">"1950/"</span>][,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_filtered["1950/"][,3], type="h", on=NA)'</span>)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+<p>While <code>xts</code> has many useful functions for handling time series, one can extend the use of this class further with packages such as <code>PerformanceAnalytics</code>, Recession bars are created easily with the <code>period.areas</code> argument of the <code>chart.TimeSeries</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PerformanceAnalytics)
 
   qtr_recc &lt;-<span class="st"> </span><span class="kw">to.quarterly</span>(USREC[<span class="st">"1947-1/2017-3"</span>], <span class="dt">OHLC=</span><span class="ot">FALSE</span>)
@@ -250,25 +160,73 @@ gdp_model_df &lt;-<span class="st"> </span>broom<span class="op">::</span><span 
 Recessions &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">format</span>(start,<span class="st">"%Y-%q"</span>), <span class="kw">format</span>(end,<span class="st">"%Y-%q"</span>), <span class="dt">sep=</span><span class="st">"/"</span>)
 
 main &lt;-<span class="st"> "Log of Real GDP (GDPC1) and trend"</span>
-<span class="kw">chart.TimeSeries</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">main =</span> main, <span class="dt">period.areas =</span> Recessions, <span class="dt">period.color=</span><span class="st">"lightgrey"</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">main &lt;-<span class="st"> "Log of Real GDP cycle and random walk"</span>
-<span class="kw">plot</span>(gdp_filtered[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">subset =</span> <span class="st">"1982/"</span>, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topright"</span>, <span class="dt">main =</span> main)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#lines(panel.first = abline(v = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey"))</span>
-<span class="co">#addSeries(x = .index(qtr_recc2), type="h", lwd = 2, col = "lightgrey")</span></code></pre></div>
+<span class="kw">chart.TimeSeries</span>(gdp_filtered[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">main =</span> main, <span class="dt">date.format =</span> <span class="st">"%Y"</span>, <span class="dt">period.areas =</span> Recessions, <span class="dt">period.color=</span><span class="st">"lightgrey"</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 </div>
-<div id="yth_cycle" class="section level2">
+<div id="choices-for-h-and-p" class="section level2">
 <h2 class="hasAnchor">
-<a href="#yth_cycle" class="anchor"></a>yth_cycle</h2>
-<p>While Hamilton converts the PAYEMS series into quarterly periodicity and then uses the default parameters of <code>h = 8</code> and <code>p = 4</code>, one can choose to retain the monthly series and adjust the parameters to <code>h = 24</code> and <code>p = 12</code>. This approach removes the parsimony associated with estimating a linear model on 4 lags, as now one will have 12.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS[<span class="st">"1947/"</span>])
+<a href="#choices-for-h-and-p" class="anchor"></a>Choices for h and p</h2>
+<p>While Hamilton converts the PAYEMS series into quarterly periodicity and then uses the default parameters of <code>h = 8</code> and <code>p = 4</code>, one can choose to retain the monthly series and adjust the parameters to <code>h = 24</code> and <code>p = 12</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">log</span>(PAYEMS[<span class="st">"1950/"</span>])
 
 employment_cycle &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>, <span class="dt">output =</span> <span class="st">"cycle"</span>)
 
-main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
-<span class="kw">plot</span>(<span class="kw">abs</span>(employment_cycle), <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">main =</span> main)</code></pre></div>
-<p><img src="Additional-examples_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
+main &lt;-<span class="st"> "Log of Employment cycle"</span>
+cols &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"darkred"</span>, <span class="st">"darkgreen"</span>)[(employment_cycle <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]  
+<span class="kw">plot</span>(employment_cycle, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">type =</span> <span class="st">"h"</span>, <span class="dt">col =</span> cols, <span class="dt">main =</span> main)
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
+<p>One may wish to consider longer-term cycles by extending <code>h</code>. Below is an example of taking h from 8 quarters or 2 years, to 20 quarters (5 years), and then 40 quarters (10 years).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_5yr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">output =</span> <span class="kw">c</span>(<span class="st">"x"</span>, <span class="st">"trend"</span>, <span class="st">"cycle"</span>))
+
+main &lt;-<span class="st"> "Log of Real GDP and 5-year trend "</span>
+<span class="kw">plot</span>(gdp_5yr[<span class="st">"1980/"</span>][,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_5yr["1980/"][,3], type="h", on=NA)'</span>)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_10yr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">40</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">output =</span> <span class="kw">c</span>(<span class="st">"x"</span>, <span class="st">"trend"</span>, 
+<span class="st">"cycle"</span>))
+
+main &lt;-<span class="st"> "Log of Real GDP and 10-year trend "</span>
+<span class="kw">plot</span>(gdp_10yr[<span class="st">"1980/"</span>][,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> main,  <span class="dt">panels =</span> <span class="st">'lines(gdp_10yr["1980/"][,3], type="h", on=NA)'</span>)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-6-2.png" width="672"></p>
+</div>
+<div id="yth_glm" class="section level2">
+<h2 class="hasAnchor">
+<a href="#yth_glm" class="anchor"></a>yth_glm</h2>
+<p>The <code>yth_glm</code> function returns an object of class <code>glm</code>. Thus, one can use all generic functions associated with objects of that class. Here is an example of passing the results of a <code>yth_glm</code> model to the plot function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_model &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP[<span class="st">"1960/"</span>], <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)
+
+<span class="kw">plot</span>(gdp_model)</code></pre></div>
+<p><img src="Additional-examples_files/figure-html/unnamed-chunk-7-1.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-7-2.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-7-3.png" width="672"><img src="Additional-examples_files/figure-html/unnamed-chunk-7-4.png" width="672"></p>
+<p>Optional parameters supported by the <code>glm</code> function can be used as well. An example using a different error distribution, defined with the <code>family</code> argument, is illustrated below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdp_poisson &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_glm.html">yth_glm</a></span>(log_RGDP[<span class="st">"1960/"</span>], <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">family =</span> poisson)
+
+<span class="kw">summary</span>(gdp_poisson)</code></pre></div>
+<pre><code>## 
+## Call:
+## stats::glm(formula = formula, family = ..1, data = data)
+## 
+## Deviance Residuals: 
+##       Min         1Q     Median         3Q        Max  
+## -0.308987  -0.065467   0.008832   0.078788   0.256634  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  5.8404587  0.0445344 131.145   &lt;2e-16 ***
+## xt_0         0.0015351  0.0029749   0.516    0.606    
+## xt_1        -0.0004309  0.0047672  -0.090    0.928    
+## xt_2        -0.0002559  0.0047611  -0.054    0.957    
+## xt_3         0.0002261  0.0029419   0.077    0.939    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 531.922  on 219  degrees of freedom
+## Residual deviance:   2.565  on 215  degrees of freedom
+##   (11 observations deleted due to missingness)
+## AIC: Inf
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
 </div>
 </div>
   </div>
@@ -278,9 +236,9 @@ main &lt;-<span class="st"> "Absolute Log of Employment cycle"</span>
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#yth_glm">yth_glm</a></li>
-      <li><a href="#yth_filtered">yth_filtered</a></li>
-      <li><a href="#yth_cycle">yth_cycle</a></li>
+<li><a href="#yth_filtered">yth_filtered</a></li>
+      <li><a href="#choices-for-h-and-p">Choices for h and p</a></li>
+      <li><a href="#yth_glm">yth_glm</a></li>
       </ul>
 </div>
       </div>

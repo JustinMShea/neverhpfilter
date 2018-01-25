@@ -205,7 +205,7 @@ For example <code>c("x", "trend")</code> returns both the original series "x" an
 <span class='no'>employ_trend</span> <span class='kw'>&lt;-</span> <span class='fu'>yth_filter</span>(<span class='no'>log_Employment</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"x"</span>, <span class='st'>"trend"</span>))
 
 <span class='fu'>plot</span>(<span class='no'>employ_trend</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>legend.loc</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>,
-         <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Log of Employment and trend"</span>)</div><div class='img'><img src='yth_filter-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Log of Employment and trend"</span>)</div><div class='img'><img src='yth_filter-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>#----------------------------------------------------------------------------#</span>
 
 <span class='no'>quarterly_data</span> <span class='kw'>&lt;-</span> <span class='fl'>100</span>*<span class='fu'>log</span>(<span class='fu'>merge</span>(<span class='no'>GDPC1</span>, <span class='no'>PCECC96</span>, <span class='no'>GPDIC1</span>, <span class='no'>EXPGSC1</span>, <span class='no'>IMPGSC1</span>, <span class='no'>GCEC1</span>, <span class='no'>GDPDEF</span>))
