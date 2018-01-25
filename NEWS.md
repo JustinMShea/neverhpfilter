@@ -5,10 +5,10 @@ output: github_document
 
 # neverhpfilter 0.2-0
 
-Functions consolidated into just two functions. `yth_glm` remains unchanged, while
-`yth_filter` has been given an output parameter to specify the return of specific series. This feature eliminates the need for `yth_filter` and `yth_trend`, which are helpful when apply the function to multiple data sets.
+Consolidated into two functions. `yth_glm` remains unchanged, while
+`yth_filter` has been given an `output` arguement to specify the return of specific series. This feature eliminates the need for `yth_cycle` and `yth_trend`, which were helpful when applying the function to multiple data sets.
 
-Nine additional data sets have been added to replicate most all of Hamilton's table 2.
+Additional data sets have been added to replicate most all of Hamilton's table 2.
 
 The "Reproducing Hamilton" vignette has been expanded and content has been edited
 for clarity.
