@@ -16,7 +16,13 @@ Hamilton's abstract offers an excellent introduction:
 ## Getting Started
 
 
-Install from the Github master branch on R version >= 3.4.0.
+Install from CRAN on R version >= 3.4.0.
+
+```{r}
+install.packages("neverhpfilter")
+```
+
+Or install from the Github master branch on R version >= 3.4.0.
 
 ```{r}
 devtools::install_github("JustinMShea/neverhpfilter")
