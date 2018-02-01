@@ -219,18 +219,19 @@ For example <code>c("x", "trend")</code> returns both the original series "x" an
 <span class='no'>random.cor</span> <span class='kw'>&lt;-</span> <span class='fu'>t</span>(<span class='fu'>data.frame</span>(<span class='fu'>lapply</span>(<span class='no'>random</span>, <span class='no'>cor</span>, <span class='no'>random</span>[,<span class='fl'>1</span>], <span class='kw'>use</span> <span class='kw'>=</span> <span class='st'>"complete.obs"</span>)))
 
 <span class='no'>my_table_2</span> <span class='kw'>&lt;-</span> <span class='fu'>round</span>(<span class='fu'>data.frame</span>(<span class='fu'>cbind</span>(<span class='no'>cycle.sd</span>, <span class='no'>GDP.cor</span>, <span class='no'>random.sd</span>, <span class='no'>random.cor</span>)), <span class='fl'>2</span>)
+<span class='fu'>names</span>(<span class='no'>my_table_2</span>) <span class='kw'>&lt;-</span> <span class='fu'>names</span>(<span class='no'>Hamilton_table_2</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
 
 <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/knitr/topics/kable'>kable</a></span>(<span class='no'>my_table_2</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>'l'</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |              |V1    |GDPC1.cycle |V3    |GDPC1.random |
-#&gt; |:-------------|:-----|:-----------|:-----|:------------|
-#&gt; |GDPC1.cycle   |3.35  |1.00        |3.66  |1.00         |
-#&gt; |PCECC96.cycle |2.83  |0.79        |3.01  |0.82         |
-#&gt; |GPDIC1.cycle  |13.09 |0.84        |13.64 |0.80         |
-#&gt; |EXPGSC1.cycle |10.73 |0.33        |11.28 |0.31         |
-#&gt; |IMPGSC1.cycle |9.69  |0.76        |9.91  |0.75         |
-#&gt; |GCEC1.cycle   |7.06  |0.31        |8.52  |0.38         |
-#&gt; |GDPDEF.cycle  |2.96  |0.04        |4.09  |-0.12        |</div></pre>
+#&gt; |              |cycle.sd |gdp.cor |random.sd |gdp.rand.cor |
+#&gt; |:-------------|:--------|:-------|:---------|:------------|
+#&gt; |GDPC1.cycle   |3.35     |1.00    |3.66      |1.00         |
+#&gt; |PCECC96.cycle |2.83     |0.79    |3.01      |0.82         |
+#&gt; |GPDIC1.cycle  |13.09    |0.84    |13.64     |0.80         |
+#&gt; |EXPGSC1.cycle |10.73    |0.33    |11.28     |0.31         |
+#&gt; |IMPGSC1.cycle |9.69     |0.76    |9.91      |0.75         |
+#&gt; |GCEC1.cycle   |7.06     |0.31    |8.52      |0.38         |
+#&gt; |GDPDEF.cycle  |2.96     |0.04    |4.09      |-0.12        |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
