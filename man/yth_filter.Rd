@@ -84,6 +84,7 @@ random.sd <- t(data.frame(lapply(random, sd, na.rm = TRUE)))
 random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")))
 
 my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 2)
+names(my_table_2) <- names(Hamilton_table_2)[1:4]
 
 knitr::kable(my_table_2, align = 'l')
 }
