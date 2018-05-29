@@ -197,7 +197,7 @@ nearly  identical, inspiring confidence in the replication of this approach.
 According to the 'code and data' link on the ['Current Working Papers'](http://econweb.ucsd.edu/~jhamilto/#working) page of Hamilton's site,
 both Matlab and RATS were used for computation of the table. It is not
 surprising that minor differences in estimates would occur, likely due to 
-differing internal computational choices made by each respective commercial software product, of which we cannot test.
+differences in the underlying data or internal computational choices made by each commercial software product.
 
 ```{r, warning = FALSE, message = FALSE, caption = "Comparison table: Hamilton vs neverhpfilter"}
  # Combined table
