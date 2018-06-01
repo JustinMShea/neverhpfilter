@@ -1,0 +1,387 @@
+---
+title: "Economic Time Series Filtering: An alternative approach"
+author: "Justin M Shea"
+date: ' '
+output:
+  rmarkdown::pdf_document:
+    toc: yes
+vignette: >
+  %\VignetteIndexEntry{Reproducing Hamilton}  
+  %\VignetteEngine{knitr::rmarkdown}  
+  %\VignetteEncoding{UTF-8}
+---
+
+
+\newpage
+
+  In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an interesting new alternative to economic time series filtering. The **`neverhpfilter`** package provides functions for implementing his solution.
+[Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
+
+
+Hamilton's abstract offers an excellent introduction to the problem and alternative solution:
+
+
+  > 
+  (1) The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process.  
+  (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
+  (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below 1600 for quarterly data.  
+  (4) There's a better alternative. A regression of the variable at date $t + h$ on the four most recent values as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
+
+
+Using quarterly economic data, Hamilton suggests a linear model dependent on an `h = 8` look-ahead period, which is independent of `p = 4` lagged variables. An auto-regressive $AR(p)$ model, dependent on $t+h$ look-ahead, if you will. This is expressed more specifically by:
+
+$$y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}$$
+$$\hat{v}_{t+8} = y_{t+8} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
+
+Which can be rewritten as:
+
+$$y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}$$
+
+$$\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}$$
+
+
+
+## Implementation
+
+First, lets run the `yth_filter` on Real GDP using the default settings suggested by Hamilton of an $h = 8$ lookahead period and $p = 4$ lags. The output is displayed below containing the original series, trend, cycle, and random components. 
+
+The random component is simply the difference between the original series and its $h$ look ahead, which is why it leads 8 `NA` observations. Due to the $h$ and $p$ parameters, trend and cycle components lead with 11 `NA` observations.
+
+
+```{r, message = FALSE, warning = FALSE}
+library(xts)
+library(knitr)
+library(neverhpfilter)
+```
+
+```{r, message = FALSE, warning = FALSE}
+data(GDPC1)
+
+gdp_filter <- yth_filter(100*log(GDPC1), h = 8, p = 4)
+
+kable(head(data.frame(Date=index(gdp_filter), coredata(gdp_filter)), 15), align = 'l')
+```
+
+## Comparing our estimates with Hamilton's
+
+In this next section, I reproduce a few of Hamilton's tables and graphs, to make
+sure the functions approximately match his results.
+
+In the Appendix, Employment (All Employees: Total Non-farm series) is plotted in the form of $100 * log($`PAYEMS`$)$ and superimposed with it's random walk representation. (Hamilton 44). There are many good reasons to use `xts` when handling time series data. Two of them are illustrated below in efficiently transforming monthly series `to.quarterly` and in `plot`ing the results of `yth_filter`.
+
+```{r, message = FALSE, warning = FALSE}
+data(PAYEMS)
+log_Employment <- 100*log(xts::to.quarterly(PAYEMS["1947/2016-6"], OHLC = FALSE))
+
+employ_trend <- yth_filter(log_Employment, h = 8, p = 4, output = c("x", "trend"), family = gaussian)
+
+plot.xts(employ_trend, grid.col = "white", legend.loc = "topleft", main = "Log of Employment and trend")
+```
+
+When filtering time series, the cycle component is of great interest. Here, it is graphed alongside
+a random walk representation (Hamilton 44).
+
+```{r, warning = FALSE}
+employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
+
+plot.xts(employ_cycle, grid.col = "white", legend.loc = "topright", main="Log of Employment cycle and random")
+abline(h=0)
+```
+
+Turning the page, we find a similar graph of the cyclical component of $100 * log$ of GDP, Exports, Consumption, Imports, Investment, and Government (Hamilton 45). 
+
+Below I `merge` these data into one `xts` object and write a function wrapper around `yth_filter` and `plot`, which is then `lapply`'d over each series, producing a plot for each one.
+
+```{r, message=FALSE, warning=FALSE}
+fig6_data <- 100*log(merge(GDPC1, EXPGSC1, PCECC96, IMPGSC1, GPDIC1, GCEC1)["1947/2016-3"])
+
+fig6_wrapper <- function(x, ...) {
+               cycle <-  yth_filter(x, h = 8, p = 4, output = c("cycle", "random"), family = gaussian)
+               plot.xts(cycle, grid.col = "white", lwd=1, main = names(x))
+}
+```
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+par(mfrow=c(3,2))
+lapply(fig6_data, fig6_wrapper)
+```
+
+```{r, echo=FALSE,results='hide',fig.keep='all'}
+par(mfrow=c(2,2))
+lapply(fig6_data, fig6_wrapper)
+```
+
+When striving to recreate a statistical method found in a journal or paper, one can perform surprisingly well by thoroughly digesting the relevant sections and "eyeballing" graphs included in the authors work. 
+
+Better still, is a table presenting the authors results, which one may use to directly compare with their own reproduction. Fortunately for us, Hamilton's Appendix displays such a table which I use to test against estimates computed with functions contained in **`neverhpfilter`**.
+
+His results are displayed below in table 2 (Hamilton 40), which I've stored as a `data.frame` in this package.
+
+```{r, eval=FALSE}
+data("Hamilton_table_2")
+?Hamilton_table_2
+```
+
+```{r}
+kable(Hamilton_table_2[-NROW(Hamilton_table_2),], align = 'l', caption = "Hamilton's results: table 2, pg. 40")
+```
+
+
+I'll replicate the table above, combining base R functions with estimates of the `yth_filter` function.
+
+Per the usual protocol when approaching such a problem, the first step is to combine
+data in manner that allows for convenient iteration of computations across all data sets.
+First, I `merge` series which already have a quarterly frequency. These are `GDPC1, PCECC96, GPDIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF`. At this step, we can also subset observations by the date range used by Hamilton. As all series of which units are measured in prices need to be given the $100*log$ treatment, I add that to this step as well.
+
+```{r, warning = FALSE, message = FALSE}
+quarterly_data <- 100*log(merge(GDPC1, PCECC96, GPDIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF)["1947/2016-3"])
+```
+
+Some of the series we wish to compare have a monthly periodicity, so we need to lower their frequency `to.quarterly`. First, `merge` monthly series and $100*log$ those expressed in prices. Leave those expressed in percentages alone. Then, functionally iterate over every series and transform them `to.quarterly`.
+Presumably because more data was available at the time of Hamilton's work, monthly series include observations from the second quarter of 2016 and so I subset accordingly. Finally, all series are combined into one `xts` object, `quarterly_data`.
+
+```{r, warning = FALSE, message = FALSE}
+monthly_data <- merge(100*log(PAYEMS), 100*log(SP500$SP500)["1950/"], UNRATENSA, GS10, FEDFUNDS)
+
+to_quarterly_data <- do.call(merge, lapply(monthly_data, to.quarterly, OHLC = FALSE))["1947/2016-6"]
+
+quarterly_data <- merge(quarterly_data, to_quarterly_data)
+```
+
+Now that the data has been prepped, its time to functionally iterate over each series, `lapply`ing the `yth_filter` to all. The optional argument of `output = "cycle"` comes in handy because it returns the labeled univariate cycle component for each series. The same can be done for the `random` component as well.
+
+```{r, warning = FALSE, message = FALSE}
+cycle <- do.call(merge, lapply(quarterly_data, yth_filter, output = "cycle"))
+
+random <- do.call(merge, lapply(quarterly_data, yth_filter, output = "random"))
+```
+
+Now that all data have been transformed into both cycle and random components, its 
+time to estimate the standard deviation for each, as well as each components correlation 
+with GDP. This is also a good opportunity to `t`ranspose each of our estimates into vertical columned `data.frames`, matching Hamilton's format. 
+
+```{r, warning = FALSE, message = FALSE}
+cycle.sd <- t(data.frame(lapply(cycle, sd, na.rm = TRUE)))
+GDP.cor <- t(data.frame(lapply(cycle, cor, cycle[,1], use = "complete.obs")))
+random.sd <- t(data.frame(lapply(random, sd, na.rm = TRUE)))
+random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")))
+
+my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 2)
+```
+
+Hamilton displays the date ranges of his samples so we will do the same. 
+
+I use a simple function I call `sample_range` to extract the first and last observation of each
+series' `index.xts`. This approach serves as a check on the work, as oppose to 
+manually creating labels.
+
+Sample ranges are then `t`ransposed into vertical `data.frames` and `cbind`'d to 
+the existing table of estimates. 
+
+```{r, warning = FALSE, message = FALSE}
+sample_range <- function(x) {
+  x <- na.omit(x)
+  gsub(" ", "-", paste0(index(x[1,]), "/", index(x[NROW(x),])))
+}
+
+data_sample <- t(data.frame(lapply(quarterly_data, sample_range)))
+
+my_table_2 <- cbind(my_table_2, data_sample)
+names(my_table_2) <- names(Hamilton_table_2)
+```
+
+
+Finally, `rbind` Hamilton's table 2 with my table and compare. The results are 
+nearly  identical, inspiring confidence in the replication of this approach.
+
+According to the 'code and data' link on the ['Current Working Papers'](http://econweb.ucsd.edu/~jhamilto/#working) page of Hamilton's site,
+both Matlab and RATS were used for computation of the table. It is not
+surprising that minor differences in estimates would occur, likely due to 
+differing internal computational choices made by each respective commercial software product, of which we cannot test.
+
+```{r, warning = FALSE, message = FALSE, caption = "Comparison table: Hamilton vs neverhpfilter"}
+ # Combined table
+combined_table <- rbind(Hamilton_table_2[-NROW(Hamilton_table_2),], my_table_2)
+combined_table <- combined_table[order(combined_table$cycle.sd),]
+kable(combined_table, align = 'l', caption = "Hamilton's table 2 compared with estimates from neverhpfilter::yth_filter, sorted by standard deviation of the cycle component. yth_filter estimates are labeled with the suffix '.cycle'")
+```
+
+## An example: The "Great Moderation"
+
+Applying the filter, we find most economic time series in the U.S. moderated tremendously 
+over the post WWII period, leading up to the Credit Crisis of 2008, which seems to confirm the theory. 
+Key periods displayed are 1950-1983, 1984 to 2007, the Great Recession of 2008-2009Q2, 
+and its aftermath of 2009Q3 to present. In defining the Great Moderation, we take 
+a cue from Ben Bernanke's speech on the subject, who suggests that it began in the 
+first quarter of 1984 (Bernanke, 2004 p. 2). The `endpoint` of the Great Moderation 
+takes place in the 4th quarter of 2007, or the peak month of Real GDP prior to the 
+Great Recession. We note Simon and Blanchard use the peaks of expansions in their 
+analysis of previous cycles (Simon and Blanchard, 2001 p. 141). 
+
+```{r, warning = FALSE, message = FALSE}
+cycle.sd <- t(data.frame(lapply(cycle, sd, na.rm = TRUE)))
+cycle.x_1982 <- t(data.frame(lapply(cycle["/1983"], sd, na.rm = TRUE)))
+cycle.1982_2007 <- t(data.frame(lapply(cycle["1984/2007"], sd, na.rm = TRUE)))
+cycle.2008_2009 <- t(data.frame(lapply(cycle["2008/2009-3"], sd, na.rm = TRUE)))
+cycle.2009_x <- t(data.frame(lapply(cycle["2009-6/"], sd, na.rm = TRUE)))
+
+cycle_table_2 <- round(data.frame(cbind(cycle.x_1982, cycle.1982_2007, cycle.2008_2009, cycle.2009_x)), 2)
+data_sample <- t(data.frame(lapply(cycle, sample_range)))
+cycle_table_2 <- cbind(cycle_table_2, data_sample)
+cycle_table_2 <- cycle_table_2[order(cycle_table_2[,2]),]
+colnames(cycle_table_2) <- c("1950-1983","1984-2007","2008-2009Q2", "2009Q3-Present", "Sample-Range")
+
+kable(cycle_table_2, align ="l")
+```
+
+In a similar manner as Simon and Blanchard, we can graphically display the Great 
+Moderation with 5 year rolling standard deviations of the cycle component for each 
+series. As the table above indicates, long-term variance declines occurred for most 
+series leading up to the Credit Crisis of 2008, except for the SP500.
+
+```{r}
+rolling_5yr_sd <- do.call(merge, lapply(cycle, rollapply, width = 20, sd))
+
+plot_wrapper <- function(x, ...) {
+               cycle_sd <- x 
+               plot.xts(cycle_sd, grid.col = "white", col = "darkgreen", lwd=1, main = names(x))
+}
+```
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+par(mfrow=c(2,2))
+lapply(rolling_5yr_sd["1955/2007"], plot_wrapper)
+```
+
+```{r, echo=FALSE,results='hide',fig.keep='all'}
+par(mfrow=c(2,2))
+lapply(rolling_5yr_sd["1955/2007"], plot_wrapper)
+```
+
+Exploring other financial time series, we find that in addition to the S&P 500, the variance of other important series roughly corresponding to income, savings, liquidity, and money increased during this time as well. While Personal Income, Savings, and Total Liabilities moderate...Debt Securities, the Monetary Base, Corporate Debt, Corporate Profits, and Corporate Earnings, all see increases in long-term variance leading up to the Great Recession.
+
+```{r, warning = FALSE, message = FALSE, echo=FALSE}
+### Income Savings ###
+Personal_Income <- "https://fred.stlouisfed.org/data/PINCOME.txt"
+Gross_Private_Savings <- "https://fred.stlouisfed.org/data/GPSAVE.txt"
+Corporate_Profits_After_Tax <- "https://fred.stlouisfed.org/data/CP.txt"
+
+### Liquidity-Money ###
+Corporate_debt_securities     <- "https://fred.stlouisfed.org/data/NCBDBIQ027S.txt"
+All_Sectors_Liability_Level   <- "https://fred.stlouisfed.org/data/ASTLL.txt"
+All_Sectors_Debt_Securities   <- "https://fred.stlouisfed.org/data/ASTDSL.txt"
+Adjusted_Monetary_Base        <- "https://fred.stlouisfed.org/data/AMBSL.txt"
+
+### Download Income Savings Data ###
+Income <- as.xts(read.zoo(Personal_Income, sep = "", skip = 22, index.column = 1,  
+                           header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+Savings <- as.xts(read.zoo(Gross_Private_Savings, sep = "", skip = 13, index.column = 1,  
+                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+Corporate_Profits <- as.xts(read.zoo(Corporate_Profits_After_Tax, sep = "", skip = 13, index.column = 1,                                        header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+Corporate_Earnings <- to.quarterly(SP500$Real_Earnings["1947/"], OHLC=FALSE)
+
+### Download Liquidity-Money data ###
+Corporate_Debt <- as.xts(read.zoo(Corporate_debt_securities, sep = "", skip = 60, index.column = 1,  
+                                  header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+Total_Liability  <- as.xts(read.zoo(All_Sectors_Liability_Level, sep = "", skip = 41, index.column = 1,  
+                                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+Debt_Securities <- as.xts(read.zoo(All_Sectors_Debt_Securities, sep = "", skip = 41, index.column = 1,  
+                                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+Monetary_Base <- to.quarterly(as.xts(read.zoo(Adjusted_Monetary_Base, sep = "", skip = 18, index.column = 1, header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))["1952/2017"], OHLC=FALSE)
+```
+
+```{r, warning = FALSE, message = FALSE}
+#Billions of dollars
+Income_savings <- 100*log(merge(Income, Savings, Corporate_Profits, Corporate_Earnings))
+
+# Convert series with millions of dollars to Billions
+Liquidity_Money <- 100*log(merge(Corporate_Debt, Total_Liability, Debt_Securities)/1000)
+
+# Merge
+LM_IS <- merge(Income_savings, Liquidity_Money, Monetary_Base=100*log(Monetary_Base))
+```
+
+```{r, warning = FALSE, message = FALSE}
+LMIS_cycle <- do.call(merge, lapply(LM_IS, yth_filter, output = "cycle"))
+
+LMIS_cycle.sd <- t(data.frame(lapply(LMIS_cycle, sd, na.rm = TRUE)))
+LMIS_cycle.x_1982 <- t(data.frame(lapply(LMIS_cycle["/1983"], sd, na.rm = TRUE)))
+LMIS_cycle.1982_2007 <- t(data.frame(lapply(LMIS_cycle["1984/2007"], sd, na.rm = TRUE)))
+LMIS_cycle.2008_x <- t(data.frame(lapply(LMIS_cycle["2008/2010"], sd, na.rm = TRUE)))
+LMIS_cycle.2010_x <- t(data.frame(lapply(LMIS_cycle["2010/"], sd, na.rm = TRUE)))
+
+LMIS_cycle_table_2 <- round(data.frame(cbind(LMIS_cycle.x_1982, LMIS_cycle.1982_2007, LMIS_cycle.2008_x, LMIS_cycle.2010_x)), 2)
+
+data_sample <- t(data.frame(lapply(LMIS_cycle, sample_range)))
+LMIS_cycle_table_2 <- cbind(LMIS_cycle_table_2, data_sample)
+LMIS_cycle_table_2<- LMIS_cycle_table_2[order(LMIS_cycle_table_2[,2]),]
+colnames(LMIS_cycle_table_2) <- c("1950-1983","1984-2007","2008-2010", "2010-Present", "Sample-Range")
+
+kable(LMIS_cycle_table_2, align = "l")
+```
+
+
+```{r}
+rolling_5yr_sd <- do.call(merge, lapply(LMIS_cycle, rollapply, width = 20, sd))
+
+plot_wrapper <- function(x, ...) {
+               LMIS_cycle_sd <- x 
+               plot.xts(LMIS_cycle_sd, grid.col = "white", col = "darkred", lwd=1, main = names(x))
+}
+```
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+par(mfrow=c(2,2))
+lapply(rolling_5yr_sd["1955/2007"], plot_wrapper)
+```
+
+```{r, echo=FALSE,results='hide',fig.keep='all'}
+par(mfrow=c(2,2))
+lapply(rolling_5yr_sd["1955/2007"], plot_wrapper)
+```
+
+The Great Moderation defined by Bernanke and others may not be the best
+representation of historical economic events. I did find that Real GDP and all 
+major components moderated substantially. Of these, Employment, Investment spending, 
+and its components were the most highly  correlated to GDP. All of this occurred 
+amidst a backdrop of moderating inflation levels. It seems moderating inflation 
+along with moderating aggregate growth from 1984 to 2007 are the main characteristics 
+that led to the term "Great Moderation". 
+
+When examining economic data inspired by variables corresponding to Income, Savings, 
+Liquidity, and Money, we found that deviations associated with Corporate Earnings, 
+Corporate Profits, Corporate Debt, and the Monetary Base increased.
+
+When examining the variance of the data through the lens of the late Hyman Minsky and 
+his Financial Instability Hypothesis, another view of the previous economic expansions
+emerges. If moderation of aggregate economic growth, its components, and inflation occurred 
+at the expense of increased volatility of important financial variables, perhaps it is
+misleading to refer to the 1984-2007 time period as the Great Moderation.
+
+# Summary
+
+The estimates generated with the `neverhpfilter` package are nearly identical to those displayed by Hamilton(2017). If one has the use case, the generalized functions will estimate higher frequency time series as well as error distributions other than Gaussian. 
+In addition to consulting the paper which inspired this package, check out the documentation for `yth_filter` to learn more.
+
+\newpage
+
+## Sources
+
+Bernanke, Ben, "The Great Moderation". Speech at the meetings of the Eastern Economic
+Association, Washington, DC. February 20, 2004, pp. 1-15
+
+Blanchard and Simon, "The Long and Large Decline in U.S. Output Volatility". Brookings Papers on
+Economic Activity, 1 :2001, pp. 135-164
+
+Hamilon, James D. "Why You Should Never Use the Hodrick-Prescott Filter". NBER Working Paper No. 23429,
+[https://www.nber.org/papers/w23429](https://www.nber.org/papers/w23429), May 2017. 
+
+Minsky, Hyman P. "The Financial Instability Hypothesis". Working Paper No. 74. (May, 1992). Pp.
+1-10
+
