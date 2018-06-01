@@ -1,0 +1,176 @@
+---
+title: "Economic Time Series Filtering: An alternative approach with the neverhpfilter package"
+author: "Justin M. Shea"
+date: "June 1st, 2018"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+- about me, contact information.
+
+## Motivation
+
+James Hamilton's working paper, 
+**WHY YOU SHOULD NEVER USE THE HODRICK-PRESCOTT FILTER** [(2017)<doi:10.3386/w23429>](https://www.nber.org/papers/w23429) summarizes
+the problem with the popular filter in three points:
+
+- (1) The HP filter produces series with spurious dynamic relations that have no 
+basis in the underlying data-generating process.
+
+- (2) Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.  
+
+- (3) A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for $\lambda$ far below **1600** for quarterly data.  
+
+
+## If you gave someone HP-Filtered data feeling like this...
+
+```{r echo=FALSE, out.width='100%'}
+image <- paste0(getwd(),"/images/top-gun.jpg")
+knitr::include_graphics(image)
+```
+
+
+
+## ...In reality, its more like this:
+
+
+```{r echo=FALSE, out.width='100%'}
+image <- paste0(getwd(),"/images/danger-zone.jpg")
+knitr::include_graphics(image)
+```
+
+
+## The 4th point of Hamilton's abstract presents a solution
+
+- (4) There's a better alternative. A regression of the variable at date **$t + h$** on the four most recent values (for quarterly data) as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
+
+
+$$y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}$$
+
+Which can be rewritten as:
+
+$$y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}$$
+
+## Do any of Hamilton's peers agree? From the cover page:
+
+
+_I thank Daniel Leff for outstanding research assistance on this project and **Frank Diebold, Robert King, James Morley**, and anonymous referees for helpful comments on an earlier draft of this paper._
+
+
+## Implementing Hamilton's alternative: neverhpfilter package
+
+The package consists of 2 core functions which are:
+
+`yth_glm`: fits a generalized linear model object of class **`glm`**.
+
+```{r, echo=TRUE,eval=FALSE}
+yth_glm(x, h = 8, p = 4, ...)
+```
+
+`yth_filter`: returns an **`xts`** object containing user defined combinations of the original, trend, cycle, and random walk series.
+
+```{r, echo=TRUE, eval=FALSE}
+yth_filter(x, h = 8, p = 4, 
+           output = c("x", "trend", "cycle", "random"), 
+           ...)
+```
+
+ In addition the package comes with **14** documented data sets used to reproduce the results of Hamilton(2017).
+ 
+## Hamilton's alternative: Quick Example
+
+```{r, echo=TRUE}
+library(neverhpfilter)
+gdp_filtered <- yth_filter(100*log(GDPC1), h = 8, p = 4)
+tail(gdp_filtered, 8)
+class(gdp_filtered)
+```
+
+
+## Got Dependencies?
+
+
+```{r echo=FALSE, out.width='100%'}
+image <- paste0(getwd(),"/images/dirk-josh.PNG")
+knitr::include_graphics(image)
+```
+```{r, echo=TRUE, tidy=TRUE}
+tools::package_dependencies("neverhpfilter") 
+```
+
+
+## Why depend on xts?
+
+Model functions accept and return xts objects of any periodicity.
+
+```{r, echo=TRUE}
+class(GDPC1)
+xts::periodicity(GDPC1)
+y <- yth_filter(GDPC1)
+class(y)
+xts::periodicity(y)
+```
+
+## What else is awesome about xts?
+`plot(x, ... )` quickly produces nice graphs.
+
+```{r}
+main <- "Log of Real GDP (GDPC1) and trend"
+plot(gdp_filtered["1980/"][,1:2], grid.col = "white", legend.loc = "topleft", main = main,  panels = 'lines(gdp_filtered["1980/"][,3], type="h", on=NA)')
+```
+
+
+## Reproducing Hamilton's solution
+
+```{r echo=FALSE, out.width='100%'}
+image <- paste0(getwd(),"/images/reproducing.PNG")
+knitr::include_graphics(image)
+```
+
+
+## James Hamilton is cool with open source R
+
+
+```{r echo=FALSE, out.width='100%'}
+image <- paste0(getwd(),"/images/Hamilton-email.PNG")
+knitr::include_graphics(image)
+```
+
+## And he did it!
+
+```{r echo=FALSE, out.width='100%'}
+image <- paste0(getwd(),"/images/Hamilton-web.PNG")
+knitr::include_graphics(image)
+```
+
+
+
+
+## Example
+
+Scatterplot of correlation of Asset returns vs Growth/Inflation percent. 
+
+Then show another graph of asset returns vs cycle or trend of GDP.
+
+## Model estimation function
+
+For model estimation, I settled on `glm` because, model object!
+
+```{r, echo=TRUE}
+gdp_model <- yth_glm(100*log(GDPC1), h = 8, p = 4)
+```
+```{r}
+knitr::kable(broom::tidy(gdp_model))
+```
+
+
+
+
+
+
+
