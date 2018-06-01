@@ -1,7 +1,7 @@
 Package: neverhpfilter
 Type: Package
 Title: A Better Alternative to the Hodrick-Prescott Filter
-Version: 0.2-0
+Version: 0.2-1
 Authors@R: person("Justin M.", "Shea", email = "jshea@roosevelt.edu", role = c("aut", "cre"))
 Description: In the working paper titled "Why You Should Never Use the Hodrick-Prescott 
    Filter", James D. Hamilton proposes an interesting new alternative to economic 

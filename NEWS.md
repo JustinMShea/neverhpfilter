@@ -3,6 +3,10 @@ title: "NEWS"
 output: github_document
 ---
 
+# neverhpfilter 0.2-1
+
+Updated all data sets.
+
 # neverhpfilter 0.2-0
 
 Consolidated into two functions. `yth_glm` remains unchanged, while
