@@ -42,7 +42,8 @@
 #' maximum number of periods as a recession for monthly and quarterly
 #' data. The Federal Reserve Bank of St. Louis uses this method in its
 #' own publications. A version of this time series represented using the
-#' midpoint method can be found at: \url{https://fred.stlouisfed.org/series/USRECM}
+#' midpoint method can be found at: 
+#' \url{https://fred.stlouisfed.org/series/USRECM}
 #'
 #' The second interpretation, known as the trough method, is to show a
 #' recession from the period following the peak through the trough (i.e.
@@ -59,20 +60,22 @@
 #' data, the recession begins on the first day of the month of the peak
 #' and ends on the last day of the month preceding the trough. Daily data
 #' is a disaggregation of monthly data. A version of this time series
-#' represented using the peak method can be found at: \url{https://fred.stlouisfed.org/series/USRECP}
+#' represented using the peak method can be found at: 
+#' \url{https://fred.stlouisfed.org/series/USRECP}
 #'
 #' @docType data
 #'
 #' @usage data(USREC)
 #'
-#' @format An \code{\link{xts}} object containing monthly observations of NBER based Recession Indicators
+#' @format An \code{\link{xts}} object containing monthly observations of NBER 
+#'   based Recession Indicators
 #'  \itemize{
 #' #\item\strong{Release:} {Recession Indicators Series (Not a Press Release)}
 #'  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted} 
 #'  \item\strong{Frequency:} {Monthly}
 #'  \item\strong{Units:} {+1 or 0}
-#'  \item\strong{Date Range:} {1854-12-01 to 2017-12-01}
-#'  \item\strong{Last Updated} {2018-01-03 3:21 PM CST}
+#'  \item\strong{Date Range:} {1854-12-01 to 2018-04-01}
+#'  \item\strong{Last Updated} {2018-05-01 6:01 PM CDT}
 #' }
 #'
 #' @source Federal Reserve Bank of St. Louis \url{https://fred.stlouisfed.org/data/USREC.txt}

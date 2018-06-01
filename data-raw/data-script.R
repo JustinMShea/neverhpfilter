@@ -43,39 +43,52 @@ colnames(GPDIC1) <- "GPDIC1"
 PCECC96 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PCECC96.txt", skip = 13, index.column = 1,
                         header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
+colnames(PCECC96 ) <- "PCECC96 "
 
 # Real Exports of Goods and Services
 EXPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/EXPGSC1.txt", skip = 13, index.column = 1,
                              header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
+colnames(EXPGSC1) <- "EXPGSC1"
+
 # Real imports of goods and services
 IMPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/IMPGSC1.txt", skip = 13, index.column = 1,
                              header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+
+colnames(IMPGSC1) <- "IMPGSC1"
 
 # Real Government Consumption Expenditures and Gross Investment
 GCEC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GCEC1.txt", skip = 13, index.column = 1,
                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
+colnames(GCEC1) <- "GCEC1 "
 
 # Civilian Unemployment Rate
 UNRATENSA <- as.xts(read.zoo("https://fred.stlouisfed.org/data/UNRATENSA.txt",
                              skip = 24, index.column = 1, header = TRUE,
                              format = "%Y-%m-%d", FUN = as.yearmon))
 
+colnames(UNRATENSA ) <- "UNRATENSA"
+
 # Gross Domestic Product: Implicit Price Deflator
 GDPDEF <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GDPDEF.txt", skip = 15,
                           index.column = 1, header = TRUE, format = "%Y-%m-%d",
                           FUN = as.yearqtr))
+
+colnames(GDPDEF) <- "GDPDEF"
 
 # 10-Year Treasury Constant Maturity Rate
 GS10 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GS10.txt", skip = 14,
                           index.column = 1, header = TRUE, format = "%Y-%m-%d",
                           FUN = as.yearmon))
 
+colnames(GS10) <- "GS10"
+
 # Effective Federal Funds Rate
 FEDFUNDS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/FEDFUNDS.txt", skip = 60,
                         index.column = 1, header = TRUE, format = "%Y-%m-%d",
                         FUN = as.yearmon))
+colnames(FEDFUNDS ) <- "FEDFUNDS"
 
 # S&P 500
 library(readxl)
@@ -93,7 +106,7 @@ SP$Date <- gsub("-1$", "-10", SP$Date)
 
 # conver to xts
 SP500 <- as.xts(SP[-NROW(SP),-1], order.by = as.yearmon(SP$Date[-NROW(SP)], "%Y-%m"))
-SP500 <- SP500["/2017"]
+SP500 <- SP500["/2018"]
 
 rm(SP, ie_data)
   ###################################################

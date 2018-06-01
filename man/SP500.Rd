@@ -7,7 +7,7 @@
 \format{An \code{\link{xts}} object containing observations of U.S. Stock Markets 1871-Present and CAPE Ratio.
  \itemize{
  \item\strong{Frequency:} {Monthly}
- \item\strong{Date Range:} {1871-01 to 2017-12}
+ \item\strong{Date Range:} {1871-01 to 2018-05}
  \item\strong{SP500:} {Nominal prices of the S&P 500 composite index}
  \item\strong{Dividends:} {Nominal dividends}
  \item\strong{Earnings:} {Nominal Earnings}
@@ -20,7 +20,8 @@
 }}
 \source{
 Schiller, Robert J. Irrational Exuberance, Princeton University Press 2000, 
- Broadway Books 2001, 2nd ed. 2005, 3rd ed. 2015.  \url{http://www.econ.yale.edu/~shiller/data.htm}
+ Broadway Books 2001, 2nd ed. 2005, 3rd ed. 2015.  
+ \url{http://www.econ.yale.edu/~shiller/data.htm}
 }
 \usage{
 data(SP500)

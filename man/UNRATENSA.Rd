@@ -10,8 +10,8 @@
  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
  \item\strong{Frequency:} {Monthly}
  \item\strong{Units:} {Percent}
- \item\strong{Date Range:} {1948-01-01 to 2017-12-01}
- \item\strong{Last Updated} {2018-01-05 9:13 AM CST}
+ \item\strong{Date Range:} {1948-01-01 to 2018-04-01}
+ \item\strong{Last Updated} {2018-05-04 8:14 AM CDT}
 }}
 \source{
 U.S. Bureau of Labor Statistics \url{https://fred.stlouisfed.org/data/UNRATENSA.txt}

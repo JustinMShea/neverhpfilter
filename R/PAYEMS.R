@@ -45,8 +45,8 @@
 #'  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted}
 #'  \item\strong{Frequency:} {Monthly}
 #'  \item\strong{Units:} {Thousands of Persons}
-#'  \item\strong{Date Range:} {1939-01-01 to 2017-12-01}
-#'  \item\strong{Last Updated} {2018-01-05 9:13 AM CST}
+#'  \item\strong{Date Range:} {1939-01-01 to 2018-04-01}
+#'  \item\strong{Last Updated} {2018-05-04 8:12 AM CDT}
 #' }
 #'
 #' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PAYEMS.txt}

@@ -10,11 +10,12 @@
  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
  \item\strong{Frequency:} {Monthly}
  \item\strong{Units:} {Percent}
- \item\strong{Date Range:} {1953-04-01 to 2017-12-01}
- \item\strong{Last Updated} {2018-01-03 10:01 AM CST}
+ \item\strong{Date Range:} {1953-04-01 to 2018-04-01}
+ \item\strong{Last Updated} {2018-05-01 3:41 PM CDT}
 }}
 \source{
-Board of Governors of the Federal Reserve System (US) \url{https://fred.stlouisfed.org/data/GS10.txt}
+Board of Governors of the Federal Reserve System (US) 
+\url{https://fred.stlouisfed.org/data/GS10.txt}
 }
 \usage{
 data(GS10)
