@@ -1,12 +1,12 @@
 Package: neverhpfilter
 Type: Package
-Title: A Better Alternative to the Hodrick-Prescott Filter
+Title: An Alternative to the Hodrick-Prescott Filter
 Version: 0.2-1
 Authors@R: person("Justin M.", "Shea", email = "jshea@roosevelt.edu", role = c("aut", "cre"))
 Description: In the working paper titled "Why You Should Never Use the Hodrick-Prescott 
-   Filter", James D. Hamilton proposes an interesting new alternative to economic 
-   time series filtering. The neverhpfilter package provides functions for implementing 
-   his solution. Hamilton (2017) <doi:10.3386/w23429>.
+   Filter", James D. Hamilton proposes a new alternative to economic time series 
+   filtering. The neverhpfilter package provides functions for implementing his 
+   solution and data for reproducing his work. Hamilton (2017) <doi:10.3386/w23429>.
 Depends: R (>= 3.4.0)
 License: GPL-3
 Encoding: UTF-8
