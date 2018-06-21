@@ -25,12 +25,11 @@
 #'  This function is not limited by the default parameter, and Econometricians may
 #'  change it as required.
 #'
-#' @param p An \code{\link{integer}}, indicating the number of lags. A Default of \code{p = 4},
-#'  suggested by Hamilton, assumes data is of quarterly periodicity. If data is
-#'  of monthly periodicity, one may choose \code{p = 12} or aggregate the series
-#'  to quarterly periodicity and maintain the default. Econometricians should
-#'  use this parameter to accommodate the Seasonality of their data.
-#'
+#' @param p An \code{\link{integer}}, indicating the number of lags. A Default of 
+#'  \code{p = 4}, suggested by Hamilton, assumes data is of quarterly periodicity. 
+#'  If data is of monthly periodicity, one may choose \code{p = 12} or aggregate 
+#'  the series to quarterly periodicity and maintain the default. Econometricians 
+#'  should use this parameter to accommodate the Seasonality of their data.
 #'
 #' @param ... all arguments passed to the function \code{\link[stats]{glm}}
 #'
@@ -39,7 +38,8 @@
 #' @seealso \code{\link{glm}}
 #'
 #' @importFrom stats lag
-#'
+#' @importFrom xts lag.xts
+#' 
 #' @references James D. Hamilton. \href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.
 #'  NBER Working Paper No. 23429, Issued in May 2017.
 #'
@@ -57,22 +57,26 @@ yth_glm <- function(x, h = 8, p = 4, ...) {
 
            if(!"xts" %in% class(x)) {
 
-              stop(paste("Argument 'x' must be an object of type xts.", class(x), "is not an xts object"))
+              stop(paste("Argument 'x' must be an object of type xts.", class(x), 
+                         "is not an xts object"))
 
     } else if(h %% 1 != 0) {
 
-              stop(paste("Argument 'h' must be a whole number.", h, "is not a whole number."))
+              stop(paste("Argument 'h' must be a whole number.", h, 
+                         "is not a whole number."))
 
     } else if(p %% 1 != 0) {
 
-              stop(paste("Argument 'p' must be a whole number.", p, "is not a whole number."))
+              stop(paste("Argument 'p' must be a whole number.", p, 
+                         "is not a whole number."))
 
     } else {
-
+         
+            # create matrix of lagged variables specified by h and p
             data  <- lag(x, k = c(0, h:(h+p-1)), na.pad = TRUE)
-
+            # create lagged variable names
             colnames(data)  <- c(paste0("yt",h), paste0('xt_',0:(p-1)))
-
+            # create formula to pass to glm
             formula <- paste0(c(paste0(paste0("yt",h)," ~ xt_0"), paste0('+ xt_',1:(p-1))), collapse = " ")
 
             stats::glm(formula, data = data, ...)
