@@ -5,6 +5,9 @@
 ^appveyor\.yml$
 ^codecov\.yml$
 ^vignettes/additional-examples\.Rmd$
+^vignettes/R-Finance-submission\.Rmd$
+^vignettes/R-Finance-2018-slides.Rmd$
+^vignettes/images
 ^docs$
 ^cran-comments.md$
 ^w23429.pdf$
