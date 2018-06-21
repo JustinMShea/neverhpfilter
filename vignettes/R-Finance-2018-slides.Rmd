@@ -9,9 +9,7 @@ output: beamer_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Introduction
 
-- about me, contact information.
 
 ## Motivation
 
@@ -38,19 +36,18 @@ knitr::include_graphics(image)
 
 ## ...In reality, its more like this:
 
-
 ```{r echo=FALSE, out.width='100%'}
 image <- paste0(getwd(),"/images/danger-zone.jpg")
 knitr::include_graphics(image)
 ```
-
+( Inspired by the one and only Mara Averick @dataandme )
 
 ## The 4th point of Hamilton's abstract presents a solution
 
 - (4) There's a better alternative. A regression of the variable at date **$t + h$** on the four most recent values (for quarterly data) as of date $t$ offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.
 
 
-$$y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}$$
+**$$y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}$$**
 
 Which can be rewritten as:
 
@@ -64,15 +61,15 @@ _I thank Daniel Leff for outstanding research assistance on this project and **F
 
 ## Implementing Hamilton's alternative: neverhpfilter package
 
-The package consists of 2 core functions which are:
+**`yth_glm`**: fits a generalized linear model object of class **`glm`**.
 
-`yth_glm`: fits a generalized linear model object of class **`glm`**.
+$y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}$
 
 ```{r, echo=TRUE,eval=FALSE}
 yth_glm(x, h = 8, p = 4, ...)
 ```
 
-`yth_filter`: returns an **`xts`** object containing user defined combinations of the original, trend, cycle, and random walk series.
+**`yth_filter`**: returns an **`xts`** object containing user defined combinations of the original, trend, cycle, and random walk series.
 
 ```{r, echo=TRUE, eval=FALSE}
 yth_filter(x, h = 8, p = 4, 
@@ -82,15 +79,39 @@ yth_filter(x, h = 8, p = 4,
 
  In addition the package comes with **14** documented data sets used to reproduce the results of Hamilton(2017).
  
-## Hamilton's alternative: Quick Example
+## Hamilton's alternative: Model estimation function
+
+For model estimation, I settled on `glm` because...model object!
 
 ```{r, echo=TRUE}
 library(neverhpfilter)
-gdp_filtered <- yth_filter(100*log(GDPC1), h = 8, p = 4)
+gdp_model <- yth_glm(100*log(GDPC1), h = 8, p = 4)
+```
+
+```{r}
+knitr::kable(broom::tidy(gdp_model))
+```
+
+## Hamilton's alternative: Filtered series
+
+```{r, echo=TRUE}
+library(neverhpfilter)
+gdp_filtered <- yth_filter(100*log(GDPC1), 
+                      h = 8, p = 4,
+                      output = c("x", "trend", "cycle"))
+
 tail(gdp_filtered, 8)
 class(gdp_filtered)
 ```
 
+
+## Got Dependencies?
+
+
+```{r echo=FALSE, out.width='100%'}
+image <- paste0(getwd(),"/images/dirk-josh.PNG")
+knitr::include_graphics(image)
+```
 
 ## Got Dependencies?
 
@@ -105,18 +126,18 @@ tools::package_dependencies("neverhpfilter")
 
 
 ## Why depend on xts?
-
-Model functions accept and return xts objects of any periodicity.
+- Safer
+- Model functions accept and return xts objects of any periodicity.
 
 ```{r, echo=TRUE}
 class(GDPC1)
 xts::periodicity(GDPC1)
-y <- yth_filter(GDPC1)
+y <- yth_filter(100*log(GDPC1), h = 8, p = 4)
 class(y)
 xts::periodicity(y)
 ```
 
-## What else is awesome about xts?
+## Why depend on xts?
 `plot(x, ... )` quickly produces nice graphs.
 
 ```{r}
@@ -149,28 +170,20 @@ knitr::include_graphics(image)
 ```
 
 
+## Download the package and collaborate
 
+On C-RAN: 
 
-## Example
-
-Scatterplot of correlation of Asset returns vs Growth/Inflation percent. 
-
-Then show another graph of asset returns vs cycle or trend of GDP.
-
-## Model estimation function
-
-For model estimation, I settled on `glm` because, model object!
-
-```{r, echo=TRUE}
-gdp_model <- yth_glm(100*log(GDPC1), h = 8, p = 4)
-```
-```{r}
-knitr::kable(broom::tidy(gdp_model))
+```{r, echo=TRUE, eval=FALSE}
+install.packages("neverhpfilter")
 ```
 
+Or dev version with current data:
 
+```{r, echo=TRUE, eval=FALSE}
+devtools::install_github("JustinMShea/neverhpfilter")
+```
 
-
-
+## Thank you R/Finance!
 
 
