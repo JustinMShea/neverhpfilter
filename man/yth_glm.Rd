@@ -18,11 +18,11 @@ economic data of quarterly periodicity with a lookahead period of 2 years.
 This function is not limited by the default parameter, and Econometricians may
 change it as required.}
 
-\item{p}{An \code{\link{integer}}, indicating the number of lags. A Default of \code{p = 4},
-suggested by Hamilton, assumes data is of quarterly periodicity. If data is
-of monthly periodicity, one may choose \code{p = 12} or aggregate the series
-to quarterly periodicity and maintain the default. Econometricians should
-use this parameter to accommodate the Seasonality of their data.}
+\item{p}{An \code{\link{integer}}, indicating the number of lags. A Default of 
+\code{p = 4}, suggested by Hamilton, assumes data is of quarterly periodicity. 
+If data is of monthly periodicity, one may choose \code{p = 12} or aggregate 
+the series to quarterly periodicity and maintain the default. Econometricians 
+should use this parameter to accommodate the Seasonality of their data.}
 
 \item{...}{all arguments passed to the function \code{\link[stats]{glm}}}
 }

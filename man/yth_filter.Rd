@@ -4,8 +4,8 @@
 \alias{yth_filter}
 \title{Filtered xts object}
 \usage{
-yth_filter(x, h = 8, p = 4, output = c("x", "trend", "cycle", "random"),
-  ...)
+yth_filter(x, h = 8, p = 4, output = c("x", "trend", "cycle",
+  "random"), ...)
 }
 \arguments{
 \item{x}{A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
