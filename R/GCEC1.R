@@ -17,9 +17,9 @@
 #'  \item\strong{Release:} {Gross Domestic Product}
 #'  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
 #'  \item\strong{Frequency:} {Quarterly}
-#'  \item\strong{Units:} {Billions of Chained 2009 Dollars}
-#'  \item\strong{Date Range:} {1947-01-01 to 2018-01-01}
-#'  \item\strong{Last Updated} {2018-05-30 7:52 AM CDT}
+#'  \item\strong{Units:} {Billions of Chained 2012 Dollars}
+#'  \item\strong{Date Range:} {1947-01-01 to 2019-04-01}
+#'  \item\strong{Last Updated} {2019-08-29 8:00 AM CDT}
 #' }
 #'
 #' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GCEC1.txt}

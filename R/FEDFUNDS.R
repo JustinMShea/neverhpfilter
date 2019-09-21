@@ -63,8 +63,8 @@
 #'  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
 #'  \item\strong{Frequency:} {Monthly}
 #'  \item\strong{Units:} {Percent}
-#'  \item\strong{Date Range:} {1954-07-01 to 2018-04-01}
-#'  \item\strong{Last Updated} {2018-05-01 3:41 PM CDT}
+#'  \item\strong{Date Range:} {1954-07-01 to 2019-08-01}
+#'  \item\strong{Last Updated} {2019-09-03 3:17 PM CDT}
 #' }
 #'
 #' @source Board of Governors of the Federal Reserve System (US) 
