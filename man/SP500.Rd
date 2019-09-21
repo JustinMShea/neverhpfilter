@@ -7,7 +7,7 @@
 \format{An \code{\link{xts}} object containing observations of U.S. Stock Markets 1871-Present and CAPE Ratio.
  \itemize{
  \item\strong{Frequency:} {Monthly}
- \item\strong{Date Range:} {1871-01 to 2018-05}
+ \item\strong{Date Range:} {1871-01 to 2019-08}
  \item\strong{SP500:} {Nominal prices of the S&P 500 composite index}
  \item\strong{Dividends:} {Nominal dividends}
  \item\strong{Earnings:} {Nominal Earnings}
@@ -22,12 +22,14 @@
 Schiller, Robert J. Irrational Exuberance, Princeton University Press 2000, 
  Broadway Books 2001, 2nd ed. 2005, 3rd ed. 2015.  
  \url{http://www.econ.yale.edu/~shiller/data.htm}
+ 
+ Download .xls file directly from here: \url{http://www.econ.yale.edu/~shiller/data/ie_data.xls}
 }
 \usage{
 data(SP500)
 }
 \description{
-\code{SP500} Robert Schiller's data set for U.S. Stock Markets 1871-2017 and CAPE Ratio.
+\code{SP500} Robert Schiller's data set for U.S. Stock Markets 1871-2019 and CAPE Ratio.
 }
 \section{Notes from Schiller}{
 
@@ -42,7 +44,7 @@ for the quarter since 1926, with linear interpolation to monthly figures. Divide
 and earnings data before 1926 are from Cowles and associates (Common Stock Indexes,
 2nd ed., Bloomington, Ind.: Principia Press, 1939), interpolated from annual 
 data. Stock price data are monthly averages of daily closing prices through 
-January 2018. The CPI-U (Consumer Price Index-All Urban Consumers) published by 
+August of 2019. The CPI-U (Consumer Price Index-All Urban Consumers) published by 
 the U.S. Bureau of Labor Statistics begins in 1913; for years before 1913, 
 I spliced to the CPI Warren and Pearson's price index, by multiplying it by 
 the ratio of the indexes in January 1913. December 1999 and January 2000 values 
