@@ -13,23 +13,27 @@ Hamilton_table_2$Sample <- gsub(":", "-", Hamilton_table_2$Sample)
 
 library(xts)
 # Real GDP
-Real_Gross_Domestic_Product <- "https://research.stlouisfed.org/fred2/data/GDPC1.txt"
-GDPC1 <- as.xts(read.zoo(Real_Gross_Domestic_Product, skip = 17, index.column = 1,
-                        header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
+Real_Gross_Domestic_Product <- 
+GDPC1 <- as.xts(read.zoo("https://research.stlouisfed.org/fred2/data/GDPC1.txt", 
+                         skip = 17, index.column = 1, header = TRUE, 
+                         format = "%Y-%m-%d", FUN = as.yearqtr))
+
 colnames(GDPC1) <- "GDPC1"
 
 
 # Employment Rate
-Total_nonfarm_Payrolls   <- "https://fred.stlouisfed.org/data/PAYEMS.txt"
-PAYEMS <- as.xts(read.zoo(Total_nonfarm_Payrolls , sep = "", skip = 42, index.column = 1,
-                                            header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
+PAYEMS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PAYEMS.txt", 
+                          sep = "", skip = 42, index.column = 1, header = TRUE, 
+                          format = "%Y-%m-%d", FUN = as.yearmon))
+
 colnames(PAYEMS) <- "PAYEMS"
 
 
 # US Recessions
-Recession_Indicators <- "https://fred.stlouisfed.org/data/USREC.txt"
-USREC <- as.xts(read.zoo(Recession_Indicators , sep = "", skip = 69, index.column = 1,
-                                   header = TRUE, format = "%Y-%m-%d", FUN = as.yearmon))
+USREC <- as.xts(read.zoo("https://fred.stlouisfed.org/data/USREC.txt", 
+                         sep = "", skip = 69, index.column = 1, header = TRUE, 
+                         format = "%Y-%m-%d", FUN = as.yearmon))
+
 colnames(USREC) <- "USREC"
 
 
@@ -43,7 +47,7 @@ colnames(GPDIC1) <- "GPDIC1"
 PCECC96 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PCECC96.txt", skip = 13, index.column = 1,
                         header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
-colnames(PCECC96 ) <- "PCECC96 "
+colnames(PCECC96 ) <- "PCECC96"
 
 # Real Exports of Goods and Services
 EXPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/EXPGSC1.txt", skip = 13, index.column = 1,
@@ -61,7 +65,7 @@ colnames(IMPGSC1) <- "IMPGSC1"
 GCEC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GCEC1.txt", skip = 13, index.column = 1,
                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
-colnames(GCEC1) <- "GCEC1 "
+colnames(GCEC1) <- "GCEC1"
 
 # Civilian Unemployment Rate
 UNRATENSA <- as.xts(read.zoo("https://fred.stlouisfed.org/data/UNRATENSA.txt",
@@ -106,7 +110,7 @@ SP$Date <- gsub("-1$", "-10", SP$Date)
 
 # conver to xts
 SP500 <- as.xts(SP[-NROW(SP),-1], order.by = as.yearmon(SP$Date[-NROW(SP)], "%Y-%m"))
-SP500 <- SP500["/2018"]
+#SP500 <- SP500["/2018"]
 
 rm(SP, ie_data)
   ###################################################
