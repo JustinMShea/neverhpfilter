@@ -5,7 +5,7 @@
 
 ## Introduction
 
-  In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an interesting new alternative to economic time series filtering. The **`neverhpfilter`** package provides functions for implementing his solution. [Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
+  In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes a new alternative to economic time series filtering. The **`neverhpfilter`** package provides functions and data for reproducing his solution. [Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
 
 Hamilton's abstract offers an excellent introduction:
 
