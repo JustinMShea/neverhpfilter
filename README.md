@@ -36,7 +36,7 @@ library(neverhpfilter)
 
 ## Package Documentation
 
-The package consists of 2 estimation `functions`, 12 economic `xts` objects, an `xts` object containing Robert Shiller's U.S. Stock Markets and CAPE Ratio data from 1871 to Present, and a `data.frame` containing the original filter estimates found on table 2 of [Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429))
+The package consists of 2 estimation `functions`, 12 economic `xts` objects, an `xts` object containing Robert Shiller's U.S. Stock Markets and CAPE Ratio data from 1871 to Present, and a `data.frame` containing the original filter estimates found on table 2 of [Hamilton (2017) <doi:10.3386/w23429>](https://www.nber.org/papers/w23429)
 
 Documentation for each can be found here:
 
