@@ -3,14 +3,17 @@ title: "NEWS"
 output: github_document
 ---
 
-# neverhpfilter 0.2-1
+# neverhpfilter 0.3-0
 
-Updated all data sets.
+Bug fix, see [issue-1 here](https://github.com/JustinMShea/neverhpfilter/issues/1)
+
+Updated data from original package, guess I'll conisder that a feature enhancement. 
 
 # neverhpfilter 0.2-0
 
 Consolidated into two functions. `yth_glm` remains unchanged, while
 `yth_filter` has been given an `output` arguement to specify the return of specific series. This feature eliminates the need for `yth_cycle` and `yth_trend`, which were helpful when applying the function to multiple data sets.
+Done so at the strong suggestion of `CRAN`.
 
 Additional data sets have been added to replicate most all of Hamilton's table 2.
 
