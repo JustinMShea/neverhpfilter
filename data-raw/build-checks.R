@@ -1,9 +1,3 @@
-# Check and build package
-devtools::check()	
-devtools::build()
-
-# build for windows and submit to win-builder-r-project.org
-devtools::build_win()
 
 # R-hub Build
 rhub::list_validated_emails()
