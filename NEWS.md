@@ -3,11 +3,17 @@ title: "NEWS"
 output: github_document
 ---
 
-# neverhpfilter 0.3-0
+# neverhpfilter 0.2-2
 
-Bug fix, see [issue-1 here](https://github.com/JustinMShea/neverhpfilter/issues/1)
+Bug fix, see [issue-1 here.](https://github.com/JustinMShea/neverhpfilter/issues/1)
 
-Updated data from original package, guess I'll conisder that a feature enhancement. 
+Increased R version dependency to (>= 3.5.0) for the .Rdata files.
+
+Moved `xts` and `zoo` from imports to depends. Now `xts` (>= 0.11-0) and `zoo` (>= 1.8-0)
+
+# neverhpfilter 0.2-1
+
+Updated data from original to roughly Q2 2019.
 
 # neverhpfilter 0.2-0
 
