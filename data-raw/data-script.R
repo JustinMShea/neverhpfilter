@@ -46,7 +46,7 @@ colnames(GPDIC1) <- "GPDIC1"
 PCECC96 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PCECC96.txt", skip = 13, index.column = 1,
                         header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
 
-colnames(PCECC96 ) <- "PCECC96"
+colnames(PCECC96) <- "PCECC96"
 
 # Real Exports of Goods and Services
 EXPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/EXPGSC1.txt", skip = 13, index.column = 1,

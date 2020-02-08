@@ -18,8 +18,8 @@
 #'  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
 #'  \item\strong{Frequency:} {Quarterly}
 #'  \item\strong{Units:} {Index 2012 = 100}
-#'  \item\strong{Date Range:} {1947-01-01 to 2019-04-01}
-#'  \item\strong{Last Updated} {2019-08-29 8:00 AM CDT}
+#'  \item\strong{Date Range:} {1947-01-01 to 2019-10-01}
+#'  \item\strong{Last Updated} {2020-01-30 8:06 AM CST}
 #' }
 #'
 #' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPDEF.txt}
