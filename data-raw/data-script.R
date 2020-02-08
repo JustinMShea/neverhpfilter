@@ -95,28 +95,35 @@ colnames(FEDFUNDS ) <- "FEDFUNDS"
 
 # S&P 500
 ie_data <- paste0(getwd(),"/data-raw/ie_data.xls")
-
 download.file(url = "http://www.econ.yale.edu/~shiller/data/ie_data.xls", 
               destfile = ie_data, mode="wb")
 
 library(readxl)
-SP <- read_xls(ie_data, sheet = 3, skip = 7)[,-6] # 6th column 'Fraction' is a repeat of Date.
+SP <- read_xls(ie_data, sheet = 3, skip = 7)
+
+# Rm 6th col 'Fraction' is a repeat of Date 
+  # 10th col 'Real Total Return Price'
+  # 12th col 'Real TR Scaled Earnings'
+  # 13th col  stay column of NAs
+  # 14th col 'Cyclically Adjusted Total Return Price Earnings Ratio (TR P/E10 or TR CAPE)
+  # 16th col  stray column of NAs
+SP <- SP[,c(-6, -10, -12, -14, -15, -16)]
 
 names(SP) <- c("Date", "SP500", "Dividend", "Earnings", "CPI", "GS10",
 "Real_SP500", "Real_Dividend", "Real_Earnings", "CAPE")
+  
+  # CAPE imported as Character vector, fix
+    SP$CAPE <- as.numeric(SP$CAPE)
 
-SP$CAPE <- as.numeric(SP$CAPE)
-
-  # clean up non-standard excel Date formate. Example 2018.1, for January 2018.
+  # clean up non-standard Date format. Example 2018.1, for January 2018.
   SP$Date <- as.character(SP$Date)
   SP$Date <- gsub("\\.", "-", SP$Date)
   SP$Date <- gsub("-1$", "-10", SP$Date)
 
   # conver to xts
   SP500 <- as.xts(SP[-NROW(SP),-1], order.by = as.yearmon(SP$Date[-NROW(SP)], "%Y-%m"))
-  #SP500 <- SP500["/2018"]
-  tail(SP500, 12)
 
+  # remove extra data objects before saving data to files.
   rm(SP, ie_data)
 
   
