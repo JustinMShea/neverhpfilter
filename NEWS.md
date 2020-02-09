@@ -9,29 +9,32 @@ Content edits and cleanup of vignettes.
 
 These included, removing the redundant call to `library(xts)` as it has been
 moved to `Depends` instead of merely `Suggests`, as documented in 0.3-0 below.
+Thus, calling `neverhpfilter` includes it.
 
 While the vignette builder uses the `knitr` package, I was also loading the 
 `knitr` package to access the `kable` function for tables. Testing was going 
 fine, but then `knitr` inexplicably began throwing a variety of differing errors 
-across Linux and windows builds. This was due to package dependencies it couldn't 
-import, so removing calls to `knitr` in the vignette was an an easy place to 
-begin reducing the area of an unknown attack surface. In the modern era, 
-regardless of cause or "hiccups", opportunities to reduce package attack surface
-seems the most sense as systems grow more more complex and dependency sprawl grows.
+across Linux and Windows builds. This appears to be due to Suggested packages it 
+couldn't import, so removing calls to `knitr` in the vignette was an easy place 
+to begin reducing the area of an unknown attack surface. In the modern era, 
+regardless of the original error, any opportunity to reduce dependencies seems 
+the most sensible approach as ever increasing dependency sprawl has bestowed 
+upon R package maintainers a constant, exponentially growing, attack surface.
 
-Perhaps more importantly, the decision to remove `knitr::kable` from vignettes
-was also an aesthetic one. In my experience, tables remain an important device 
-for graphic displays of information. While knitr's html format appears clean at 
-first, closer inspection reveals the undesirable trait of fitting tables to full 
-page width regardless of the number of columns to display. On deeper reflection, 
-I view this as a bug, as it produces the undesirable side effect of too much 
-white space for the reader's eye to traverse when comparing numbers across columns.
+The decision to remove `knitr::kable` from vignettes was also an aesthetic one. 
+In my experience, tables remain an important device for graphic displays of 
+information. While knitr's html format appears clean at first, closer inspection 
+reveals the undesirable trait of fitting tables to full page width regardless of 
+the number of columns to display. On deeper reflection, I view this as a bug, as 
+it produces the undesirable side effect of too much white space for the reader's 
+eye to traverse when comparing numbers across columns.
 
-Printing the raw output of an `xts` or `data.frame` keeps data columns compact,
-allowing for clearer visual comparison. The raw output also better communicate 
-the table was created as a result of some computational process. Plus, in an 
-increasingly sophisticated digital world of Ux, these raw outputs look increasingly, unique, computationally cool, and clean. They serve as a reminder of the objective 
-and scientific nature of our endeavors.
+Printing the raw output of an `xts` or `data.frame` objects keeps columns compact,
+allowing for clearer visual comparison. The raw output also better communicates
+to our reader the table was created as a result of some computational process. 
+Plus, in an increasingly sophisticated digital world of Ux, these raw outputs 
+look increasingly, unique, computationally cool, and clean. They serve as a 
+reminder of the objective and scientific nature we strive for in our endeavors.
 
 
 # neverhpfilter 0.3-0
@@ -57,8 +60,7 @@ Updated data from original to roughly Q2 2019.
 # neverhpfilter 0.2-0
 
 Consolidated into two functions. `yth_glm` remains unchanged, while
-`yth_filter` has been given an `output` argument to specify the return of specific series. This feature eliminates the need for `yth_cycle` and `yth_trend`, which were helpful when applying the function to multiple data sets.
-Done so at the strong suggestion of `CRAN`.
+`yth_filter` has been given an `output` argument to specify the return of specific series. This feature eliminates the need for `yth_cycle` and `yth_trend`, which were helpful when applying the function to multiple data sets. Done so at the strong suggestion of `CRAN`, and has ultimatly proven a good idea.
 
 Additional data sets have been added to replicate most all of Hamilton's table 2.
 
