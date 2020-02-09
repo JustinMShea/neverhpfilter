@@ -14,19 +14,24 @@ While the vignette builder uses the `knitr` package, I was also loading the
 `knitr` package to access the `kable` function for tables. Testing was going 
 fine, but then `knitr` inexplicably began throwing a variety of differing errors 
 across Linux and windows builds. This was due to package dependencies it couldn't 
-import, so removing calls to `knitr` function in the vignette was an an easy 
-place to reduce area of attack surface.
+import, so removing calls to `knitr` in the vignette was an an easy place to 
+begin reducing the area of an unknown attack surface. In the modern era, 
+regardless of cause or "hiccups", opportunities to reduce package attack surface
+seems the most sense as systems grow more more complex and dependency sprawl grows.
 
-But more importantly, `knitr::kable`, while convenient, is a poor table function. 
-In my experience, tables remain an important device for graphic displays of 
-information. While knitr's html format appears clean at first, 
-closer inspection reveals the undesirable trait of fitting tables to full page 
-width regardless of the number of columns to display. On deeper reflection, I 
-this is a bug, as it produces the undersirable side effect of too much white 
-space between figures for the reader's eye to traverse. 
+Perhaps more importantly, the decision to remove `knitr::kable` from vignettes
+was also an aesthetic one. In my experience, tables remain an important device 
+for graphic displays of information. While knitr's html format appears clean at 
+first, closer inspection reveals the undesirable trait of fitting tables to full 
+page width regardless of the number of columns to display. On deeper reflection, 
+I view this as a bug, as it produces the undesirable side effect of too much 
+white space for the reader's eye to traverse when comparing numbers across columns.
 
-Printing the raw output of an `xts` or `data.frame` keeps data columns compact allowing for easier comparison. The raw output also better communicate the table was created as a result of some computational process. Plus, in an increasingly sophisticed digital world of Ux, these raw outputs look increasingly computationally cool and clean, reminding us
-of the scientific nature of our endevors.
+Printing the raw output of an `xts` or `data.frame` keeps data columns compact,
+allowing for clearer visual comparison. The raw output also better communicate 
+the table was created as a result of some computational process. Plus, in an 
+increasingly sophisticated digital world of Ux, these raw outputs look increasingly, unique, computationally cool, and clean. They serve as a reminder of the objective 
+and scientific nature of our endeavors.
 
 
 # neverhpfilter 0.3-0
