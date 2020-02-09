@@ -7,11 +7,14 @@ output: github_document
 
 Feature, updated data through January 2020.
 
-Bug fix, see [issue-1 here.](https://github.com/JustinMShea/neverhpfilter/issues/1)
-
 Increased R version dependency to (>= 3.5.0) for the `.Rdata` files.
 
+Moved from `testtthat` to `tinytest`, and added addy function unit tests and data tests.
+
 Moved `xts` and `zoo` from imports to depends. Now `xts` (>= 0.11-0) and `zoo` (>= 1.8-0)
+
+Bug fix, see [issue-1 here.](https://github.com/JustinMShea/neverhpfilter/issues/1)
+
 
 # neverhpfilter 0.2-1
 
