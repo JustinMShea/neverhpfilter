@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">neverhpfilter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -92,15 +92,15 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>The <code>neverhpfilter</code> package consists of 2 <code>functions</code>, 12 economic data sets, Robert Shiller’s U.S. Stock Markets and CAPE Ratio data from 1871 through 2019, and a <code>data.frame</code> containing the original filter estimates found on table 2 of <a href="https://www.nber.org/papers/w23429">Hamilton (2017) &lt;doi:10.3386/w23429&gt;.</a> All data objects are stored as <code>.Rdata</code> files in eXtensible Time Series (<code>xts</code>) format.</p>
-<p>One of the first things to know about the <code>neverhpfilter</code> package is that it’s functions accept and output, <code>xts</code> objects. The author uses <code>xts</code> often as it remains one of the most efficient data objects for managing times series data in econometrics and finance.</p>
-<p>An <code>xts</code> object is a <code>list</code> consisting of a <code>vector</code> index of some date/time class paired with a <code>matrix</code> object of singular data type. In our case, type <code>numeric</code>. <code>data.table</code> is also heavily used in finance and has efficient date/time indexing capabilities as well. It is useful when working with large data.frame like lists containing vectors of multiple data types of equal length. If using <code>data.table</code> or some other index based time series data object, merging the <code>xts</code> objects created by functions of this package into your preferred data object should be fairly easy. Note <code>xts</code> is a dependency listed under the “Suggests” field of <code>data.table</code> DESCRIPTION file.</p>
-<p>For more information on <code>xts</code> objects, go <a href="https://cran.r-project.org/web/packages/xts/index.html">here</a> and <a href="http://rstudio-pubs-static.s3.amazonaws.com/288218_117e183e74964557a5da4fc5902fc671.html">here.</a></p>
+<p>The <code>neverhpfilter</code> package consists of 2 <code>functions</code>, 12 economic data sets, Robert Shiller’s U.S. Stock Market and CAPE Ratio data from 1871 through 2019, and a <code>data.frame</code> containing the original filter estimates found on table 2 of <a href="https://www.nber.org/papers/w23429">Hamilton (2017) &lt;doi:10.3386/w23429&gt;.</a> All data objects are stored as <code>.Rdata</code> files in eXtensible Time Series (<code>xts</code>) format.</p>
+<p>One of the first things to know about the <code>neverhpfilter</code> package is that it’s functions accept and output, <code>xts</code> objects.</p>
+<p>An <code>xts</code> object is a <code>list</code> consisting of a <code>vector</code> index of some date/time class paired with a <code>matrix</code> object containing data of type <code>numeric</code>. <code>data.table</code> is also heavily used in finance and has efficient date/time indexing capabilities as well. It is useful when working with large data.frame like lists containing vectors of multiple data types of equal length. If using <code>data.table</code> or some other index based time series data object, merging the <code>xts</code> objects created by functions of this package should be fairly easy. Note <code>xts</code> is a dependency listed under the “Suggests” field of <code>data.table</code> DESCRIPTION file.</p>
+<p>For more information on <code>xts</code> objects, go <a href="https://CRAN.R-project.org/package=xts">here</a> and <a href="http://rstudio-pubs-static.s3.amazonaws.com/288218_117e183e74964557a5da4fc5902fc671.html">here.</a></p>
 <div id="yth_glm" class="section level2">
 <h2 class="hasAnchor">
 <a href="#yth_glm" class="anchor"></a>yth_glm</h2>
-<p>The <code>yth_glm</code> function primarily exists to model the output for the <code>yth_filter</code>. However, one can use this wrapper around <code>glm</code> independently. On that note, the function API allows you to use the <code>...</code> to pass any additional arguments to <code>glm</code>.</p>
-<p>The <code>yth_filter</code> returns an object of class <code>glm</code>, so one can use all generic methods associated with objects of that class. Here is an example of passing the results of a <code>yth_glm</code> model to the <code>plot</code> function, which outputs the standard plot diagnostics associated with the method.</p>
+<p>The <code>yth_glm</code> function wraps <code>glm</code> and primarily exists to model the output for the <code>yth_filter</code>. On that note, the function API allows one to use the <code>...</code> to pass any additional arguments to <code>glm</code>.</p>
+<p>The <code>yth_filter</code> returns an object of class <code>glm</code>, so one can use all generic methods associated with <code>glm</code> objects. Here is an example of passing the results of a <code>yth_glm</code> model to the <code>plot</code> function, which outputs the standard plot diagnostics associated with the method.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(neverhpfilter)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(GDPC1)</a>
@@ -115,7 +115,7 @@
 <div id="yth_filtered" class="section level2">
 <h2 class="hasAnchor">
 <a href="#yth_filtered" class="anchor"></a>yth_filtered</h2>
-<p>This is the main function of the package and both accepts, and outputs an <code>xts</code> object. The resulting output contains various series discussed in Hamilton (2017). These are a user defined combination of the original, trend, cycle, and random walk series. See documentation and the original paper for further details.</p>
+<p>This is the main function of the package. It both accepts and outputs <code>xts</code> objects. The resulting output contains various series discussed in Hamilton (2017). These are a user defined combination of the original, trend, cycle, and random walk series. See documentation and the original paper for further details.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">gdp_filtered &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(gdp_filtered, <span class="dv">16</span>)</a></code></pre></div>
@@ -138,8 +138,8 @@
 ## 2019 Q4 986.3695    985.7645  0.60492133     4.781143</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(gdp_filtered)</a></code></pre></div>
 <pre><code>## [1] "xts" "zoo"</code></pre>
-<p>The output is an <code>xts</code> object, it inherits all generic methods and capabilities associated with <code>xts</code>. For example, one can conveniently produce clean times series graphics with <code>plot.xts</code>.</p>
-<p>Not the use of <code><a href="https://rdrr.io/pkg/xts/man/addPanel.html">xts::addPanel</a></code> function, which adds a panel plot of the <code>cycle</code> output of the <code>yth_filter</code> to the original graph.</p>
+<p>As the output is an <code>xts</code> object, it inherits all generic methods associated with <code>xts</code>. For example, one can conveniently produce clean time series graphics with <code>plot.xts</code>.</p>
+<p>Not the use of <code><a href="https://rdrr.io/pkg/xts/man/addPanel.html">xts::addPanel</a></code> function, which is used to panel plot the <code>cycle</code> component of the <code>yth_filter</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(log_RGDP, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">col =</span> <span class="st">"blue"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, <span class="dt">main =</span> <span class="st">"100 x Log of Real GDP (GDPC1)"</span>)</a></code></pre></div>
 <p><img src="Getting-started_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">addPanel</span>(yth_filter, <span class="dt">output=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"cycle"</span>), <span class="dt">type=</span><span class="st">"h"</span>, <span class="dt">on=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">"darkred"</span> )</a></code></pre></div>
@@ -148,7 +148,8 @@
 <div id="choices-for-h-and-p" class="section level2">
 <h2 class="hasAnchor">
 <a href="#choices-for-h-and-p" class="anchor"></a>Choices for h and p</h2>
-<p>In the paper that inspired this package, Hamilton converts the <code>PAYEMS</code> series into quarterly periodicity and then uses filters on the transformed time series. With the <code>yth_filter</code> function, one can choose to retain the monthly series and adjust the <code>h</code> and <code>p</code> parameters accordingly. The default parameters of <code>h = 8</code> and <code>p = 4</code> assume times series data of a quarterly periodicity. For time series of monthly periodicity, one can retain the same look-ahead and lag periods with <code>h = 24</code> and <code>p = 12</code>. See the <code>yth_filter</code> documentation for more details.</p>
+<p>In the original paper, Hamilton aggregates the <code>PAYEMS</code> monthly employment series into data of quarterly periodicity prior to apply his filter. That is a desirable approach when comparing with other economic series of quarterly periodicity. However, using the <code>yth_filter</code> function, one can choose to retain the monthly series and adjust the <code>h</code> and <code>p</code> parameters accordingly.</p>
+<p>The default parameters of <code>h = 8</code> and <code>p = 4</code> assume times series data of a quarterly periodicity. For time series of monthly periodicity, one can retain the same look-ahead and lag periods with <code>h = 24</code> and <code>p = 12</code>. See the <code>yth_filter</code> documentation for more details.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">Employment_log &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(PAYEMS[<span class="st">"1950/"</span>])</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">employment_cycle &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(Employment_log, <span class="dt">h =</span> <span class="dv">24</span>, <span class="dt">p =</span> <span class="dv">12</span>, <span class="dt">output =</span> <span class="st">"cycle"</span>)</a>
@@ -156,7 +157,7 @@
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(employment_cycle, <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">type =</span> <span class="st">"h"</span>, <span class="dt">up.col =</span> <span class="st">"darkgreen"</span>, <span class="dt">dn.col =</span> <span class="st">"darkred"</span>, </a>
 <a class="sourceLine" id="cb8-6" data-line-number="6">     <span class="dt">main =</span> <span class="st">"Log of Employment cycle"</span>)</a></code></pre></div>
 <p><img src="Getting-started_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>In addition to adjust for various periodicities, one may wish to consider longer term cycles by extending <code>h</code>. Below are examples of moving the look-ahead period defined by <code>h</code> from 8 quarters (2 years), to 20 quarters (5 years), and then 40 quarters (10 years).</p>
+<p>In addition to adjusting parameters to accommodate other periodicities, one may wish to explore longer term cycles by extending <code>h</code>. Below are examples of moving the look-ahead period defined by <code>h</code> from 8 quarters (2 years), to 20 quarters (5 years), and then 40 quarters (10 years).</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">gdp_5yr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/yth_filter.html">yth_filter</a></span>(log_RGDP, <span class="dt">h =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">output =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"trend"</span>, <span class="st">"cycle"</span>))</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(gdp_5yr[<span class="st">"1980/"</span>][,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">grid.col =</span> <span class="st">"white"</span>, <span class="dt">legend.loc =</span> <span class="st">"topleft"</span>, </a>
@@ -173,7 +174,7 @@
 <div id="conclusion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#conclusion" class="anchor"></a>Conclusion</h2>
-<p>These functions give you the option to, in the words of Hamilton, never use the Hodrick-Prescott filter.They identify a more stable trend component that doesn’t have the estimation issues associated with the <code>head</code> and <code>tail</code> portions of components generated by the HP filter.</p>
+<p>These functions give you an avenue to filter econometric time series into <code>trend</code> and <code>cycle</code> components. They identify a more stable trend and cycle components that doesn’t have the estimation issues associated with the <code>head</code> and <code>tail</code> portions of those generated by the HP-filter.</p>
 </div>
 </div>
   </div>

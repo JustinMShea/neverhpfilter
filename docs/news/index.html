@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">neverhpfilter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -120,13 +120,24 @@
       
     </div>
 
+    <div id="neverhpfilter-0-3-1" class="section level1">
+<h1 class="page-header">
+<a href="#neverhpfilter-0-3-1" class="anchor"></a>neverhpfilter 0.3-1<small> Unreleased </small>
+</h1>
+<p>Content edits and cleanup of vignettes.</p>
+<p>These included, removing the redundant call to <code><a href="https://rdrr.io/r/base/library.html">library(xts)</a></code> as it has been moved to <code>Depends</code> instead of merely <code>Suggests</code>, as documented in 0.3-0 below. Thus, calling <code>neverhpfilter</code> includes it.</p>
+<p>While the vignette builder uses the <code>knitr</code> package, I was also loading the <code>knitr</code> package to access the <code>kable</code> function for tables. Testing was going fine, but then <code>knitr</code> inexplicably began throwing a variety of differing errors across Linux and Windows builds. This appears to be due to Suggested packages it couldn’t import, so removing calls to <code>knitr</code> in the vignette was an easy place to begin reducing the area of an unknown attack surface. In the modern era, regardless of the original error, any opportunity to reduce dependencies seems the most sensible approach as ever increasing dependency sprawl has bestowed upon R package maintainers a constant, exponentially growing, attack surface.</p>
+<p>The decision to remove <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable</a></code> from vignettes was also an aesthetic one. In my experience, tables remain an important device for graphic displays of information. While knitr’s html format appears clean at first, closer inspection reveals the undesirable trait of fitting tables to full page width regardless of the number of columns to display. On deeper reflection, I view this as a bug, as it produces the undesirable side effect of too much white space for the reader’s eye to traverse when comparing numbers across columns.</p>
+<p>Printing the raw output of an <code>xts</code> or <code>data.frame</code> objects keeps columns compact, allowing for clearer visual comparison. The raw output also better communicates to our reader the table was created as a result of some computational process. Plus, in an increasingly sophisticated digital world of Ux, these raw outputs look increasingly, unique, computationally cool, and clean. They serve as a reminder of the objective and scientific nature we strive for in our endeavors.</p>
+</div>
     <div id="neverhpfilter-0-3-0" class="section level1">
 <h1 class="page-header">
 <a href="#neverhpfilter-0-3-0" class="anchor"></a>neverhpfilter 0.3-0<small> Unreleased </small>
 </h1>
 <p>Feature, updated data through January 2020.</p>
+<p>New vignette <code>Getting started</code> reworks and replaces <code>Additional examples</code>.</p>
 <p>Increased R version dependency to (&gt;= 3.5.0) for the <code>.Rdata</code> files.</p>
-<p>Moved from <code>testtthat</code> to <code>tinytest</code>, and added addy function unit tests and data tests.</p>
+<p>Moved from <code>testtthat</code> to <code>tinytest</code>, and wrote additional function unit tests and data unit tests.</p>
 <p>Moved <code>xts</code> and <code>zoo</code> from imports to depends. Now <code>xts</code> (&gt;= 0.11-0) and <code>zoo</code> (&gt;= 1.8-0)</p>
 <p>Bug fix, see <a href="https://github.com/JustinMShea/neverhpfilter/issues/1">issue-1 here.</a></p>
 </div>
@@ -140,7 +151,7 @@
 <h1 class="page-header">
 <a href="#neverhpfilter-0-2-0" class="anchor"></a>neverhpfilter 0.2-0<small> 2018-01-24 </small>
 </h1>
-<p>Consolidated into two functions. <code>yth_glm</code> remains unchanged, while <code>yth_filter</code> has been given an <code>output</code> argument to specify the return of specific series. This feature eliminates the need for <code>yth_cycle</code> and <code>yth_trend</code>, which were helpful when applying the function to multiple data sets. Done so at the strong suggestion of <code>CRAN</code>.</p>
+<p>Consolidated into two functions. <code>yth_glm</code> remains unchanged, while <code>yth_filter</code> has been given an <code>output</code> argument to specify the return of specific series. This feature eliminates the need for <code>yth_cycle</code> and <code>yth_trend</code>, which were helpful when applying the function to multiple data sets. Done so at the strong suggestion of <code>CRAN</code>, and has ultimatly proven a good idea.</p>
 <p>Additional data sets have been added to replicate most all of Hamilton’s table 2.</p>
 <p>The “Reproducing Hamilton” vignette has been expanded and content has been edited for clarity.</p>
 </div>
@@ -156,6 +167,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#neverhpfilter-0-3-1">0.3-1</a></li>
         <li><a href="#neverhpfilter-0-3-0">0.3-0</a></li>
         <li><a href="#neverhpfilter-0-2-1">0.2-1</a></li>
         <li><a href="#neverhpfilter-0-2-0">0.2-0</a></li>
