@@ -3,13 +3,42 @@ title: "NEWS"
 output: github_document
 ---
 
+# neverhpfilter 0.3-1
+
+Content edits and cleanup of vignettes. 
+
+These included, removing the redundant call to `library(xts)` as it has been
+moved to `Depends` instead of merely `Suggests`, as documented in 0.3-0 below.
+
+While the vignette builder uses the `knitr` package, I was also loading the 
+`knitr` package to access the `kable` function for tables. Testing was going 
+fine, but then `knitr` inexplicably began throwing a variety of differing errors 
+across Linux and windows builds. This was due to package dependencies it couldn't 
+import, so removing calls to `knitr` function in the vignette was an an easy 
+place to reduce area of attack surface.
+
+But more importantly, `knitr::kable`, while convenient, is a poor table function. 
+In my experience, tables remain an important device for graphic displays of 
+information. While knitr's html format appears clean at first, 
+closer inspection reveals the undesirable trait of fitting tables to full page 
+width regardless of the number of columns to display. On deeper reflection, I 
+this is a bug, as it produces the undersirable side effect of too much white 
+space between figures for the reader's eye to traverse. 
+
+Printing the raw output of an `xts` or `data.frame` keeps data columns compact allowing for easier comparison. The raw output also better communicate the table was created as a result of some computational process. Plus, in an increasingly sophisticed digital world of Ux, these raw outputs look increasingly computationally cool and clean, reminding us
+of the scientific nature of our endevors.
+
+
 # neverhpfilter 0.3-0
 
 Feature, updated data through January 2020.
 
+New vignette `Getting started` reworks and replaces `Additional examples`.
+
 Increased R version dependency to (>= 3.5.0) for the `.Rdata` files.
 
-Moved from `testtthat` to `tinytest`, and added addy function unit tests and data tests.
+Moved from `testtthat` to `tinytest`, and wrote additional function unit tests 
+and data unit tests.
 
 Moved `xts` and `zoo` from imports to depends. Now `xts` (>= 0.11-0) and `zoo` (>= 1.8-0)
 
