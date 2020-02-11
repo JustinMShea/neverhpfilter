@@ -30,9 +30,8 @@ Hamilton's abstract offers an excellent introduction to the problem and alternat
 
 
 Using quarterly economic data, Hamilton suggests a linear model on a 
-univariate time series shifted a**h**ead by some period **h**, regressed against 
-a series of variables constructed form lagging the same series by some number 
-of **p**eriods, **p**. An auto-regressive $AR(p)$ model, dependent on a $t+h$ look-ahead, if you will. This is expressed more specifically by:
+univariate time series shifted a**h**ead by **h** periods, regressed against 
+a series of variables constructed from varying lags of the series by some number of **p**eriods, **p**. A modified auto-regressive $AR(p)$ model, dependent on a $t+h$ look-ahead, if you will. This is expressed more specifically by:
 
 $$y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}$$
 $$\hat{v}_{t+8} = y_{t+8} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}$$
