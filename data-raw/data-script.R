@@ -93,13 +93,13 @@ FEDFUNDS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/FEDFUNDS.txt", ski
                         FUN = as.yearmon))
 colnames(FEDFUNDS ) <- "FEDFUNDS"
 
-# S&P 500
+# Monthly S&P 500 Case Schiller data to 1871
 ie_data <- paste0(getwd(),"/data-raw/ie_data.xls")
 download.file(url = "http://www.econ.yale.edu/~shiller/data/ie_data.xls", 
               destfile = ie_data, mode="wb")
 
 library(readxl)
-SP <- read_xls(ie_data, sheet = 3, skip = 7)
+SP <- read_xls(ie_data, sheet = 4, skip = 7)
 
 # Rm 6th col 'Fraction' is a repeat of Date 
   # 10th col 'Real Total Return Price'
