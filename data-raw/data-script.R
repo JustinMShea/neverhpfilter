@@ -116,15 +116,15 @@ names(SP) <- c("Date", "SP500", "Dividend", "Earnings", "CPI", "GS10",
     SP$CAPE <- as.numeric(SP$CAPE)
 
   # clean up non-standard Date format. Example 2018.1, for January 2018.
-  SP$Date <- as.character(SP$Date)
-  SP$Date <- gsub("\\.", "-", SP$Date)
-  SP$Date <- gsub("-1$", "-10", SP$Date)
+    SP$Date <- as.character(SP$Date)
+    SP$Date <- gsub("\\.", "-", SP$Date)
+    SP$Date <- gsub("-1$", "-10", SP$Date)
 
   # conver to xts
-  SP500 <- as.xts(SP[-NROW(SP),-1], order.by = as.yearmon(SP$Date[-NROW(SP)], "%Y-%m"))
+    SP500 <- as.xts(SP[-NROW(SP),-1], order.by = as.yearmon(SP$Date[-NROW(SP)], "%Y-%m"))
 
   # remove extra data objects before saving data to files.
-  rm(SP, ie_data)
+    rm(SP, ie_data)
 
   
   ###################################################
