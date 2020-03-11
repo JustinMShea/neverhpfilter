@@ -2,6 +2,9 @@
 title: "NEWS"
 output: github_document
 ---
+# neverhpfilter 0.3-2
+
+Update data for `FEDFUNDS`, `GS10`, `PAYEMS`, `UNRATENSA`, and `SP500`.
 
 # neverhpfilter 0.3-1
 

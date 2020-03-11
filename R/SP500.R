@@ -29,8 +29,8 @@
 #' @format An \code{\link{xts}} object containing observations of U.S. Stock Markets 1871-Present and CAPE Ratio.
 #'  \itemize{
 #'  \item\strong{Frequency:} {Monthly}
-#'  \item\strong{Date Range:} {1871-01 to 2019-12}
-#'  \item\strong{Data updated:} {2020-02-08 10:17 AM CST}
+#'  \item\strong{Date Range:} {1871-01 to 2020-02}
+#'  \item\strong{Data updated:} {2020-03-10 09:53 PM CST}
 #'  \item\strong{SP500:} {Nominal prices of the S&P 500 composite index}
 #'  \item\strong{Dividends:} {Nominal dividends}
 #'  \item\strong{Earnings:} {Nominal Earnings}
