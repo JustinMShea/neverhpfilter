@@ -29,13 +29,13 @@
 #' @format An \code{\link{xts}} object containing observations of U.S. Stock Markets 1871-Present and CAPE Ratio.
 #'  \itemize{
 #'  \item\strong{Frequency:} {Monthly}
-#'  \item\strong{Date Range:} {1871-01 to 2020-02}
-#'  \item\strong{Data updated:} {2020-03-10 09:53 PM CST}
-#'  \item\strong{SP500:} {Nominal prices of the S&P 500 composite index}
+#'  \item\strong{Date Range:} {1871-01 to 2020-03}
+#'  \item\strong{Data updated:} {2020-03-22 03:48 PM CST}
+#'  \item\strong{SP500:} {Nominal prices of the S&P composite index, March observation is 03/12 close}
 #'  \item\strong{Dividends:} {Nominal dividends}
-#'  \item\strong{Earnings:} {Nominal Earnings}
+#'  \item\strong{Earnings:} {Nominal Earnings, S&P 500 Dec 2020 estimated}
 #'  \item\strong{CPI:} {Schiller's Consumer Price Index data Schiller used for transformation to Real prices}
-#'  \item\strong{GS10:} {Schiller's Long term interest rate 10-Year Treasury Constant Maturity Rate}
+#'  \item\strong{GS10:} {Schiller's Long term interest rate 10-Year Treasury Constant Maturity Rate, March 2020 GS10 is March 10 value}
 #'  \item\strong{Real_SP500:} {Real prices of the S&P 500 composite index}
 #'  \item\strong{Real_Dividends:} {Real Dividends}
 #'  \item\strong{Real_Earnings:} {Real Earnings}
