@@ -4,15 +4,17 @@
 \name{GS10}
 \alias{GS10}
 \title{10-Year Treasury Constant Maturity Rate}
-\format{An \code{\link{xts}} object containing observations of the 10-Year Treasury Constant Maturity Rate.
+\format{
+An \code{\link{xts}} object containing observations of the 10-Year Treasury Constant Maturity Rate.
  \itemize{
  \item\strong{Release:} {H.15 Selected Interest Rates}
  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
  \item\strong{Frequency:} {Monthly}
  \item\strong{Units:} {Percent}
- \item\strong{Date Range:} {1953-04-01 to 2020-02-01}
- \item\strong{Last Updated} {2020-03-02 3:26 PM CST}
-}}
+ \item\strong{Date Range:} {1953-04-01 to 2021-04-01}
+ \item\strong{Last Updated} {2021-05-03 3:23 PM CDT}
+}
+}
 \source{
 Board of Governors of the Federal Reserve System (US) 
 \url{https://fred.stlouisfed.org/data/GS10.txt}

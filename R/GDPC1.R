@@ -22,8 +22,8 @@
 #'  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
 #'  \item\strong{Frequency:} {Quarterly}
 #'  \item\strong{Units:} {Billions of Chained 2012 Dollars}
-#'  \item\strong{Date Range:} {1947-01-01 to 2019-10-01}
-#'  \item\strong{Last Updated} {2020-01-30 8:04 AM CST}
+#'  \item\strong{Date Range:} {1947-01-01 to 2021-01-01}
+#'  \item\strong{Last Updated} {2021-04-29 7:52 AM CDT}
 #' }
 #'
 #' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPC1.txt}

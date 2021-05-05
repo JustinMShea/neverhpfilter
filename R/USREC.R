@@ -74,8 +74,8 @@
 #'  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted} 
 #'  \item\strong{Frequency:} {Monthly}
 #'  \item\strong{Units:} {+1 or 0}
-#'  \item\strong{Date Range:} {1854-12-01 to 2020-01-01}
-#'  \item\strong{Last Updated} {2020-02-03 6:04 PM CST}
+#'  \item\strong{Date Range:} {1854-12-01 to 2021-04-01}
+#'  \item\strong{Last Updated} {2021-05-03 6:01 PM CDT}
 #' }
 #'
 #' @source Federal Reserve Bank of St. Louis \url{https://fred.stlouisfed.org/data/USREC.txt}

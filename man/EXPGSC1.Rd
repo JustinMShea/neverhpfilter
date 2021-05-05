@@ -4,15 +4,17 @@
 \name{EXPGSC1}
 \alias{EXPGSC1}
 \title{Real Exports of Goods and Services}
-\format{An \code{\link{xts}} object of Real Exports of Goods and Services.
+\format{
+An \code{\link{xts}} object of Real Exports of Goods and Services.
  \itemize{
  \item\strong{Release:} {Gross Domestic Product}
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
  \item\strong{Frequency:} {Quarterly}
  \item\strong{Units:} {Billions of Chained 2012 Dollars}
- \item\strong{Date Range:} {1947-01-01 to 2019-10-01}
- \item\strong{Last Updated} {2020-01-30 8:07 AM CST}
-}}
+ \item\strong{Date Range:} {1947-01-01 to 2021-01-01}
+ \item\strong{Last Updated} {2021-04-29 7:53 AM CDT}
+}
+}
 \source{
 U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/EXPGSC1.txt}
 }
