@@ -99,22 +99,24 @@ download.file(url = "http://www.econ.yale.edu/~shiller/data/ie_data.xls",
               destfile = ie_data, mode="wb")
 
 library(readxl)
-SP <- read_xls(ie_data, sheet = 4, skip = 7)
+SP <- read_xls(ie_data, sheet = 5, skip = 7)
 
 # Rm 6th col 'Fraction' is a repeat of Date 
-  # 10th col 'Real Total Return Price'
-  # 12th col 'Real TR Scaled Earnings'
-  # 13th col  stay column of NAs
-  # 14th col 'Cyclically Adjusted Total Return Price Earnings Ratio (TR P/E10 or TR CAPE)
-  # 16th col  stray column of NAs
-SP <- SP[,c(-6, -10, -12, -14, -15, -16)]
+  # 14th col  stay column of NAs
+  # 16th col  stay column of NAs
+  # 20th col  '10 Year Annualized Stock Real Return'
+  # 21st col  '10 Year Annualized Bonds Real Returns'
+  # 22nd col  '10 Year Excess Annualized Real Return'
+SP <- SP[,c(-6, -14, -16, -20, -21, -22)]
 
 names(SP) <- c("Date", "SP500", "Dividend", "Earnings", "CPI", "GS10",
-"Real_SP500", "Real_Dividend", "Real_Earnings", "CAPE")
+"Real_SP500", "Real_Dividend", "Real_SP500_TR", "Real_Earnings", "Real_Earnings_TR",
+"CAPE", "CAPE_TR","CAPE_Yield","Bond_TR","Real_Bond_TR")
   
   # CAPE imported as Character vector, fix
     SP$CAPE <- as.numeric(SP$CAPE)
-
+    SP$CAPE_TR <- as.numeric(SP$CAPE_TR)
+    
   # clean up non-standard Date format. Example 2018.1, for January 2018.
     SP$Date <- as.character(SP$Date)
     SP$Date <- gsub("\\.", "-", SP$Date)
