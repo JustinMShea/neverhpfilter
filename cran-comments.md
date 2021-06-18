@@ -1,4 +1,4 @@
-# minor version bump to 0.3-3
+# version bump to 0.4-0
 
 ## Test environments passing
 
@@ -14,7 +14,7 @@
       Finished: Success
 
 # Mac
-* r-hub macOS 10.13.6 High Sierra, R-release, CRAN's setup: R version 4.0.5 (2021-03-31), x86_64-apple-darwin17.0 (64-bit)
+* r-hub macOS 10.13.6 High Sierra, R-release, CRAN's setup: R version 4.1.0 (2021-05-18), x86_64-apple-darwin17.0 (64-bit)
  ## R CMD check results
  ### r-hub: macOS 10.13.6 High Sierra 
       Status: OK
@@ -22,13 +22,8 @@
 
 
 # Windows
-* AppVeyor Windows Server 2012 R2 x64 (build 9600): R version 4.0.5 Patched (2021-03-31 r80182), x86_64-w64-mingw32/x64 (64-bit)
-* r-hub Windows Server 2008 R2 SP1, R-release, 32/64 bit: R version 3.6.2 (2019-12-12), x86_64-w64-mingw32 (64-bit)
- ## R CMD check results
+* AppVeyor Windows Server 2012 R2 x64 (build 9600): R version 4.1.0 Patched (2021-06-17 r80515), x86_64-w64-mingw32/x64 (64-bit)
   ### AppVeyor
        Status: OK
       Build success
-  ### r-hub: Windows Server 2008 R2 SP1, R-release, 32/64 bit
-       Status: OK
-       Finished: SUCCESS
  
