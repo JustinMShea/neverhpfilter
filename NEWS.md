@@ -2,6 +2,11 @@
 title: "NEWS"
 output: github_document
 ---
+
+# neverhpfilter 0.4-0
+
+Submitted 3.3 to CRAN and received a NOTE concerning documentation files for the `GDPCI` data set, referencing the Guide to the National Income and Product Accounts of the United States (NIPA). Updated source from http://www.bea.gov/national/pdf/nipaguid.pdf to https://www.bea.gov/resources/methodologies/nipa-handbook
+
 # neverhpfilter 0.3-3
 
 The `knitr` maintainer decided to remove `rmarkdown` as a dependency, so the vignette build now fails. It must be added, or else CRAN will remove the package by `2021-05-14`.

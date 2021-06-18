@@ -7,7 +7,7 @@
 #' services produced by labor and property located in the United States.
 #'
 #' For more information see the Guide to the National Income and Product Accounts
-#' of the United States (NIPA) - \url{http://www.bea.gov/national/pdf/nipaguid.pdf}.
+#' of the United States (NIPA) - \url{https://www.bea.gov/resources/methodologies/nipa-handbook}.
 #'
 #' BEA Account Code: A191RX
 #'

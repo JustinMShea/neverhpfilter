@@ -3,8 +3,8 @@
 ## Test environments passing
 
 # Linux
-*Local Ubuntu 20.04, R version 4.0.3 (2020-10-10), x86_64-pc-linux-gnu (64-bit)
-* r-hub Debian clang version 11.0.1-2, R Under development (unstable) (2021-05-04 r80263), x86_64-pc-linux-gnu (64-bit)
+*Local Ubuntu 20.04, R version 4.1.0 (2021-05-18), x86_64-pc-linux-gnu (64-bit)
+* r-hub Debian clang version 11.0.1-2, R Under development (unstable) (2021-06-16 r80505), x86_64-pc-linux-gnu (64-bit)
  ## R CMD check results
  ### Local results
       Status: OK
