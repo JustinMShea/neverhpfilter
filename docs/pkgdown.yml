@@ -1,7 +1,8 @@
-pandoc: 2.3.1
-pkgdown: 1.4.1
+pandoc: 2.11.4
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   Getting-started: Getting-started.html
   Reproducing-Hamilton: Reproducing-Hamilton.html
+last_built: 2021-06-18T18:46Z
 

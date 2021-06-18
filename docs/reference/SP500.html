@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,8 +40,7 @@
 
 
 <meta property="og:title" content="U.S. Stock Markets and CAPE Ratio — SP500" />
-<meta property="og:description" content="SP500 Robert Schiller's data set for U.S. Stock Markets 1871-2019 and CAPE Ratio." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:description" content="SP500 Robert Schiller's data set for U.S. Stock Markets 1871-2021 and CAPE Ratio." />
 
 
 
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">neverhpfilter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-1</span>
       </span>
     </div>
 
@@ -77,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -104,7 +107,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/JustinMShea/neverhpfilter/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -119,33 +127,40 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>U.S. Stock Markets and CAPE Ratio</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/JustinMShea/neverhpfilter/blob/master/R/SP500.R'><code>R/SP500.R</code></a></small>
     <div class="hidden name"><code>SP500.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>SP500</code> Robert Schiller's data set for U.S. Stock Markets 1871-2019 and CAPE Ratio.</p>
+    <p><code>SP500</code> Robert Schiller's data set for U.S. Stock Markets 1871-2021 and CAPE Ratio.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>SP500</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>SP500</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>An <code>xts</code> object containing observations of U.S. Stock Markets 1871-Present and CAPE Ratio.</p><ul>
 <li><p><strong>Frequency:</strong> Monthly</p></li>
-<li><p><strong>Date Range:</strong> 1871-01 to 2019-12</p></li>
-<li><p><strong>Data updated:</strong> 2020-02-08 10:17 AM CST</p></li>
-<li><p><strong>SP500:</strong> Nominal prices of the S&amp;P 500 composite index</p></li>
+<li><p><strong>Date Range:</strong> 1871-01 to 2020-03</p></li>
+<li><p><strong>Data updated:</strong> 2021-05-05 05:08 PM CST</p></li>
+<li><p><strong>SP500:</strong> Nominal prices of the S&amp;P composite index, April 2021 observation is 04/05 close</p></li>
 <li><p><strong>Dividends:</strong> Nominal dividends</p></li>
-<li><p><strong>Earnings:</strong> Nominal Earnings</p></li>
+<li><p><strong>Earnings:</strong> Nominal Earnings, S&amp;P 500 estimated</p></li>
 <li><p><strong>CPI:</strong> Schiller's Consumer Price Index data Schiller used for transformation to Real prices</p></li>
-<li><p><strong>GS10:</strong> Schiller's Long term interest rate 10-Year Treasury Constant Maturity Rate</p></li>
+<li><p><strong>GS10:</strong> Schiller's Long term interest rate 10-Year Treasury Constant Maturity Rate, April 2021 observation is 04/05 close</p></li>
 <li><p><strong>Real_SP500:</strong> Real prices of the S&amp;P 500 composite index</p></li>
 <li><p><strong>Real_Dividends:</strong> Real Dividends</p></li>
+<li><p><strong>Real_SP500_TR:</strong> Real Total Return Price of the S&amp;P 500 composite index</p></li>
 <li><p><strong>Real_Earnings:</strong> Real Earnings</p></li>
-<li><p><strong>CAPE:</strong> Cyclically Adjusted Price Earnings Ratio. P/E-10 or CAPE.</p></li>
+<li><p><strong>Real_Earnings_TR:</strong> Real Total Return Scaled Earnings</p></li>
+<li><p><strong>CAPE:</strong> Cyclically Adjusted Price Earnings Ratio. P/E10 or CAPE.</p></li>
+<li><p><strong>CAPE_TR:</strong> Cyclically Adjusted Total Return Price Earnings Ratio. P/E10_TR or CAPE_TR.</p></li>
+<li><p><strong>CAPE_Yield:</strong> Excess Cape Yield.</p></li>
+<li><p><strong>Bond_TR:</strong> Total Bond Returns.</p></li>
+<li><p><strong>Real_Bond_TR:</strong> Real Total Bond Returns.</p></li>
 </ul>
+
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p>Schiller, Robert J. Irrational Exuberance, Princeton University Press 2000, 
@@ -166,8 +181,7 @@ Monthly dividend and earnings data are computed from the S&amp;P four-quarter to
 for the quarter since 1926, with linear interpolation to monthly figures. Dividend 
 and earnings data before 1926 are from Cowles and associates (Common Stock Indexes,
 2nd ed., Bloomington, Ind.: Principia Press, 1939), interpolated from annual 
-data. Stock price data are monthly averages of daily closing prices through 
-August of 2019. The CPI-U (Consumer Price Index-All Urban Consumers) published by 
+data. Stock price data are monthly averages of daily closing prices. The CPI-U (Consumer Price Index-All Urban Consumers) published by 
 the U.S. Bureau of Labor Statistics begins in 1913; for years before 1913, 
 I spliced to the CPI Warren and Pearson's price index, by multiplying it by 
 the ratio of the indexes in January 1913. December 1999 and January 2000 values 
@@ -176,32 +190,29 @@ and Prices (New York: John Wiley  and Sons, 1935). Data are from their Table 1,
 pp. 11–14.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>SP500</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>SP500</span><span class='op'>)</span>
 
-<span class='no'>SP500_qtr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>xts</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xts/man/to.period.html'>to.quarterly</a></span>(<span class='no'>SP500</span>$<span class='no'>SP500</span>, <span class='kw'>OHLC</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>log_SP500</span> <span class='kw'>&lt;-</span> <span class='fl'>100</span>*<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>SP500_qtr</span>)
+<span class='va'>SP500_qtr</span> <span class='op'>&lt;-</span> <span class='fu'>xts</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xts/man/to.period.html'>to.quarterly</a></span><span class='op'>(</span><span class='va'>SP500</span><span class='op'>$</span><span class='va'>SP500</span>, OHLC <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>log_SP500</span> <span class='op'>&lt;-</span> <span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>SP500_qtr</span><span class='op'>)</span>
 
-<span class='no'>SP500_trend</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='yth_filter.html'>yth_filter</a></span>(<span class='no'>log_SP500</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"trend"</span>),
-                          <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>gaussian</span>)
+<span class='va'>SP500_trend</span> <span class='op'>&lt;-</span> <span class='fu'><a href='yth_filter.html'>yth_filter</a></span><span class='op'>(</span><span class='va'>log_SP500</span>, h <span class='op'>=</span> <span class='fl'>8</span>, p <span class='op'>=</span> <span class='fl'>4</span>, output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"trend"</span><span class='op'>)</span>, 
+                          family <span class='op'>=</span> <span class='va'>gaussian</span><span class='op'>)</span>
 
-<span class='no'>main</span> <span class='kw'>&lt;-</span> <span class='st'>"Log of SP500 and trend"</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>SP500_trend</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>legend.loc</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>main</span>)</div><div class='img'><img src='SP500-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>main</span> <span class='op'>&lt;-</span> <span class='st'>"Log of SP500 and trend"</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>SP500_trend</span>, grid.col <span class='op'>=</span> <span class='st'>"white"</span>, legend.loc <span class='op'>=</span> <span class='st'>"topleft"</span>, main <span class='op'>=</span> <span class='va'>main</span><span class='op'>)</span>
+</div><div class='img'><img src='SP500-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='no'>SP500cycle</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='yth_filter.html'>yth_filter</a></span>(<span class='no'>log_SP500</span>[<span class='st'>"1900/"</span>], <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-              <span class='kw'>output</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cycle"</span>, <span class='st'>"random"</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>gaussian</span>)
+<span class='va'>SP500cycle</span> <span class='op'>&lt;-</span> <span class='fu'><a href='yth_filter.html'>yth_filter</a></span><span class='op'>(</span><span class='va'>log_SP500</span><span class='op'>[</span><span class='st'>"1900/"</span><span class='op'>]</span>, h <span class='op'>=</span> <span class='fl'>8</span>, p <span class='op'>=</span> <span class='fl'>4</span>, 
+              output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cycle"</span>, <span class='st'>"random"</span><span class='op'>)</span>, family <span class='op'>=</span> <span class='va'>gaussian</span><span class='op'>)</span>
 
-<span class='no'>main</span> <span class='kw'>&lt;-</span> <span class='st'>"Log of SP500 cycle and random walk"</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>SP500cycle</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>legend.loc</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>main</span>)</div><div class='img'><img src='SP500-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>main</span> <span class='op'>&lt;-</span> <span class='st'>"Log of SP500 cycle and random walk"</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>SP500cycle</span>, grid.col <span class='op'>=</span> <span class='st'>"white"</span>, legend.loc <span class='op'>=</span> <span class='st'>"topright"</span>, main <span class='op'>=</span> <span class='va'>main</span><span class='op'>)</span>
+</div><div class='img'><img src='SP500-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#format">Format</a></li>
-      <li><a href="#source">Source</a></li>
-      <li><a href="#notes-from-schiller">Notes from Schiller</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -212,7 +223,7 @@ pp. 11–14.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
