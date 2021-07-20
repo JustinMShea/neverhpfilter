@@ -88,7 +88,7 @@ GS10 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GS10.txt", skip = 14,
 colnames(GS10) <- "GS10"
 
 # Effective Federal Funds Rate
-FEDFUNDS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/FEDFUNDS.txt", skip = 60,
+FEDFUNDS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/FEDFUNDS.txt", skip = 64,
                         index.column = 1, header = TRUE, format = "%Y-%m-%d",
                         FUN = as.yearmon))
 colnames(FEDFUNDS ) <- "FEDFUNDS"
