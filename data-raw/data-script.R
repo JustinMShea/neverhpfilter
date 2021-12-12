@@ -88,10 +88,8 @@ GS10 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GS10.txt", skip = 14,
 colnames(GS10) <- "GS10"
 
 # Effective Federal Funds Rate
-FEDFUNDS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/FEDFUNDS.txt", skip = 64,
-                        index.column = 1, header = TRUE, format = "%Y-%m-%d",
-                        FUN = as.yearmon))
-colnames(FEDFUNDS ) <- "FEDFUNDS"
+library(quantmod)
+getSymbols("FEDFUNDS", src = "FRED")
 
 # Monthly S&P 500 Case Schiller data to 1871
 ie_data <- paste0(getwd(),"/data-raw/ie_data.xls")
