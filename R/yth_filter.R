@@ -87,7 +87,7 @@
 #' my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 2)
 #' names(my_table_2) <- names(Hamilton_table_2)[1:4]
 #' 
-#' knitr::kable(my_table_2, align = 'l')
+#' my_table_2
 #' @export
 yth_filter <- function(x, h = 8, p = 4, output = c("x", "trend", "cycle", "random"), ...) {
   
