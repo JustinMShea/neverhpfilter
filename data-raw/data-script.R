@@ -100,8 +100,8 @@ library(readxl)
 SP <- read_xls(ie_data, sheet = 5, skip = 7)
 
 # Rm 6th col 'Fraction' is a repeat of Date 
-  # 14th col  stay column of NAs
-  # 16th col  stay column of NAs
+  # 14th col  stray column of NAs
+  # 16th col  stray column of NAs
   # 20th col  '10 Year Annualized Stock Real Return'
   # 21st col  '10 Year Annualized Bonds Real Returns'
   # 22nd col  '10 Year Excess Annualized Real Return'

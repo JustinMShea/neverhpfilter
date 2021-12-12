@@ -11,8 +11,8 @@ An \code{\link{xts}} object containing observations of Real Exports of Goods and
  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
  \item\strong{Frequency:} {Quarterly}
  \item\strong{Units:} {Index 2012 = 100}
- \item\strong{Date Range:} {1947-01-01 to 2021-01-01}
- \item\strong{Last Updated} {2021-04-29 7:52 AM CDT}
+ \item\strong{Date Range:} {1947-01-01 to 2021-07-01}
+ \item\strong{Last Updated} {2021-11-24 7:55 AM CST}
 }
 }
 \source{
@@ -34,7 +34,8 @@ Income and Product Accounts of the United States (NIPA) - (http://www.bea.gov/na
 
 \examples{
 data(GDPDEF)
+head(GDPDEF)
 tail(GDPDEF)
-plot(GDPDEF, grid.col = "white", col="blue")
+plot(GDPDEF, col = "blue")
 }
 \keyword{datasets}
