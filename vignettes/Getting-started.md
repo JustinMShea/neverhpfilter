@@ -7,9 +7,6 @@
 ---
 title: "Getting started"
 author: "Justin M Shea"
-date: ' '
-vignette: >
- %\VignetteIndexEntry{Getting Started} 
 ---
 
 
