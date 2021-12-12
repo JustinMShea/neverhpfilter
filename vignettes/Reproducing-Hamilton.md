@@ -1,26 +1,13 @@
+<!--
+  %\VignetteIndexEntry{Reproducing Hamilton}  
+  %\VignetteEngine{simplermarkdown::mdweave_to_html}
+  %\VignetteEncoding{UTF-8}
+-->
+
 ---
 title: "Reproducing Hamilton"
 author: "Justin M Shea"
-date: ' '
-output:   
-  minidown::mini_document:
-    framework: water
-    toc: true
-    toc_float: true
-    code_folding:
-      source: show
-      output: show
-      message: hide
-      warning: hide
-      error: hide
-vignette: >
-  %\VignetteIndexEntry{Reproducing Hamilton}  
-  %\VignetteEngine{knitr::rmarkdown}  
-  %\VignetteEncoding{UTF-8}
 ---
-
-
-\newpage
 
 
   In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an interesting new alternative to economic time series filtering. The **`neverhpfilter`** package provides functions for implementing his solution.
