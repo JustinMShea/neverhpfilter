@@ -3,6 +3,18 @@ title: "NEWS"
 output: github_document
 ---
 
+# neverhpfilter 0.4-2
+
+Switched to new dependency free, `simplermarkdown` package!
+
+Updated all datasets on Dec 12th, 2021 using `data-raw/data-script.R`
+
+# neverhpfilter 0.4-1
+
+Experimenting with `minidown` for vignettes.
+
+Updated all datasets on July 19th, 2021
+
 # neverhpfilter 0.4-0
 
 Submitted 3.3 to CRAN and received a NOTE concerning documentation files for the `GDPCI` data set, referencing the Guide to the National Income and Product Accounts of the United States (NIPA). Updated source from http://www.bea.gov/national/pdf/nipaguid.pdf to https://www.bea.gov/resources/methodologies/nipa-handbook
@@ -11,7 +23,7 @@ Submitted 3.3 to CRAN and received a NOTE concerning documentation files for the
 
 The `knitr` maintainer decided to remove `rmarkdown` as a dependency, so the vignette build now fails. It must be added, or else CRAN will remove the package by `2021-05-14`.
 
-Updated all data sets.
+Updated all data sets
 
 `SP500` data includes more variables from Robert Schiller's data set for U.S. Stock Markets 1871-2021.
 
