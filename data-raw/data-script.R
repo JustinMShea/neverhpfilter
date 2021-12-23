@@ -16,7 +16,6 @@ library(xts)
 GDPC1 <- as.xts(read.zoo("https://research.stlouisfed.org/fred2/data/GDPC1.txt", 
                          skip = 17, index.column = 1, header = TRUE, 
                          format = "%Y-%m-%d", FUN = as.yearqtr))
-
 colnames(GDPC1) <- "GDPC1"
 
 
@@ -24,7 +23,6 @@ colnames(GDPC1) <- "GDPC1"
 PAYEMS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PAYEMS.txt", 
                           sep = "", skip = 42, index.column = 1, header = TRUE, 
                           format = "%Y-%m-%d", FUN = as.yearmon))
-
 colnames(PAYEMS) <- "PAYEMS"
 
 
@@ -32,59 +30,50 @@ colnames(PAYEMS) <- "PAYEMS"
 USREC <- as.xts(read.zoo("https://fred.stlouisfed.org/data/USREC.txt", 
                          sep = "", skip = 69, index.column = 1, header = TRUE, 
                          format = "%Y-%m-%d", FUN = as.yearmon))
-
 colnames(USREC) <- "USREC"
 
 
 # Real Gross Private Domestic Investment
 GPDIC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GPDIC1.txt", skip = 13, index.column = 1,
                           header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-
 colnames(GPDIC1) <- "GPDIC1"
 
 # Real Personal Consumption Expenditures
 PCECC96 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PCECC96.txt", skip = 13, index.column = 1,
                         header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-
 colnames(PCECC96) <- "PCECC96"
 
 # Real Exports of Goods and Services
 EXPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/EXPGSC1.txt", skip = 13, index.column = 1,
                              header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-
 colnames(EXPGSC1) <- "EXPGSC1"
 
 # Real imports of goods and services
 IMPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/IMPGSC1.txt", skip = 13, index.column = 1,
                              header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-
 colnames(IMPGSC1) <- "IMPGSC1"
 
 # Real Government Consumption Expenditures and Gross Investment
 GCEC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GCEC1.txt", skip = 13, index.column = 1,
                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-
 colnames(GCEC1) <- "GCEC1"
 
 # Civilian Unemployment Rate
 UNRATENSA <- as.xts(read.zoo("https://fred.stlouisfed.org/data/UNRATENSA.txt",
                              skip = 24, index.column = 1, header = TRUE,
                              format = "%Y-%m-%d", FUN = as.yearmon))
-
 colnames(UNRATENSA ) <- "UNRATENSA"
 
 # Gross Domestic Product: Implicit Price Deflator
 GDPDEF <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GDPDEF.txt", skip = 15,
                           index.column = 1, header = TRUE, format = "%Y-%m-%d",
                           FUN = as.yearqtr))
-
 colnames(GDPDEF) <- "GDPDEF"
 
 # 10-Year Treasury Constant Maturity Rate
 GS10 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GS10.txt", skip = 14,
                           index.column = 1, header = TRUE, format = "%Y-%m-%d",
                           FUN = as.yearmon))
-
 colnames(GS10) <- "GS10"
 
 # Effective Federal Funds Rate
@@ -94,7 +83,7 @@ getSymbols("FEDFUNDS", src = "FRED")
 # Monthly S&P 500 Case Schiller data to 1871
 ie_data <- paste0(getwd(),"/data-raw/ie_data.xls")
 download.file(url = "http://www.econ.yale.edu/~shiller/data/ie_data.xls", 
-              destfile = ie_data, mode="wb")
+              destfile = ie_data, mode = "wb")
 
 library(readxl)
 SP <- read_xls(ie_data, sheet = 5, skip = 7)
@@ -131,12 +120,12 @@ names(SP) <- c("Date", "SP500", "Dividend", "Earnings", "CPI", "GS10",
  # compression data sets to xz level 9 .Rdata files #
 ####################################################
 
-dir.create("data")
-
 dataset_list <- ls()
 
 for (i in dataset_list) {
+  
+  save(list = i, file = paste0("data/", i, ".RData"), 
+       compress = "xz", 
+       compression_level = 9)
 
-  save(list = i, file = paste0("data/", i, ".RData"), compress = "xz", compression_level = 9)
-
-}
+  }
