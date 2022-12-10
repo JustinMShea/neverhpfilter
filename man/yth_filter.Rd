@@ -57,7 +57,7 @@ data(GDPC1)
 
 gdp_filter <- yth_filter(100*log(GDPC1), h = 8, p = 4)
 
-knitr::kable(head(gdp_filter, 15), align = 'l')
+head(gdp_filter, 15)
 
 #---------------------------------------------------------------------------#
 
@@ -85,7 +85,7 @@ random.cor <- t(data.frame(lapply(random, cor, random[,1], use = "complete.obs")
 my_table_2 <- round(data.frame(cbind(cycle.sd, GDP.cor, random.sd, random.cor)), 2)
 names(my_table_2) <- names(Hamilton_table_2)[1:4]
 
-knitr::kable(my_table_2, align = 'l')
+my_table_2
 }
 \references{
 James D. Hamilton. \href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.

@@ -10,8 +10,10 @@ Depends: R (>= 3.5.0), xts (>= 0.11-0), zoo (>= 1.8-0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
-Suggests: minidown, knitr, rmarkdown, tinytest
-VignetteBuilder: knitr
+RoxygenNote: 7.1.2
+Suggests: 
+  simplermarkdown,
+  tinytest
+VignetteBuilder: simplermarkdown
 URL: https://justinmshea.github.io/neverhpfilter/
 BugReports: https://github.com/JustinMShea/neverhpfilter/issues

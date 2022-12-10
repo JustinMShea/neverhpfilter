@@ -63,8 +63,8 @@
 #'  \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
 #'  \item\strong{Frequency:} {Monthly}
 #'  \item\strong{Units:} {Percent}
-#'  \item\strong{Date Range:} {1954-07-01 to 2021-04-01}
-#'  \item\strong{Last Updated} {2021-05-03 3:23 PM CDT}
+#'  \item\strong{Date Range:} {1954-07-01 to 2021-11-01}
+#'  \item\strong{Last Updated} {2021-12-01 3:18 PM CST}
 #' }
 #'
 #' @source Board of Governors of the Federal Reserve System (US) 

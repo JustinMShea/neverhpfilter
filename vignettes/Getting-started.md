@@ -1,23 +1,14 @@
+<!--
+  %\VignetteIndexEntry{Getting started}  
+  %\VignetteEngine{simplermarkdown::mdweave_to_html}
+  %\VignetteEncoding{UTF-8}
+-->
+
 ---
 title: "Getting started"
 author: "Justin M Shea"
-date: ' '
-output:   
-  minidown::mini_document:
-    framework: water
-    toc: true
-    toc_float: true
-    code_folding:
-      source: show
-      output: show
-      message: hide
-      warning: hide
-      error: hide
-vignette: >
-  %\VignetteIndexEntry{Additional examples}  
-  %\VignetteEngine{knitr::rmarkdown}  
-  %\VignetteEncoding{UTF-8}
 ---
+
 
 
 # Introduction
