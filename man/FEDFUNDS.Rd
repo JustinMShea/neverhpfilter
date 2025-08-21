@@ -5,18 +5,18 @@
 \alias{FEDFUNDS}
 \title{Effective Federal Funds Rate}
 \format{
-An \code{\link{xts}} object of the Fed Funds figures.
+An \code{\link[xts]{xts}} object of the Fed Funds figures.
  \itemize{
- \item\strong{Release:} {H.15 Selected Interest Rates}
- \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
- \item\strong{Frequency:} {Monthly}
- \item\strong{Units:} {Percent}
- \item\strong{Date Range:} {1954-07-01 to 2021-11-01}
- \item\strong{Last Updated} {2021-12-01 3:18 PM CST}
+ \item\strong{Release:} H.15 Selected Interest Rates
+ \item\strong{Seasonal Adjustment:} Not Seasonally Adjusted
+ \item\strong{Frequency:} Monthly
+ \item\strong{Units:} Percent
+ \item\strong{Date Range:} 1954-07-01 to 2021-11-01
+ \item\strong{Last Updated} 2021-12-01 3:18 PM CST
 }
 }
 \source{
-Board of Governors of the Federal Reserve System (US) 
+Board of Governors of the Federal Reserve System (US)
 \url{https://fred.stlouisfed.org/data/FEDFUNDS.txt}
 }
 \usage{
@@ -28,15 +28,15 @@ data(FEDFUNDS)
 \section{Notes}{
 
  Averages of daily figures.
- 
- The federal funds rate is the interest rate at which depository institutions 
- trade federal funds (balances held at Federal Reserve Banks) with each other 
- overnight. When a depository institution has surplus balances in its reserve 
- account, it lends to other banks in need of larger balances. In simpler terms, 
- a bank with excess cash, which is often referred to as liquidity, will lend 
+
+ The federal funds rate is the interest rate at which depository institutions
+ trade federal funds (balances held at Federal Reserve Banks) with each other
+ overnight. When a depository institution has surplus balances in its reserve
+ account, it lends to other banks in need of larger balances. In simpler terms,
+ a bank with excess cash, which is often referred to as liquidity, will lend
  to another bank that needs to quickly raise liquidity. (1) The rate that the borrowing
  institution pays to the lending institution is determined between the
- two banks; the weighted average rate for all of these types of 
+ two banks; the weighted average rate for all of these types of
  negotiations is called the effective federal funds rate.(2) The
  effective federal funds rate is essentially determined by the market
  but is influenced by the Federal Reserve through open market
@@ -64,14 +64,14 @@ data(FEDFUNDS)
  a wealth of economic data, such as: trends in prices and wages,
  employment, consumer spending and income, business investments, and
  foreign exchange markets.
- 
+
  The federal funds rate is the central interest rate in the U.S.
  financial market. It influences other interest rates such as the prime
  rate, which is the rate banks charge their customers with higher
  credit ratings. Additionally, the federal funds rate indirectly
  influences longer- term interest rates such as mortgages, loans, and
  savings, all of which are very important to consumer wealth and confidence.(2)
- 
+
  References (1) Federal Reserve Bank of New York. “Federal funds.” Fedpoints,
  August 2007. (2) Board of Governors of the Federal Reserve System. “Monetary
  Policy”. http://www.federalreserve.gov/monetarypolicy/default.htm.

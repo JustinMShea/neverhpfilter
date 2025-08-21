@@ -5,18 +5,19 @@
 \alias{PAYEMS}
 \title{Employment Situation}
 \format{
-An \code{\link{xts}} object containing observations of All Employees: Total Nonfarm.
- \itemize{
- \item\strong{Release:} {Employment Situation}
- \item\strong{Seasonal Adjustment:} {Seasonally Adjusted}
- \item\strong{Frequency:} {Monthly}
- \item\strong{Units:} {Thousands of Persons}
- \item\strong{Date Range:} {1939-01-01 to 2021-11-01}
- \item\strong{Last Updated} {2021-12-03 9:10 AM CST}
+An \code{\link[xts]{xts}} object containing observations of
+All Employees: Total Nonfarm.
+\describe{
+  \item{**Release:**}{Employment Situation}
+  \item{**Seasonal Adjustment:**}{Seasonally Adjusted}
+  \item{**Frequency:**}{Monthly}
+  \item{**Units:**}{Thousands of Persons}
+  \item{**Date Range:**}{1939-01-01 to 2021-11-01}
+  \item{**Last Updated:**}{2021-12-03 9:10 AM CST}
 }
 }
 \source{
-U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PAYEMS.txt}
+U.S. Bureau of Labor Statistics \url{https://fred.stlouisfed.org/data/PAYEMS.txt}
 }
 \usage{
 data(PAYEMS)
@@ -51,7 +52,7 @@ participation in the labor force; or a general decline in the number
 of employees, a possible indication of a downturn in the economy. To
 closely examine seasonal and non-seasonal changes, the BLS releases
 two monthly statistical measures: the seasonally adjusted All
-Employees: Total Nonfarm (FEDFUNDS) and All Employees: Total Nonfarm
+Employees: Total Nonfarm (PAYEMS) and All Employees: Total Nonfarm
 (PAYNSA), which is not seasonally adjusted.
 
 The series comes from the 'Current Employment Statistics (Establishment Survey).
@@ -66,15 +67,14 @@ tail(PAYEMS)
 PAYEMS_qtr <- xts::to.quarterly(PAYEMS["1947/"], OHLC = FALSE)
 log_Employment <- 100*log(PAYEMS_qtr)
 
-employ_trend <- yth_filter(log_Employment, h = 8, p = 4, output = c("x", "trend"), 
-                           family = gaussian)
+employ_trend <- yth_filter(log_Employment, h = 8, p = 4,
+                           output = c("x", "trend"), family = gaussian)
 
 main <- "Log of Employment and trend"
 plot(employ_trend, grid.col = "white", legend.loc = "topleft", main = main)
 
-
-employ_cycle <- yth_filter(log_Employment, h = 8, p = 4, output = c("cycle", "random"), 
-                           family = gaussian)
+employ_cycle <- yth_filter(log_Employment, h = 8, p = 4,
+                           output = c("cycle", "random"), family = gaussian)
 
 main <- "Log of Employment cycle and random walk"
 plot(employ_cycle, grid.col = "white", legend.loc = "topright", main = main)

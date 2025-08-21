@@ -5,18 +5,19 @@
 \alias{GS10}
 \title{10-Year Treasury Constant Maturity Rate}
 \format{
-An \code{\link{xts}} object containing observations of the 10-Year Treasury Constant Maturity Rate.
- \itemize{
- \item\strong{Release:} {H.15 Selected Interest Rates}
- \item\strong{Seasonal Adjustment:} {Not Seasonally Adjusted}
- \item\strong{Frequency:} {Monthly}
- \item\strong{Units:} {Percent}
- \item\strong{Date Range:} {1953-04-01 to 2021-11-01}
- \item\strong{Last Updated} {2021-12-01 3:18 PM CST}
+An \code{\link[xts]{xts}} object containing observations of the
+10-Year Treasury Constant Maturity Rate.
+\describe{
+  \item{**Release:**}{H.15 Selected Interest Rates}
+  \item{**Seasonal Adjustment:**}{Not Seasonally Adjusted}
+  \item{**Frequency:**}{Monthly}
+  \item{**Units:**}{Percent}
+  \item{**Date Range:**}{1953-04-01 to 2021-11-01}
+  \item{**Last Updated:**}{2021-12-01 3:18 PM CST}
 }
 }
 \source{
-Board of Governors of the Federal Reserve System (US) 
+Board of Governors of the Federal Reserve System (US)
 \url{https://fred.stlouisfed.org/data/GS10.txt}
 }
 \usage{
@@ -27,16 +28,17 @@ data(GS10)
 }
 \section{Notes}{
 
- Averages of business days. 
- 
- For further information regarding treasury
- constant maturity data, please refer to http://www.federalreserve.gov/releases/h15/current/h15.pdf and
- http://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/yieldmethod.aspx.
+Averages of business days.
+
+For further information regarding treasury
+constant maturity data, please refer to:
+- http://www.federalreserve.gov/releases/h15/current/h15.pdf
+- http://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/yieldmethod.aspx
 }
 
 \examples{
 data(GS10)
 tail(GS10)
-plot(GS10, grid.col = "white", col="green")
+plot(GS10, grid.col = "white", col = "green")
 }
 \keyword{datasets}

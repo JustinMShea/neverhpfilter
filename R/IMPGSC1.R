@@ -1,25 +1,26 @@
-#'  Real imports of goods and services
+#' Real Imports of Goods and Services
 #'
-#' \code{IMPGSC1} Real imports of goods and services
+#' \code{IMPGSC1} Real Imports of Goods and Services
 #'
 #' @section Notes:
 #' BEA Account Code: A021RX
-#' 
-#' A Guide to the National Income and Product Accounts of the United States (NIPA) 
+#'
+#' A Guide to the National Income and Product Accounts of the United States (NIPA)
 #' - (http://www.bea.gov/national/pdf/nipaguid.pdf)
 #'
 #' @docType data
 #'
 #' @usage data(IMPGSC1)
 #'
-#' @format An \code{\link{xts}} object of Real imports of goods and services.
-#'  \itemize{
-#'  \item\strong{Release:} {Gross Domestic Product}
-#'  \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
-#'  \item\strong{Frequency:} {Quarterly}
-#'  \item\strong{Units:} {Billions of Chained 2012 Dollars}
-#'  \item\strong{Date Range:} {1947-01-01 to 2021-07-01}
-#'  \item\strong{Last Updated} {2021-12-22 7:53 AM CST}
+#' @format An \code{\link[xts]{xts}} object containing quarterly observations of
+#' Real Imports of Goods and Services.
+#' \describe{
+#'   \item{**Release:**}{Gross Domestic Product}
+#'   \item{**Seasonal Adjustment:**}{Seasonally Adjusted Annual Rate}
+#'   \item{**Frequency:**}{Quarterly}
+#'   \item{**Units:**}{Billions of Chained 2012 Dollars}
+#'   \item{**Date Range:**}{1947-01-01 to 2021-07-01}
+#'   \item{**Last Updated:**}{2021-12-22 7:53 AM CST}
 #' }
 #'
 #' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/IMPGSC1.txt}
@@ -27,5 +28,5 @@
 #' @examples
 #' data(IMPGSC1)
 #' tail(IMPGSC1)
-#' plot(IMPGSC1,grid.col = "white", col="blue")
+#' plot(IMPGSC1, grid.col = "white", col = "blue")
 "IMPGSC1"

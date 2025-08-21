@@ -1,7 +1,7 @@
 Package: neverhpfilter
 Type: Package
 Title: An Alternative to the Hodrick-Prescott Filter
-Version: 0.4-2
+Version: 0.4-3
 Authors@R: person("Justin M.", "Shea", email = "jshea@roosevelt.edu", role = c("aut", "cre"))
 Description: In the working paper titled "Why You Should Never Use the Hodrick-Prescott 
    Filter", James D. Hamilton proposes a new alternative to economic time series 
@@ -10,7 +10,7 @@ Depends: R (>= 3.5.0), xts (>= 0.11-0), zoo (>= 1.8-0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
 Suggests: 
   simplermarkdown,
   tinytest

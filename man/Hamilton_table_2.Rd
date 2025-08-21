@@ -5,16 +5,23 @@
 \alias{Hamilton_table_2}
 \title{Hamilton_table_2}
 \format{
-A data.frame containing 13 economic time series observations of 5 variables.
- \itemize{
- \item\strong{cycle.sd} {Standard deviation  of the cycle component, computed with function `yth_filter(x, output = "cycle")`}
- \item\strong{gdp.cor} {Correlation of `cycle.sd` with the cycle.sd of 100 * log(RealGDP)}
- \item\strong{random.sd} {Standard deviation of a Random-walk, computed by a rolling differencing the series by period `h`, the same passed to `yth_filter(x, output = "cycle")` to compute `cycle.sd`.}
- \item\strong{gdp.rand.cor} {Correlation of `random.sd` with the random.sd of 100 * log(RealGDP).}
- }
+A \code{data.frame} containing 13 economic time series observations
+of 5 variables:
+\describe{
+  \item{**cycle.sd:**}{Standard deviation of the cycle component,
+  computed with function \code{yth_filter(x, output = "cycle")}.}
+  \item{**gdp.cor:**}{Correlation of \code{cycle.sd} with the cycle.sd of
+  \code{100 * log(RealGDP)}.}
+  \item{**random.sd:**}{Standard deviation of a random walk, computed by
+  rolling differencing the series by period \code{h}, the same \code{h} passed
+  to \code{yth_filter(x, output = "cycle")} to compute \code{cycle.sd}.}
+  \item{**gdp.rand.cor:**}{Correlation of \code{random.sd} with the random.sd
+  of \code{100 * log(RealGDP)}.}
+}
 }
 \source{
-"Why You Should Never Use the Hodrick-Prescott Filter", pg. 40 \url{http://econweb.ucsd.edu/~jhamilto/hp.pdf}
+Hamilton, James D. (2018). *Why You Should Never Use the Hodrick-Prescott Filter*,
+pg. 40. \url{http://econweb.ucsd.edu/~jhamilto/hp.pdf}
 }
 \usage{
 data("Hamilton_table_2")
@@ -32,6 +39,6 @@ observations and the random-walk calculations lose the first 8 observations.
 }
 
 \examples{
- print(Hamilton_table_2)
+print(Hamilton_table_2)
 }
 \keyword{datasets}

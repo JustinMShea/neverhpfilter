@@ -5,14 +5,14 @@
 \alias{EXPGSC1}
 \title{Real Exports of Goods and Services}
 \format{
-An \code{\link{xts}} object of Real Exports of Goods and Services.
+An \code{\link[xts]{xts}} object of Real Exports of Goods and Services.
  \itemize{
- \item\strong{Release:} {Gross Domestic Product}
- \item\strong{Seasonal Adjustment:} {Seasonally Adjusted Annual Rate} 
- \item\strong{Frequency:} {Quarterly}
- \item\strong{Units:} {Billions of Chained 2012 Dollars}
- \item\strong{Date Range:} {1947-01-01 to 2021-07-01}
- \item\strong{Last Updated} {2021-12-22 7:53 AM CST}
+ \item\strong{Release:} Gross Domestic Product
+ \item\strong{Seasonal Adjustment:} Seasonally Adjusted Annual Rate
+ \item\strong{Frequency:} Quarterly
+ \item\strong{Units:} Billions of Chained 2012 Dollars
+ \item\strong{Date Range:} 1947-01-01 to 2021-07-01
+ \item\strong{Last Updated} 2021-12-22 7:53 AM CST
 }
 }
 \source{
@@ -28,7 +28,7 @@ data(EXPGSC1)
 
 BEA Account Code: A020RX
 
-A Guide to the National Income and Product Accounts of the United States (NIPA) 
+A Guide to the National Income and Product Accounts of the United States (NIPA)
 - (http://www.bea.gov/national/pdf/nipaguid.pdf)
 }
 

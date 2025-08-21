@@ -7,50 +7,44 @@
 yth_filter(x, h = 8, p = 4, output = c("x", "trend", "cycle", "random"), ...)
 }
 \arguments{
-\item{x}{A univariate \code{\link{xts}} object of any \code{\link{zoo}} index class,
-such as \code{\link{Date}}, \code{\link{yearmon}}, or \code{\link{yearqtr}}.
-For converting objects of type \code{timeSeries, ts, irts, fts, matrix, data.frame}
-or \code{zoo}, please read \code{\link{as.xts}}.}
+\item{x}{A univariate \code{\link[xts]{xts}} object of any
+\code{\link[zoo]{zoo}} index class, such as \code{\link[base]{Date}},
+\code{\link[zoo]{yearmon}}, or \code{\link[zoo]{yearqtr}}.
+For converting objects of type \code{timeSeries}, \code{ts}, \code{irts},
+\code{fts}, \code{matrix}, \code{data.frame}, or \code{\link[zoo]{zoo}},
+please see \code{\link[xts]{as.xts}}.}
 
-\item{h}{An \code{\link{integer}}, defining the lookahead period.
-Defaults to \code{h = 8}. The default assumes economic data of quarterly 
-periodicity with a lookahead period of 2 years. This function is not limited 
-by the default parameter, and Econometricians may change it as required.}
+\item{h}{An \code{integer}, defining the lookahead period.
+Defaults to \code{h = 8}. The default assumes economic data of quarterly
+periodicity with a lookahead period of 2 years.}
 
-\item{p}{An \code{\link{integer}}, indicating the number of lags. A Default of 
-\code{p = 4}, assumes data is of quarterly periodicity. If data is of monthly 
-periodicity, one may choose \code{p = 12} or aggregate the series to quarterly 
-periodicity and maintain the default. Econometricians should use this parameter 
-to accommodate the Seasonality of their data.}
+\item{p}{An \code{integer}, indicating the number of lags. Defaults to
+\code{p = 4}, assuming quarterly data. For monthly data, one may choose
+\code{p = 12} or aggregate to quarterly. Use this parameter to match
+the seasonality of your data.}
 
-\item{output}{A \code{\link{character}} vector. Defaults to \code{output = c("x","trend", "cycle", "random")}, which returns the original time series 
-(\code{x}), yth_glm \code{\link{fitted.values}} (\code{"trend"}), yth_glm \code{\link{residuals}}
-(\code{"cycle"}), and a random walk series defined by differencing \eqn{y_{t+h}} 
-and \eqn{y_t} (\code{"random"}). Arguments \code{"x"}, \code{"trend"}, \code{"cycle"}, and 
-\code{"random"} extract their corresponding univariate series and can be merged in any combination.
-For example \code{c("x", "trend")} returns both the original series "x" and the "trend" components. 
-\code{c("cycle", "random")} will return both the "cycle" and "random" components.}
+\item{output}{A \code{character} vector. Defaults to
+\code{output = c("x","trend","cycle","random")}, which returns the original
+series (\code{"x"}), the fitted values from \code{\link{yth_glm}} (\code{"trend"}),
+the residuals from \code{\link{yth_glm}} (\code{"cycle"}), and a random walk
+defined by differencing \eqn{y_{t+h}} and \eqn{y_t} (\code{"random"}).
+Any subset of these components can be returned.}
 
-\item{...}{other arguments passed to the function \code{\link[stats]{glm}}}
+\item{...}{Other arguments passed to \code{\link[stats]{glm}}.}
 }
 \value{
-An \code{\link{xts}} object defined by the \code{output} parameter.
+An \code{\link[xts]{xts}} object defined by the \code{output} parameter.
 }
 \description{
-\code{yth_filter} returns an \code{\link{xts}} object containing user defined
- combinations of the original, trend, cycle, and random walk series.
+\code{yth_filter} returns an \code{\link[xts]{xts}} object containing
+user-defined combinations of the original, trend, cycle, and random walk series.
 }
 \details{
 For time series of quarterly periodicity, Hamilton suggests parameters of
- h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8}
- lookahead periods. Econometricians may explore variations of h. However, p 
- is designed to correspond with the seasonality of a given periodicity and 
- should be matched accordingly.
- \deqn{y_{t+h} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} + \beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+h}}
- \deqn{\hat{v}_{t+h} = y_{t+h} - \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}}
- Which can be rewritten as:
- \deqn{y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}}
- \deqn{\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}}
+h = 8 and p = 4, or an \eqn{AR(4)} process, additionally lagged by \eqn{8}
+lookahead periods. Econometricians may explore variations of h. However, p
+is designed to correspond with the seasonality of a given periodicity and
+should be matched accordingly.
 }
 \examples{
 data(GDPC1)
@@ -67,7 +61,7 @@ log_Employment <- 100*log(xts::to.quarterly(PAYEMS["1947/2016-6"], OHLC = FALSE)
 
 employ_trend <- yth_filter(log_Employment, h = 8, p = 4, output = c("x", "trend"))
 
-plot(employ_trend, grid.col = "white", legend.loc = "topleft", 
+plot(employ_trend, grid.col = "white", legend.loc = "topleft",
          main = "Log of Employment and trend")
 
 #----------------------------------------------------------------------------#
@@ -88,8 +82,9 @@ names(my_table_2) <- names(Hamilton_table_2)[1:4]
 my_table_2
 }
 \references{
-James D. Hamilton. \href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.
-           NBER Working Paper No. 23429, Issued in May 2017.
+James D. Hamilton.
+\href{http://econweb.ucsd.edu/~jhamilto/hp.pdf}{Why You Should Never Use the Hodrick-Prescott Filter}.
+NBER Working Paper No. 23429, Issued in May 2017.
 }
 \seealso{
 \code{\link{yth_glm}}
