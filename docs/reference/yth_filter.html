@@ -127,22 +127,22 @@ NBER Working Paper No. 23429, Issued in May 2017.</p>
 <span class="r-in"><span><span class="va">gdp_filter</span> <span class="op">&lt;-</span> <span class="fu">yth_filter</span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">GDPC1</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gdp_filter</span>, <span class="fl">15</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            GDPC1 GDPC1.trend GDPC1.cycle GDPC1.random</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1947 Q1 761.7981          NA          NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1947 Q2 761.5310          NA          NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1947 Q3 761.3243          NA          NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1947 Q4 762.8765          NA          NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1948 Q1 764.3695          NA          NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1948 Q2 766.0067          NA          NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1948 Q3 766.5780          NA          NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1948 Q4 766.6896          NA          NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1949 Q1 765.3021          NA          NA     3.504010</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1949 Q2 764.9604          NA          NA     3.429388</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1949 Q3 765.9875          NA          NA     4.663236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1949 Q4 765.1447    772.3998  -7.2550703     2.268260</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1950 Q1 768.9996    773.5074  -4.5077941     4.630095</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1950 Q2 772.0038    774.6509  -2.6471369     5.997119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1950 Q3 775.7954    775.3168   0.4786384     9.217440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               GDPC1 GDPC1.trend GDPC1.cycle GDPC1.random</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1947-01-01 768.8309          NA          NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1947-04-01 768.5653          NA          NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1947-07-01 768.3603          NA          NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1947-10-01 769.9141          NA          NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1948-01-01 771.4089          NA          NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1948-04-01 773.0478          NA          NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1948-07-01 773.6207          NA          NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1948-10-01 773.7339          NA          NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1949-01-01 772.3477          NA          NA     3.516789</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1949-04-01 772.0075          NA          NA     3.442130</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1949-07-01 773.0361          NA          NA     4.675851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1949-10-01 772.1948    779.1321  -6.9373485     2.280665</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1950-01-01 776.0511    780.3038  -4.2526309     4.642219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1950-04-01 779.0565    781.5229  -2.4664958     6.008660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1950-07-01 782.8487    782.1703   0.6783457     9.228028</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#---------------------------------------------------------------------------#</span></span></span>
 <span class="r-in"><span></span></span>
@@ -173,13 +173,13 @@ NBER Working Paper No. 23429, Issued in May 2017.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">my_table_2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               cycle.sd gdp.cor random.sd gdp.rand.cor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GDPC1.cycle       3.32    1.00      3.66         1.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PCECC96.cycle     2.93    0.81      3.14         0.83</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GPDIC1.cycle     12.66    0.82     13.21         0.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> EXPGSC1.cycle    11.01    0.38     11.56         0.37</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IMPGSC1.cycle     9.69    0.77     10.01         0.77</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GCEC1.cycle       6.92    0.30      8.25         0.36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GDPDEF.cycle      3.01    0.08      4.04        -0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GDPC1.cycle       3.27    1.00      3.55         1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PCECC96.cycle     2.90    0.80      3.08         0.82</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GPDIC1.cycle     12.47    0.82     12.98         0.78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EXPGSC1.cycle    10.81    0.36     11.35         0.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IMPGSC1.cycle     9.55    0.76      9.88         0.76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GCEC1.cycle       6.89    0.30      8.13         0.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GDPDEF.cycle      3.05    0.07      4.04        -0.09</span>
 </code></pre></div>
     </div>
   </div>

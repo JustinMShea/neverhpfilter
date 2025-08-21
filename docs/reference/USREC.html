@@ -74,17 +74,14 @@ NBER-based Recession Indicators.</p><dl><dt>**Release:**</dt>
 <dd><p>Binary indicator (1 = recession, 0 = expansion)</p></dd>
 
   <dt>**Date Range:**</dt>
-<dd><p>1854-12-01 to 2021-11-01</p></dd>
-
-  <dt>**Last Updated:**</dt>
-<dd><p>2021-12-01 6:01 PM CST</p></dd>
+<dd><p>1854-12-01 to 2025-07-01</p></dd>
 
 
 </dl></div>
     <div id="source">
     <h2>Source</h2>
     <p>Federal Reserve Bank of St. Louis
-<a href="https://fred.stlouisfed.org/data/USREC.txt" class="external-link">https://fred.stlouisfed.org/data/USREC.txt</a></p>
+<a href="https://fred.stlouisfed.org/data/USREC" class="external-link">https://fred.stlouisfed.org/data/USREC</a></p>
     </div>
     <div id="notes">
     <h2>Notes</h2>
@@ -113,43 +110,43 @@ dates into shaded recession data:</p><ul><li><p>Midpoint method — recession sp
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">USREC</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">USREC</span><span class="op">[</span><span class="st">"2007/2009"</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          USREC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jan 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Feb 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mar 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Apr 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> May 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jun 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jul 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aug 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Sep 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Oct 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nov 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dec 2007     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jan 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Feb 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mar 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Apr 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> May 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jun 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jul 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aug 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Sep 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Oct 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nov 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dec 2008     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jan 2009     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Feb 2009     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mar 2009     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Apr 2009     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> May 2009     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jun 2009     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Jul 2009     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Aug 2009     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Sep 2009     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Oct 2009     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nov 2009     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dec 2009     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            USREC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-01-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-02-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-03-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-04-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-05-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-06-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-07-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-08-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-09-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-10-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-11-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2007-12-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-01-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-02-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-03-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-04-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-05-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-06-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-07-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-08-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-09-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-10-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-11-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2008-12-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-01-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-02-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-03-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-04-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-05-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-06-01     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-07-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-08-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-09-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-10-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-11-01     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2009-12-01     0</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">USREC</span><span class="op">[</span><span class="st">"1947/"</span><span class="op">]</span>, grid.col <span class="op">=</span> <span class="st">"white"</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="USREC-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
