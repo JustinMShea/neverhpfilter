@@ -3,6 +3,24 @@ title: "NEWS"
 output: github_document
 ---
 
+# neverhpfilter 0.5-0
+
+Fixed the following issues containing features & bugs:
+
+[yth_filter() fails with p =1 #10](https://github.com/JustinMShea/neverhpfilter/issues/10)
+
+[link to shiller data 404 in data-raw/data-script.R line 85 #9](https://github.com/JustinMShea/neverhpfilter/issues/9)
+
+[Updates to "Getting Started" vignette #8](https://github.com/JustinMShea/neverhpfilter/issues/8)
+
+[Update CI tools #5](https://github.com/JustinMShea/neverhpfilter/issues/5)
+
+Updated email address in `DESCRIPTION` to jshea01@uic.edu
+
+# neverhpfilter 0.4-3
+
+Fixed all Notes that resulte in [CRAN Removal](https://cran-archive.r-project.org/web/checks/2025/2025-06-13_check_results_neverhpfilter.html)
+
 # neverhpfilter 0.4-2
 
 Switched to new dependency free, `simplermarkdown` package!

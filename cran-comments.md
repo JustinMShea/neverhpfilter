@@ -1,29 +1,24 @@
-# version bump to 0.4-0
-
+# version bump to 0.5-0
 ## Test environments passing
 
-# Linux
-*Local Ubuntu 20.04, R version 4.1.0 (2021-05-18), x86_64-pc-linux-gnu (64-bit)
-* r-hub Debian clang version 11.0.1-2, R Under development (unstable) (2021-06-16 r80505), x86_64-pc-linux-gnu (64-bit)
- ## R CMD check results
- ### Local results
-      Status: OK
-      R CMD check succeeded
- ### R-hub builder
-      Status: OK
-      Finished: Success
+# Local
+- Ubuntu 22.04, R version 4.5.1 (2025-06-13), x86_64-pc-linux-gnu (64-bit)
 
-# Mac
-* r-hub macOS 10.13.6 High Sierra, R-release, CRAN's setup: R version 4.1.0 (2021-05-18), x86_64-apple-darwin17.0 (64-bit)
- ## R CMD check results
- ### r-hub: macOS 10.13.6 High Sierra 
-      Status: OK
-      Finished: SUCCESS
+# Github Actions CI
+## mocos-latest (release)
+- R version 4.5.1 (2025-06-13), macOS Sonoma 14.7.6
+
+## windows-latest (release)
+- R version 4.5.1 (2025-06-13 ucrt), Windows Server 2022 x64 (build 20348)
+
+## ubuntu-lateset (devel)
+- R Under development (unstable) (2025-08-19 r88650),  Ubuntu 24.04.2 LTS
+
+## ubuntu-lateset (release)
+- R version 4.5.1 (2025-06-13), Ubuntu 24.04.2 LTS
+
+## ubuntu-lateset (oldrel-1)
+- R version 4.4.3 (2025-02-28), Ubuntu 24.04.2 LTS
 
 
-# Windows
-* AppVeyor Windows Server 2012 R2 x64 (build 9600): R version 4.1.0 Patched (2021-06-17 r80515), x86_64-w64-mingw32/x64 (64-bit)
-  ### AppVeyor
-       Status: OK
-      Build success
  
