@@ -1,13 +1,13 @@
+---
+title: "Reproducing Hamilton"
+author: "Justin M Shea"
+---
+
 <!--
   %\VignetteIndexEntry{Reproducing Hamilton}  
   %\VignetteEngine{simplermarkdown::mdweave_to_html}
   %\VignetteEncoding{UTF-8}
 -->
-
----
-title: "Reproducing Hamilton"
-author: "Justin M Shea"
----
 
 
   In the working paper titled "Why You Should Never Use the **H**odrick-**P**rescott Filter", James D. Hamilton proposes an interesting new alternative to economic time series filtering. The **`neverhpfilter`** package provides functions for implementing his solution.

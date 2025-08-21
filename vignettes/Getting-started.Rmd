@@ -1,14 +1,13 @@
-<!--
-  %\VignetteIndexEntry{Getting started}  
-  %\VignetteEngine{simplermarkdown::mdweave_to_html}
-  %\VignetteEncoding{UTF-8}
--->
-
 ---
 title: "Getting started"
 author: "Justin M Shea"
 ---
 
+<!--
+  %\VignetteIndexEntry{Getting started}  
+  %\VignetteEngine{simplermarkdown::mdweave_to_html}
+  %\VignetteEncoding{UTF-8}
+-->
 
 
 # Introduction
