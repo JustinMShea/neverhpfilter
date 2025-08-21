@@ -100,6 +100,11 @@ yth_filter <- function(x, h = 8, p = 4, output = c("x", "trend", "cycle", "rando
 
     colnames(x) <- ifelse( is.null(colnames(x)), "y", colnames(x) )
 
+  } else if(p == 1) {
+
+    stop(paste0("Argument 'p=1' does not capture time series seasonality, as
+                intended by this methodlogy."))
+
   }
   # After test passes, run the yth_function
   neverHP <- yth_glm(x = x , h = h, p = p, ...)
