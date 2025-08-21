@@ -24,7 +24,7 @@
 #'   \item{**Last Updated:**}{2021-11-24 7:55 AM CST}
 #' }
 #'
-#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPDEF.txt}
+#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPDEF}
 #'
 #' @examples
 #' data(GDPDEF)

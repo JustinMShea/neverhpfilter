@@ -68,7 +68,7 @@
 #' }
 #'
 #' @source Board of Governors of the Federal Reserve System (US)
-#' \url{https://fred.stlouisfed.org/data/FEDFUNDS.txt}
+#' \url{https://fred.stlouisfed.org/data/FEDFUNDS}
 #'
 #' @examples
 #' data(FEDFUNDS)

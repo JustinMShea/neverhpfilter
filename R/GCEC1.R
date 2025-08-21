@@ -22,7 +22,7 @@
 #'  \item\strong{Last Updated} 2021-12-22 7:53 AM CST
 #' }
 #'
-#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GCEC1.txt}
+#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GCEC1}
 #'
 #' @examples
 #' data(GCEC1)

@@ -16,7 +16,7 @@ An \code{\link[xts]{xts}} object of Real Exports of Goods and Services.
 }
 }
 \source{
-U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/EXPGSC1.txt}
+U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/EXPGSC1}
 }
 \usage{
 data(EXPGSC1)

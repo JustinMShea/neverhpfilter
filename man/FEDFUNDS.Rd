@@ -17,7 +17,7 @@ An \code{\link[xts]{xts}} object of the Fed Funds figures.
 }
 \source{
 Board of Governors of the Federal Reserve System (US)
-\url{https://fred.stlouisfed.org/data/FEDFUNDS.txt}
+\url{https://fred.stlouisfed.org/data/FEDFUNDS}
 }
 \usage{
 data(FEDFUNDS)

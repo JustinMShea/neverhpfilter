@@ -18,7 +18,7 @@ NBER-based Recession Indicators.
 }
 \source{
 Federal Reserve Bank of St. Louis
-\url{https://fred.stlouisfed.org/data/USREC.txt}
+\url{https://fred.stlouisfed.org/data/USREC}
 }
 \usage{
 data(USREC)

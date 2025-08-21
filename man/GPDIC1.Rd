@@ -17,7 +17,7 @@ Real Gross Private Domestic Investment.
 }
 }
 \source{
-U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GPDIC1.txt}
+U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GPDIC1}
 }
 \usage{
 data(GPDIC1)

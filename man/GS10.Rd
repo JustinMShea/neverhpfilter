@@ -18,7 +18,7 @@ An \code{\link[xts]{xts}} object containing observations of the
 }
 \source{
 Board of Governors of the Federal Reserve System (US)
-\url{https://fred.stlouisfed.org/data/GS10.txt}
+\url{https://fred.stlouisfed.org/data/GS10}
 }
 \usage{
 data(GS10)

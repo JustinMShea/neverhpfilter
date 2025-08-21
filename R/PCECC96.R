@@ -23,7 +23,7 @@
 #'   \item{**Last Updated:**}{2021-12-22 7:52 AM CST}
 #' }
 #'
-#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PCECC96.txt}
+#' @source U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PCECC96}
 #'
 #' @examples
 #' data(PCECC96)

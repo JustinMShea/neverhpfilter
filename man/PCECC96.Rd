@@ -17,7 +17,7 @@ Real Personal Consumption Expenditures.
 }
 }
 \source{
-U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PCECC96.txt}
+U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/PCECC96}
 }
 \usage{
 data(PCECC96)

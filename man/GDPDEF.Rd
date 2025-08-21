@@ -17,7 +17,7 @@ Gross Domestic Product: Implicit Price Deflator.
 }
 }
 \source{
-U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPDEF.txt}
+U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPDEF}
 }
 \usage{
 data(GDPDEF)

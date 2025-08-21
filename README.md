@@ -2,7 +2,6 @@
 
   <!-- badges: start -->
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/neverhpfilter)](https://cran.r-project.org/package=neverhpfilter) 
-[![codecov.io](https://codecov.io/gh/JustinMShea/neverhpfilter/graph/badge.svg)](https://codecov.io/github/JustinMShea/neverhpfilter?branch=master)
 [![R-CMD-check](https://github.com/JustinMShea/neverhpfilter/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JustinMShea/neverhpfilter/actions/workflows/R-CMD-check.yaml)
   <!-- badges: end -->
 

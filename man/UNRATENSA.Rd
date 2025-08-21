@@ -17,7 +17,7 @@ Civilian Unemployment Rate.
 }
 }
 \source{
-U.S. Bureau of Labor Statistics \url{https://fred.stlouisfed.org/data/UNRATENSA.txt}
+U.S. Bureau of Labor Statistics \url{https://fred.stlouisfed.org/data/UNRATENSA}
 }
 \usage{
 data(UNRATENSA)

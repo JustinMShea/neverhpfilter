@@ -17,7 +17,7 @@ All Employees: Total Nonfarm.
 }
 }
 \source{
-U.S. Bureau of Labor Statistics \url{https://fred.stlouisfed.org/data/PAYEMS.txt}
+U.S. Bureau of Labor Statistics \url{https://fred.stlouisfed.org/data/PAYEMS}
 }
 \usage{
 data(PAYEMS)

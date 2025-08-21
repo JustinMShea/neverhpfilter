@@ -31,7 +31,7 @@
 #'   \item{**Last Updated:**}{2021-12-03 9:35 AM CST}
 #' }
 #'
-#' @source U.S. Bureau of Labor Statistics \url{https://fred.stlouisfed.org/data/UNRATENSA.txt}
+#' @source U.S. Bureau of Labor Statistics \url{https://fred.stlouisfed.org/data/UNRATENSA}
 #'
 #' @examples
 #' data(UNRATENSA)

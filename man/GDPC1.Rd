@@ -16,7 +16,7 @@ An \code{\link[xts]{xts}} object of Real Gross Domestic Product.
 }
 }
 \source{
-U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPC1.txt}
+U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GDPC1}
 }
 \usage{
 data(GDPC1)

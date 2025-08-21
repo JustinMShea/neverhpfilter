@@ -16,7 +16,7 @@ An \code{\link[xts]{xts}} object containing observations of Real Exports of Good
 }
 }
 \source{
-U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GCEC1.txt}
+U.S. Bureau of Economic Analysis \url{https://fred.stlouisfed.org/data/GCEC1}
 }
 \usage{
 data(GCEC1)
