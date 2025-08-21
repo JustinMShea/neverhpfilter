@@ -9,8 +9,7 @@ An \code{\link[xts]{xts}} object containing observations of U.S. Stock Markets
 1871–Present and CAPE Ratio.
 \describe{
   \item{**Frequency:**}{Monthly}
-  \item{**Date Range:**}{1871-01 to 2020-03}
-  \item{**Data Updated:**}{2021-05-05 05:08 PM CST}
+  \item{**Date Range:**}{1871-01 to 2023-09}
   \item{**SP500:**}{Nominal prices of the S&P composite index, April 2021 observation is 04/05 close}
   \item{**Dividends:**}{Nominal dividends}
   \item{**Earnings:**}{Nominal earnings, S&P 500 estimated}

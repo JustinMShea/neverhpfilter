@@ -11,9 +11,8 @@ Real Personal Consumption Expenditures.
   \item{**Release:**}{Gross Domestic Product}
   \item{**Seasonal Adjustment:**}{Seasonally Adjusted Annual Rate}
   \item{**Frequency:**}{Quarterly}
-  \item{**Units:**}{Billions of Chained 2012 Dollars}
-  \item{**Date Range:**}{1947-01-01 to 2021-07-01}
-  \item{**Last Updated:**}{2021-12-22 7:52 AM CST}
+  \item{**Units:**}{Billions of Chained 2017 Dollars}
+  \item{**Date Range:**}{1947-01-01 to 2025-04-01}
 }
 }
 \source{

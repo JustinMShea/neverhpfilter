@@ -11,9 +11,8 @@ Gross Domestic Product: Implicit Price Deflator.
   \item{**Release:**}{Gross Domestic Product}
   \item{**Seasonal Adjustment:**}{Seasonally Adjusted Annual Rate}
   \item{**Frequency:**}{Quarterly}
-  \item{**Units:**}{Index 2012 = 100}
-  \item{**Date Range:**}{1947-01-01 to 2021-07-01}
-  \item{**Last Updated:**}{2021-11-24 7:55 AM CST}
+  \item{**Units:**}{Index 2017 = 100}
+  \item{**Date Range:**}{1947-01-01 to 2025-04-01}
 }
 }
 \source{

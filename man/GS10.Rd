@@ -12,8 +12,7 @@ An \code{\link[xts]{xts}} object containing observations of the
   \item{**Seasonal Adjustment:**}{Not Seasonally Adjusted}
   \item{**Frequency:**}{Monthly}
   \item{**Units:**}{Percent}
-  \item{**Date Range:**}{1953-04-01 to 2021-11-01}
-  \item{**Last Updated:**}{2021-12-01 3:18 PM CST}
+  \item{**Date Range:**}{1953-04-01 to 2025-07-01}
 }
 }
 \source{

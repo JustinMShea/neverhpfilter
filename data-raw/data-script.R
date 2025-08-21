@@ -12,83 +12,43 @@ Hamilton_table_2$Sample <- gsub(":", "-", Hamilton_table_2$Sample)
 
 
 library(xts)
-# Real GDP
-GDPC1 <- as.xts(read.zoo("https://research.stlouisfed.org/fred2/data/GDPC1.txt", 
-                         skip = 17, index.column = 1, header = TRUE, 
-                         format = "%Y-%m-%d", FUN = as.yearqtr))
-colnames(GDPC1) <- "GDPC1"
-
-
-# Employment Rate
-PAYEMS <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PAYEMS.txt", 
-                          sep = "", skip = 42, index.column = 1, header = TRUE, 
-                          format = "%Y-%m-%d", FUN = as.yearmon))
-colnames(PAYEMS) <- "PAYEMS"
-
-
-# US Recessions
-USREC <- as.xts(read.zoo("https://fred.stlouisfed.org/data/USREC.txt", 
-                         sep = "", skip = 69, index.column = 1, header = TRUE, 
-                         format = "%Y-%m-%d", FUN = as.yearmon))
-colnames(USREC) <- "USREC"
-
-
-# Real Gross Private Domestic Investment
-GPDIC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GPDIC1.txt", skip = 13, index.column = 1,
-                          header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-colnames(GPDIC1) <- "GPDIC1"
-
-# Real Personal Consumption Expenditures
-PCECC96 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/PCECC96.txt", skip = 13, index.column = 1,
-                        header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-colnames(PCECC96) <- "PCECC96"
-
-# Real Exports of Goods and Services
-EXPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/EXPGSC1.txt", skip = 13, index.column = 1,
-                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-colnames(EXPGSC1) <- "EXPGSC1"
-
-# Real imports of goods and services
-IMPGSC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/IMPGSC1.txt", skip = 13, index.column = 1,
-                             header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-colnames(IMPGSC1) <- "IMPGSC1"
-
-# Real Government Consumption Expenditures and Gross Investment
-GCEC1 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GCEC1.txt", skip = 13, index.column = 1,
-                            header = TRUE, format = "%Y-%m-%d", FUN = as.yearqtr))
-colnames(GCEC1) <- "GCEC1"
-
-# Civilian Unemployment Rate
-UNRATENSA <- as.xts(read.zoo("https://fred.stlouisfed.org/data/UNRATENSA.txt",
-                             skip = 24, index.column = 1, header = TRUE,
-                             format = "%Y-%m-%d", FUN = as.yearmon))
-colnames(UNRATENSA ) <- "UNRATENSA"
-
-# Gross Domestic Product: Implicit Price Deflator
-GDPDEF <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GDPDEF.txt", skip = 15,
-                          index.column = 1, header = TRUE, format = "%Y-%m-%d",
-                          FUN = as.yearqtr))
-colnames(GDPDEF) <- "GDPDEF"
-
-# 10-Year Treasury Constant Maturity Rate
-GS10 <- as.xts(read.zoo("https://fred.stlouisfed.org/data/GS10.txt", skip = 14,
-                          index.column = 1, header = TRUE, format = "%Y-%m-%d",
-                          FUN = as.yearmon))
-colnames(GS10) <- "GS10"
-
-# Effective Federal Funds Rate
 library(quantmod)
+# Real GDP
+getSymbols("GDPC1", src = "FRED")
+# Employment Rate
+getSymbols("PAYEMS", src = "FRED")
+# US Recessions
+getSymbols("USREC", src = "FRED")
+# Real Gross Private Domestic Investment
+getSymbols("GPDIC1", src = "FRED")
+# Real Personal Consumption Expenditures
+getSymbols("PCECC96", src = "FRED")
+# Real Exports of Goods and Services
+getSymbols("EXPGSC1", src = "FRED")
+# Real imports of goods and services
+getSymbols("IMPGSC1", src = "FRED")
+# Real Government Consumption Expenditures and Gross Investment
+getSymbols("GCEC1", src = "FRED")
+# Civilian Unemployment Rate
+getSymbols("UNRATENSA", src = "FRED")
+# Recession Indicators Series
+getSymbols("USREC", src = "FRED")
+# Gross Domestic Product: Implicit Price Deflator
+getSymbols("GDPDEF", src = "FRED")
+# 10-Year Treasury Constant Maturity Rate
+getSymbols("GS10", src = "FRED")
+# Effective Federal Funds Rate
 getSymbols("FEDFUNDS", src = "FRED")
 
 # Monthly S&P 500 Case Schiller data to 1871
 ie_data <- paste0(getwd(),"/data-raw/ie_data.xls")
-download.file(url = "http://www.econ.yale.edu/~shiller/data/ie_data.xls", 
+download.file(url = "http://www.econ.yale.edu/~shiller/data/ie_data.xls",
               destfile = ie_data, mode = "wb")
 
 library(readxl)
 SP <- read_xls(ie_data, sheet = 5, skip = 7)
 
-# Rm 6th col 'Fraction' is a repeat of Date 
+# Rm 6th col 'Fraction' is a repeat of Date
   # 14th col  stray column of NAs
   # 16th col  stray column of NAs
   # 20th col  '10 Year Annualized Stock Real Return'
@@ -99,11 +59,11 @@ SP <- SP[,c(-6, -14, -16, -20, -21, -22)]
 names(SP) <- c("Date", "SP500", "Dividend", "Earnings", "CPI", "GS10",
 "Real_SP500", "Real_Dividend", "Real_SP500_TR", "Real_Earnings", "Real_Earnings_TR",
 "CAPE", "CAPE_TR","CAPE_Yield","Bond_TR","Real_Bond_TR")
-  
+
   # CAPE imported as Character vector, fix
     SP$CAPE <- as.numeric(SP$CAPE)
     SP$CAPE_TR <- as.numeric(SP$CAPE_TR)
-    
+
   # clean up non-standard Date format. Example 2018.1, for January 2018.
     SP$Date <- as.character(SP$Date)
     SP$Date <- gsub("\\.", "-", SP$Date)
@@ -115,7 +75,7 @@ names(SP) <- c("Date", "SP500", "Dividend", "Earnings", "CPI", "GS10",
   # remove extra data objects before saving data to files.
     rm(SP, ie_data)
 
-  
+
   ###################################################
  # compression data sets to xz level 9 .Rdata files #
 ####################################################
@@ -123,9 +83,14 @@ names(SP) <- c("Date", "SP500", "Dividend", "Earnings", "CPI", "GS10",
 dataset_list <- ls()
 
 for (i in dataset_list) {
-  
-  save(list = i, file = paste0("data/", i, ".RData"), 
-       compress = "xz", 
+
+  save(list = i, file = paste0("data/", i, ".RData"),
+       compress = "xz",
        compression_level = 9)
+
+  print(
+    rbind(head(get(i), 1), tail(get(i), 1)
+          )
+    )
 
   }

@@ -39,8 +39,7 @@
 #'   \item{**Seasonal Adjustment:**}{Not Seasonally Adjusted}
 #'   \item{**Frequency:**}{Monthly}
 #'   \item{**Units:**}{Binary indicator (1 = recession, 0 = expansion)}
-#'   \item{**Date Range:**}{1854-12-01 to 2021-11-01}
-#'   \item{**Last Updated:**}{2021-12-01 6:01 PM CST}
+#'   \item{**Date Range:**}{1854-12-01 to 2025-07-01}
 #' }
 #'
 #' @source Federal Reserve Bank of St. Louis

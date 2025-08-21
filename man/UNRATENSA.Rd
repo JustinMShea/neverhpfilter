@@ -12,8 +12,7 @@ Civilian Unemployment Rate.
   \item{**Seasonal Adjustment:**}{Not Seasonally Adjusted}
   \item{**Frequency:**}{Monthly}
   \item{**Units:**}{Percent}
-  \item{**Date Range:**}{1948-01-01 to 2021-11-01}
-  \item{**Last Updated:**}{2021-12-03 9:35 AM CST}
+  \item{**Date Range:**}{1948-01-01 to 2025-07-01}
 }
 }
 \source{

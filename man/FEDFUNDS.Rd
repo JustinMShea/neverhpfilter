@@ -11,8 +11,7 @@ An \code{\link[xts]{xts}} object of the Fed Funds figures.
  \item\strong{Seasonal Adjustment:} Not Seasonally Adjusted
  \item\strong{Frequency:} Monthly
  \item\strong{Units:} Percent
- \item\strong{Date Range:} 1954-07-01 to 2021-11-01
- \item\strong{Last Updated} 2021-12-01 3:18 PM CST
+ \item\strong{Date Range:} 1954-07-01 to 2025-07-01
 }
 }
 \source{

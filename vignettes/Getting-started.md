@@ -14,7 +14,7 @@ author: "Justin M Shea"
 # Introduction
 
 The `neverhpfilter` package consists of 2 `functions`, 12 FRED economic data sets, 
-Robert Shiller's U.S. Stock Market and CAPE Ratio data from 1871 through 2020, 
+Robert Shiller's U.S. Stock Market and CAPE Ratio data from 1871 through 2023, 
 and a `data.frame` containing the original filter estimates found on table 2 of [Hamilton (2017) <doi:10.3386/w23429>.](https://www.nber.org/papers/w23429) All data objects are
 stored as `.Rdata` files in eXtensible Time Series (`xts`) format. 
 
