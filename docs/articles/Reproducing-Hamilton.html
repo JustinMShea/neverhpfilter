@@ -6,19 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reproducing Hamilton • neverhpfilter</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Reproducing Hamilton">
-<meta property="og:description" content="neverhpfilter">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,25 +32,19 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">neverhpfilter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5-0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -67,9 +62,9 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/JustinMShea/neverhpfilter/">
+  <a href="https://github.com/JustinMShea/neverhpfilter/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -80,223 +75,380 @@
 </div>
 <!--/.navbar -->
 
-      
 
-      </header><script src="Reproducing-Hamilton_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Reproducing Hamilton</h1>
-                        <h4 class="author">Justin M Shea</h4>
+                        <h4 data-toc-skip class="author">Justin M
+Shea</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/JustinMShea/neverhpfilter/blob/master/vignettes/Reproducing-Hamilton.Rmd"><code>vignettes/Reproducing-Hamilton.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/JustinMShea/neverhpfilter/blob/HEAD/vignettes/Reproducing-Hamilton.Rmd" class="external-link"><code>vignettes/Reproducing-Hamilton.Rmd</code></a></small>
       <div class="hidden name"><code>Reproducing-Hamilton.Rmd</code></div>
 
     </div>
 
     
     
-<div style="page-break-after: always;"></div>
-<p>In the working paper titled “Why You Should Never Use the <strong>H</strong>odrick-<strong>P</strong>rescott Filter”, James D. Hamilton proposes an interesting new alternative to economic time series filtering. The <strong><code>neverhpfilter</code></strong> package provides functions for implementing his solution. <a href="https://www.nber.org/papers/w23429">Hamilton (2017) &lt;doi:10.3386/w23429&gt;</a></p>
-<p>Hamilton’s abstract offers an excellent introduction to the problem and alternative solution:</p>
+<!--
+  %\VignetteIndexEntry{Reproducing Hamilton}  
+  %\VignetteEngine{simplermarkdown::mdweave_to_html}
+  %\VignetteEncoding{UTF-8}
+-->
+<p>In the working paper titled “Why You Should Never Use the
+<strong>H</strong>odrick-<strong>P</strong>rescott Filter”, James D.
+Hamilton proposes an interesting new alternative to economic time series
+filtering. The <strong><code>neverhpfilter</code></strong> package
+provides functions for implementing his solution. <a href="https://www.nber.org/papers/w23429" class="external-link">Hamilton (2017)
+&lt;doi:10.3386/w23429&gt;</a></p>
+<p>Hamilton’s abstract offers an excellent introduction to the problem
+and alternative solution:</p>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li>The HP filter produces series with spurious dynamic relations that have no basis in the underlying data-generating process.<br>
+<li>The HP filter produces series with spurious dynamic relations that
+have no basis in the underlying data-generating process.<br>
 </li>
-<li>Filtered values at the end of the sample are very different from those in the middle, and are also characterized by spurious dynamics.<br>
+<li>Filtered values at the end of the sample are very different from
+those in the middle, and are also characterized by spurious
+dynamics.<br>
 </li>
-<li>A statistical formalization of the problem typically produces values for the smoothing parameter vastly at odds with common practice, e.g., a value for <span class="math inline">\(\lambda\)</span> far below 1600 for quarterly data.<br>
+<li>A statistical formalization of the problem typically produces values
+for the smoothing parameter vastly at odds with common practice, e.g., a
+value for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>
+far below 1600 for quarterly data.<br>
 </li>
-<li>There’s a better alternative. A regression of the variable at date <span class="math inline">\(t + h\)</span> on the four most recent values as of date <span class="math inline">\(t\)</span> offers a robust approach to detrending that achieves all the objectives sought by users of the HP filter with none of its drawbacks.</li>
+<li>There’s a better alternative. A regression of the variable at date
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>+</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">t + h</annotation></semantics></math>
+on the four most recent values as of date
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+offers a robust approach to detrending that achieves all the objectives
+sought by users of the HP filter with none of its drawbacks.</li>
 </ol>
 </blockquote>
-<p>Using quarterly economic data, Hamilton suggests a linear model on a univariate time series shifted a<strong>h</strong>ead by <strong>h</strong> periods, regressed against a series of variables constructed from varying lags of the series by some number of <strong>p</strong>eriods, <strong>p</strong>. A modified auto-regressive <span class="math inline">\(AR(p)\)</span> model, dependent on a <span class="math inline">\(t+h\)</span> look-ahead, if you will. This is expressed more specifically by:</p>
-<p><span class="math display">\[y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}\]</span> <span class="math display">\[\hat{v}_{t+8} = y_{t+8} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}\]</span></p>
+<p>Using quarterly economic data, Hamilton suggests a linear model on a
+univariate time series shifted a<strong>h</strong>ead by
+<strong>h</strong> periods, regressed against a series of variables
+constructed from varying lags of the series by some number of
+<strong>p</strong>eriods, <strong>p</strong>. A modified auto-regressive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">AR(p)</annotation></semantics></math>
+model, dependent on a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>+</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">t+h</annotation></semantics></math>
+look-ahead, if you will. This is expressed more specifically by:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mrow><mi>t</mi><mo>+</mo><mn>8</mn></mrow></msub><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><msub><mi>y</mi><mi>t</mi></msub><mo>+</mo><msub><mi>β</mi><mn>2</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>3</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>4</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>3</mn></mrow></msub><mo>+</mo><msub><mi>v</mi><mrow><mi>t</mi><mo>+</mo><mn>8</mn></mrow></msub></mrow><annotation encoding="application/x-tex">y_{t+8} = \beta_0 + \beta_1 y_t + \beta_2 y_{t-1} +\beta_3 y_{t-2} + \beta_4 y_{t-3} + v_{t+8}</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>v</mi><mo accent="true">̂</mo></mover><mrow><mi>t</mi><mo>+</mo><mn>8</mn></mrow></msub><mo>=</mo><msub><mi>y</mi><mrow><mi>t</mi><mo>+</mo><mn>8</mn></mrow></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>0</mn></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>1</mn></msub><msub><mi>y</mi><mi>t</mi></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>2</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>3</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>4</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>3</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\hat{v}_{t+8} = y_{t+8} + \hat{\beta}_0 + \hat{\beta}_1 y_t + \hat{\beta}_2 y_{t-1} + \hat{\beta}_3 y_{t-2} + \hat{\beta}_4 y_{t-3}</annotation></semantics></math></p>
 <p>Which can be rewritten as:</p>
-<p><span class="math display">\[y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}\]</span></p>
-<p><span class="math display">\[\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}\]</span></p>
-<div id="implementation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#implementation" class="anchor"></a>Implementation</h2>
-<p>First, lets run the <code>yth_filter</code> on Real GDP using the default settings suggested by Hamilton of an <span class="math inline">\(h = 8\)</span> look-ahead period (2 years) and <span class="math inline">\(p = 4\)</span> lags (1 year). The output is displayed below containing the original series, trend, cycle, and random components.</p>
-<p>The random component is simply the difference between the original series and its <span class="math inline">\(h\)</span> look ahead, which is why it leads 8 <code>NA</code> observations. Due to the <span class="math inline">\(h\)</span> and <span class="math inline">\(p\)</span> parameters, trend and cycle components lead with 11 <code>NA</code> observations.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>t</mi></msub><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>8</mn></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>2</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>9</mn></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>3</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>10</mn></mrow></msub><mo>+</mo><msub><mi>β</mi><mn>4</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>11</mn></mrow></msub><mo>+</mo><msub><mi>v</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">y_{t} = \beta_0 + \beta_1 y_{t-8} + \beta_2 y_{t-9} + \beta_3 y_{t-10} + \beta_4 y_{t-11} + v_{t}</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>v</mi><mo accent="true">̂</mo></mover><mi>t</mi></msub><mo>=</mo><msub><mi>y</mi><mi>t</mi></msub><mo>−</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>0</mn></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>1</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>8</mn></mrow></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>2</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>9</mn></mrow></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>3</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>10</mn></mrow></msub><mo>+</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>4</mn></msub><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>11</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\hat{v}_{t} = y_{t} - \hat{\beta}_0 + \hat{\beta}_1 y_{t-8} + \hat{\beta}_2 y_{t-9} + \hat{\beta}_3 y_{t-10} + \hat{\beta}_4 y_{t-11}</annotation></semantics></math></p>
+<div class="section level3">
+<h3 id="implementation">Implementation<a class="anchor" aria-label="anchor" href="#implementation"></a>
+</h3>
+<p>First, lets run the <code>yth_filter</code> on Real GDP using the
+default settings suggested by Hamilton of an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">h = 8</annotation></semantics></math>
+look-ahead period (2 years) and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">p = 4</annotation></semantics></math>
+lags (1 year). The output is displayed below containing the original
+series, trend, cycle, and random components.</p>
+<p>The random component is simply the difference between the original
+series and its
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+look ahead, which is why it leads 8 <code>NA</code> observations. Due to
+the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+parameters, trend and cycle components lead with 11 <code>NA</code>
+observations.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/neverhpfilter/">neverhpfilter</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/neverhpfilter/" class="external-link">neverhpfilter</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">GDPC1</span><span class="op">)</span>
-
-<span class="va">gdp_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yth_filter.html">yth_filter</a></span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">GDPC1</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Date<span class="op">=</span><span class="fu">index</span><span class="op">(</span><span class="va">gdp_filter</span><span class="op">)</span>, <span class="fu">coredata</span><span class="op">(</span><span class="va">gdp_filter</span><span class="op">)</span><span class="op">)</span>, <span class="fl">15</span><span class="op">)</span></code></pre></div>
-<pre><code>##       Date    GDPC1 GDPC1.trend GDPC1.cycle GDPC1.random
-## 1  1947 Q1 761.7298          NA          NA           NA
-## 2  1947 Q2 761.4627          NA          NA           NA
-## 3  1947 Q3 761.2560          NA          NA           NA
-## 4  1947 Q4 762.8081          NA          NA           NA
-## 5  1948 Q1 764.3012          NA          NA           NA
-## 6  1948 Q2 765.9384          NA          NA           NA
-## 7  1948 Q3 766.5096          NA          NA           NA
-## 8  1948 Q4 766.6213          NA          NA           NA
-## 9  1949 Q1 765.2338          NA          NA     3.503988
-## 10 1949 Q2 764.8921          NA          NA     3.429356
-## 11 1949 Q3 765.9192          NA          NA     4.663188
-## 12 1949 Q4 765.0764    772.5565  -7.4800757     2.268271
-## 13 1950 Q1 768.9313    773.6959  -4.7646846     4.630074
-## 14 1950 Q2 771.9355    774.7931  -2.8576273     5.997144
-## 15 1950 Q3 775.7271    775.1513   0.5758054     9.217473</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">GDPC1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gdp_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yth_filter.html">yth_filter</a></span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">GDPC1</span><span class="op">)</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/index.html" class="external-link">index</a></span><span class="op">(</span><span class="va">gdp_filter</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/coredata.html" class="external-link">coredata</a></span><span class="op">(</span><span class="va">gdp_filter</span><span class="op">)</span><span class="op">)</span>, <span class="fl">15</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##          Date    GDPC1 GDPC1.trend GDPC1.cycle GDPC1.random</span></span>
+<span><span class="co">## 1  1947-01-01 768.8309          NA          NA           NA</span></span>
+<span><span class="co">## 2  1947-04-01 768.5653          NA          NA           NA</span></span>
+<span><span class="co">## 3  1947-07-01 768.3603          NA          NA           NA</span></span>
+<span><span class="co">## 4  1947-10-01 769.9141          NA          NA           NA</span></span>
+<span><span class="co">## 5  1948-01-01 771.4089          NA          NA           NA</span></span>
+<span><span class="co">## 6  1948-04-01 773.0478          NA          NA           NA</span></span>
+<span><span class="co">## 7  1948-07-01 773.6207          NA          NA           NA</span></span>
+<span><span class="co">## 8  1948-10-01 773.7339          NA          NA           NA</span></span>
+<span><span class="co">## 9  1949-01-01 772.3477          NA          NA     3.516789</span></span>
+<span><span class="co">## 10 1949-04-01 772.0075          NA          NA     3.442130</span></span>
+<span><span class="co">## 11 1949-07-01 773.0361          NA          NA     4.675851</span></span>
+<span><span class="co">## 12 1949-10-01 772.1948    779.1321  -6.9373485     2.280665</span></span>
+<span><span class="co">## 13 1950-01-01 776.0511    780.3038  -4.2526309     4.642219</span></span>
+<span><span class="co">## 14 1950-04-01 779.0565    781.5229  -2.4664958     6.008660</span></span>
+<span><span class="co">## 15 1950-07-01 782.8487    782.1703   0.6783457     9.228028</span></span></code></pre>
 </div>
-<div id="comparing-our-estimates-with-hamiltons" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comparing-our-estimates-with-hamiltons" class="anchor"></a>Comparing our estimates with Hamilton’s</h2>
-<p>In this next section, I reproduce a few of Hamilton’s tables and graphs, to make sure the functions approximately match his results.</p>
-<p>In the Appendix, Employment (All Employees: Total Non-farm series) is plotted in the form of <span class="math inline">\(100 * log(\)</span><code>PAYEMS</code><span class="math inline">\()\)</span> and superimposed with it’s random walk representation. (Hamilton 44). There are many good reasons to use <code>xts</code> when handling time series data. Two of them are illustrated below in efficiently transforming monthly series <code>to.quarterly</code> and in <code>plot</code>ing the results of <code>yth_filter</code>.</p>
+<div class="section level3">
+<h3 id="comparing-our-estimates-with-hamiltons">Comparing our estimates with Hamilton’s<a class="anchor" aria-label="anchor" href="#comparing-our-estimates-with-hamiltons"></a>
+</h3>
+<p>In this next section, I reproduce a few of Hamilton’s tables and
+graphs, to make sure the functions approximately match his results.</p>
+<p>In the Appendix, Employment (All Employees: Total Non-farm series) is
+plotted in the form of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>*</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo></mrow><annotation encoding="application/x-tex">100 * log(</annotation></semantics></math><code>PAYEMS</code><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo stretchy="false" form="postfix">)</mo><annotation encoding="application/x-tex">)</annotation></semantics></math>
+and superimposed with it’s random walk representation. (Hamilton 44).
+There are many good reasons to use <code>xts</code> when handling time
+series data. Two of them are illustrated below in efficiently
+transforming monthly series <code>to.quarterly</code> and in
+<code>plot</code>ing the results of <code>yth_filter</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">PAYEMS</span><span class="op">)</span>
-<span class="va">log_Employment</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu">xts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/to.period.html">to.quarterly</a></span><span class="op">(</span><span class="va">PAYEMS</span><span class="op">[</span><span class="st">"1947/2016-6"</span><span class="op">]</span>, OHLC <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">employ_trend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yth_filter.html">yth_filter</a></span><span class="op">(</span><span class="va">log_Employment</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span>, output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"trend"</span><span class="op">)</span>, family <span class="op">=</span> <span class="va">gaussian</span><span class="op">)</span>
-
-<span class="fu">plot.xts</span><span class="op">(</span><span class="va">employ_trend</span>, grid.col <span class="op">=</span> <span class="st">"white"</span>, legend.loc <span class="op">=</span> <span class="st">"topleft"</span>, main <span class="op">=</span> <span class="st">"Log of Employment and trend"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">PAYEMS</span><span class="op">)</span></span>
+<span><span class="va">log_Employment</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fu">xts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/to.period.html" class="external-link">to.quarterly</a></span><span class="op">(</span><span class="va">PAYEMS</span><span class="op">[</span><span class="st">"1947/2016-6"</span><span class="op">]</span>, OHLC <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">employ_trend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yth_filter.html">yth_filter</a></span><span class="op">(</span><span class="va">log_Employment</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span>, output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"trend"</span><span class="op">)</span>, family <span class="op">=</span> <span class="va">gaussian</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/plot.xts.html" class="external-link">plot.xts</a></span><span class="op">(</span><span class="va">employ_trend</span>, grid.col <span class="op">=</span> <span class="st">"white"</span>, legend.loc <span class="op">=</span> <span class="st">"topleft"</span>, main <span class="op">=</span> <span class="st">"Log of Employment and trend"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<p>When filtering time series, the cycle component is of great interest. Here, it is graphed alongside a random walk representation (Hamilton 44).</p>
+<p>When filtering time series, the cycle component is of great interest.
+Here, it is graphed alongside a random walk representation (Hamilton
+44).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">employ_cycle</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yth_filter.html">yth_filter</a></span><span class="op">(</span><span class="va">log_Employment</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span>, output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cycle"</span>, <span class="st">"random"</span><span class="op">)</span>, family <span class="op">=</span> <span class="va">gaussian</span><span class="op">)</span>
-
-<span class="fu">plot.xts</span><span class="op">(</span><span class="va">employ_cycle</span>, grid.col <span class="op">=</span> <span class="st">"white"</span>, legend.loc <span class="op">=</span> <span class="st">"topright"</span>, main<span class="op">=</span><span class="st">"Log of Employment cycle and random"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">employ_cycle</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yth_filter.html">yth_filter</a></span><span class="op">(</span><span class="va">log_Employment</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span>, output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cycle"</span>, <span class="st">"random"</span><span class="op">)</span>, family <span class="op">=</span> <span class="va">gaussian</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/plot.xts.html" class="external-link">plot.xts</a></span><span class="op">(</span><span class="va">employ_cycle</span>, grid.col <span class="op">=</span> <span class="st">"white"</span>, legend.loc <span class="op">=</span> <span class="st">"topright"</span>, main<span class="op">=</span><span class="st">"Log of Employment cycle and random"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>Turning the page, we find a similar graph of the cyclical component of <span class="math inline">\(100 * log\)</span> of GDP, Exports, Consumption, Imports, Investment, and Government (Hamilton 45).</p>
-<p>Below I <code>merge</code> these data into one <code>xts</code> object and write a function wrapper around <code>yth_filter</code> and <code>plot</code>, which is then <code>lapply</code>’d over each series, producing a plot for each one.</p>
+<p>Turning the page, we find a similar graph of the cyclical component
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>*</mo><mi>l</mi><mi>o</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">100 * log</annotation></semantics></math>
+of GDP, Exports, Consumption, Imports, Investment, and Government
+(Hamilton 45).</p>
+<p>Below I <code>merge</code> these data into one <code>xts</code>
+object and write a function wrapper around <code>yth_filter</code> and
+<code>plot</code>, which is then <code>lapply</code>’d over each series,
+producing a plot for each one.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fig6_data</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">GDPC1</span>, <span class="va">EXPGSC1</span>, <span class="va">PCECC96</span>, <span class="va">IMPGSC1</span>, <span class="va">GPDIC1</span>, <span class="va">GCEC1</span><span class="op">)</span><span class="op">[</span><span class="st">"1947/2016-3"</span><span class="op">]</span><span class="op">)</span>
-
-<span class="va">fig6_wrapper</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-               <span class="va">cycle</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/yth_filter.html">yth_filter</a></span><span class="op">(</span><span class="va">x</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span>, output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cycle"</span>, <span class="st">"random"</span><span class="op">)</span>, family <span class="op">=</span> <span class="va">gaussian</span><span class="op">)</span>
-               <span class="fu">plot.xts</span><span class="op">(</span><span class="va">cycle</span>, grid.col <span class="op">=</span> <span class="st">"white"</span>, lwd<span class="op">=</span><span class="fl">1</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fig6_data</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">GDPC1</span>, <span class="va">EXPGSC1</span>, <span class="va">PCECC96</span>, <span class="va">IMPGSC1</span>, <span class="va">GPDIC1</span>, <span class="va">GCEC1</span><span class="op">)</span><span class="op">[</span><span class="st">"1947/2016-3"</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fig6_wrapper</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>               <span class="va">cycle</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/yth_filter.html">yth_filter</a></span><span class="op">(</span><span class="va">x</span>, h <span class="op">=</span> <span class="fl">8</span>, p <span class="op">=</span> <span class="fl">4</span>, output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cycle"</span>, <span class="st">"random"</span><span class="op">)</span>, family <span class="op">=</span> <span class="va">gaussian</span><span class="op">)</span></span>
+<span>               <span class="fu"><a href="https://rdrr.io/pkg/xts/man/plot.xts.html" class="external-link">plot.xts</a></span><span class="op">(</span><span class="va">cycle</span>, grid.col <span class="op">=</span> <span class="st">"white"</span>, lwd<span class="op">=</span><span class="fl">1</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">fig6_data</span>, <span class="va">fig6_wrapper</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">fig6_data</span>, <span class="va">fig6_wrapper</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Reproducing-Hamilton_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<p>When striving to recreate a statistical method found in a journal or paper, one can perform surprisingly well by thoroughly digesting the relevant sections and “eyeballing” graphs included in the original author’s work.</p>
-<p>Better still, is finding a table presenting said author’s estimates, which one can use to directly compare with their own. Fortunately for us, Hamilton’s Appendix displays such a table which I use here to test against functions contained in <strong><code>neverhpfilter</code></strong>.</p>
-<p>His results are displayed below in table 2 (Hamilton 40), which I’ve stored as a <code>data.frame</code> in this package.</p>
+<p>When striving to recreate a statistical method found in a journal or
+paper, one can perform surprisingly well by thoroughly digesting the
+relevant sections and “eyeballing” graphs included in the original
+author’s work.</p>
+<p>Better still, is finding a table presenting said author’s estimates,
+which one can use to directly compare with their own. Fortunately for
+us, Hamilton’s Appendix displays such a table which I use here to test
+against functions contained in
+<strong><code>neverhpfilter</code></strong>.</p>
+<p>His results are displayed below in table 2 (Hamilton 40), which I’ve
+stored as a <code>data.frame</code> in this package.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Hamilton_table_2"</span><span class="op">)</span>
-<span class="op">?</span><span class="va">Hamilton_table_2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"Hamilton_table_2"</span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">Hamilton_table_2</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Hamilton_table_2</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">Hamilton_table_2</span><span class="op">)</span>,<span class="op">]</span></code></pre></div>
-<pre><code>##                        cycle.sd gdp.cor random.sd gdp.rand.cor        Sample
-## GDP                        3.38    1.00      3.69         1.00 1947-1/2016-1
-## Consumption                2.85    0.79      3.04         0.82 1947-1/2016-1
-## Investment                13.19    0.84     13.74         0.80 1947-1/2016-1
-## Exports                   10.77    0.33     11.33         0.30 1947-1/2016-1
-## Imports                    9.79    0.77      9.98         0.75 1947-1/2016-1
-## Government-spending        7.13    0.31      8.60         0.38 1947-1/2016-1
-## Employment                 3.09    0.85      3.32         0.85 1947-1/2016-2
-## Unemployment-rate          1.44   -0.81      1.72        -0.79 1948-1/2016-2
-## GDP-Deflator               2.99    0.04      4.11        -0.13 1947-1/2016-1
-## S&amp;P500                    21.80    0.41     22.08         0.38 1950-1/2016-2
-## 10-year-Treasury-yield     1.46   -0.05      1.51         0.08 1953-2/2016-2
-## Fedfunds-rate              2.78    0.33      3.03         0.40 1954-3/2016-2</code></pre>
-<p>I’ll replicate the table above, combining base R functions with estimates of the <code>yth_filter</code> function.</p>
-<p>The first step is to combine our economic time series into an object that allows for convenient iteration of computations across all data of interest. First, <code>merge</code> all series of quarterly frequency. These are <code>GDPC1, PCECC96, GPDIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF</code>. At this point, subset observations by the precise date range used by Hamilton. At some point, all series which are measured in prices need to be given the <span class="math inline">\(100*log\)</span> treatment, so do this now.</p>
+<code class="sourceCode R"><span><span class="va">Hamilton_table_2</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">Hamilton_table_2</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##                        cycle.sd gdp.cor random.sd gdp.rand.cor        Sample</span></span>
+<span><span class="co">## GDP                        3.38    1.00      3.69         1.00 1947-1/2016-1</span></span>
+<span><span class="co">## Consumption                2.85    0.79      3.04         0.82 1947-1/2016-1</span></span>
+<span><span class="co">## Investment                13.19    0.84     13.74         0.80 1947-1/2016-1</span></span>
+<span><span class="co">## Exports                   10.77    0.33     11.33         0.30 1947-1/2016-1</span></span>
+<span><span class="co">## Imports                    9.79    0.77      9.98         0.75 1947-1/2016-1</span></span>
+<span><span class="co">## Government-spending        7.13    0.31      8.60         0.38 1947-1/2016-1</span></span>
+<span><span class="co">## Employment                 3.09    0.85      3.32         0.85 1947-1/2016-2</span></span>
+<span><span class="co">## Unemployment-rate          1.44   -0.81      1.72        -0.79 1948-1/2016-2</span></span>
+<span><span class="co">## GDP-Deflator               2.99    0.04      4.11        -0.13 1947-1/2016-1</span></span>
+<span><span class="co">## S&amp;P500                    21.80    0.41     22.08         0.38 1950-1/2016-2</span></span>
+<span><span class="co">## 10-year-Treasury-yield     1.46   -0.05      1.51         0.08 1953-2/2016-2</span></span>
+<span><span class="co">## Fedfunds-rate              2.78    0.33      3.03         0.40 1954-3/2016-2</span></span></code></pre>
+<p>I’ll replicate the table above, combining base R functions with
+estimates of the <code>yth_filter</code> function.</p>
+<p>The first step is to combine our economic time series into an object
+that allows for convenient iteration of computations across all data of
+interest. First, <code>merge</code> all series of quarterly frequency.
+These are
+<code>GDPC1, PCECC96, GPDIC1, EXPGSC1, IMPGSC1, GCEC1, GDPDEF</code>. At
+this point, subset observations by the precise date range used by
+Hamilton. At some point, all series which are measured in prices need to
+be given the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>*</mo><mi>l</mi><mi>o</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">100*log</annotation></semantics></math>
+treatment, so do this now.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">quarterly_data</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">GDPC1</span>, <span class="va">PCECC96</span>, <span class="va">GPDIC1</span>, <span class="va">EXPGSC1</span>, <span class="va">IMPGSC1</span>, <span class="va">GCEC1</span>, <span class="va">GDPDEF</span><span class="op">)</span><span class="op">[</span><span class="st">"1947/2016-3"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p>Some economic time series we wish to compare are measured in monthly periodicity, so we need to lower their frequency <code>to.quarterly</code>. <code>merge</code> monthly series and <span class="math inline">\(100*log\)</span> those expressed in prices. Leave data measured in percentages be. Then, functionally iterate over every series and transform them <code>to.quarterly</code>. Finally, all series are combined into one <code>xts</code> object, I call <code>quarterly_data</code>.</p>
+<code class="sourceCode R"><span><span class="va">quarterly_data</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">GDPC1</span>, <span class="va">PCECC96</span>, <span class="va">GPDIC1</span>, <span class="va">EXPGSC1</span>, <span class="va">IMPGSC1</span>, <span class="va">GCEC1</span>, <span class="va">GDPDEF</span><span class="op">)</span><span class="op">[</span><span class="st">"1947/2016-3"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p>Some economic time series we wish to compare are measured in monthly
+periodicity, so we need to lower their frequency
+<code>to.quarterly</code>. <code>merge</code> monthly series and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>*</mo><mi>l</mi><mi>o</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">100*log</annotation></semantics></math>
+those expressed in prices. Leave data measured in percentages be. Then,
+functionally iterate over every series and transform them
+<code>to.quarterly</code>. Finally, all series are combined into one
+<code>xts</code> object, I call <code>quarterly_data</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">monthly_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">PAYEMS</span><span class="op">)</span>, <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">SP500</span><span class="op">$</span><span class="va">SP500</span><span class="op">)</span><span class="op">[</span><span class="st">"1950/"</span><span class="op">]</span>, <span class="va">UNRATENSA</span>, <span class="va">GS10</span>, <span class="va">FEDFUNDS</span><span class="op">)</span>
-
-<span class="va">to_quarterly_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">merge</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">monthly_data</span>, <span class="va">to.quarterly</span>, OHLC <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="st">"1947/2016-6"</span><span class="op">]</span>
-
-<span class="va">quarterly_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">quarterly_data</span>, <span class="va">to_quarterly_data</span><span class="op">)</span></code></pre></div>
-<p>Now its time to functionally iterate over each series. I do this by <code>lapply</code>ing the <code>yth_filter</code> to each series, while iteratively <code>merge</code>ing results into one object with <code>do.call</code>. The optional argument of <code>output = "cycle"</code> is convenient here as it returns the labeled univariate cycle component for each series. For example, <code>GDPCE1.cycle</code>. The same approach is use to compute the <code>random</code> component for each series as well.</p>
+<code class="sourceCode R"><span><span class="va">monthly_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">PAYEMS</span><span class="op">)</span>, <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">SP500</span><span class="op">$</span><span class="va">SP500</span><span class="op">)</span><span class="op">[</span><span class="st">"1950/"</span><span class="op">]</span>, <span class="va">UNRATENSA</span>, <span class="va">GS10</span>, <span class="va">FEDFUNDS</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">to_quarterly_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">merge</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">monthly_data</span>, <span class="va">to.quarterly</span>, OHLC <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="st">"1947/2016-6"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">quarterly_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">quarterly_data</span>, <span class="va">to_quarterly_data</span><span class="op">)</span></span></code></pre></div>
+<p>Now its time to functionally iterate over each series. I do this by
+<code>lapply</code>ing the <code>yth_filter</code> to each series, while
+iteratively <code>merge</code>ing results into one object with
+<code>do.call</code>. The optional argument of
+<code>output = "cycle"</code> is convenient here as it returns the
+labeled univariate cycle component for each series. For example,
+<code>GDPCE1.cycle</code>. The same approach is use to compute the
+<code>random</code> component for each series as well.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cycle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">merge</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">quarterly_data</span>, <span class="va">yth_filter</span>, output <span class="op">=</span> <span class="st">"cycle"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">random</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">merge</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">quarterly_data</span>, <span class="va">yth_filter</span>, output <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Now that all data have been transformed into both <code>cycle</code> and <code>random</code> series, its time to estimate the standard deviation for each, as well as each components correlation with <code>GDP</code>. This is also a good opportunity to <code>t</code>ranspose each of our estimates into vertical columned <code>data.frames</code>, matching Hamilton’s format.</p>
+<code class="sourceCode R"><span><span class="va">cycle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">merge</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">quarterly_data</span>, <span class="va">yth_filter</span>, output <span class="op">=</span> <span class="st">"cycle"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">random</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">merge</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">quarterly_data</span>, <span class="va">yth_filter</span>, output <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Now that all data have been transformed into both <code>cycle</code>
+and <code>random</code> series, its time to estimate the standard
+deviation for each, as well as each components correlation with
+<code>GDP</code>. This is also a good opportunity to
+<code>t</code>ranspose each of our estimates into vertical columned
+<code>data.frames</code>, matching Hamilton’s format.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cycle.sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">cycle</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">GDP.cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">cycle</span>, <span class="va">cor</span>, <span class="va">cycle</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, use <span class="op">=</span> <span class="st">"complete.obs"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">random.sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">random</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">random.cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">random</span>, <span class="va">cor</span>, <span class="va">random</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, use <span class="op">=</span> <span class="st">"complete.obs"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">my_table_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">cycle.sd</span>, <span class="va">GDP.cor</span>, <span class="va">random.sd</span>, <span class="va">random.cor</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p>Hamilton displays the date ranges of his samples, so we will do the same, while keeping the <code>xts</code> date range syntax format. I use a simple function I call <code>sample_range</code> to extract the first and last observation of each series’ <code>index.xts</code>. This approach serves as a check on the work, as oppose to manually creating labels. Sample ranges are then <code>t</code>ransposed into vertical <code>data.frames</code> and <code>cbind</code>’d to the existing table of estimates.</p>
+<code class="sourceCode R"><span><span class="va">cycle.sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">cycle</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">GDP.cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">cycle</span>, <span class="va">cor</span>, <span class="va">cycle</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, use <span class="op">=</span> <span class="st">"complete.obs"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">random.sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">random</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">random.cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">random</span>, <span class="va">cor</span>, <span class="va">random</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, use <span class="op">=</span> <span class="st">"complete.obs"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">my_table_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">cycle.sd</span>, <span class="va">GDP.cor</span>, <span class="va">random.sd</span>, <span class="va">random.cor</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>Hamilton displays the date ranges of his samples, so we will do the
+same, while keeping the <code>xts</code> date range syntax format. I use
+a simple function I call <code>sample_range</code> to extract the first
+and last observation of each series’ <code>index.xts</code>. This
+approach serves as a check on the work, as oppose to manually creating
+labels. Sample ranges are then <code>t</code>ransposed into vertical
+<code>data.frames</code> and <code>cbind</code>’d to the existing table
+of estimates.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sample_range</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">"-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu">index</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>, <span class="st">"/"</span>, <span class="fu">index</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">data_sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">quarterly_data</span>, <span class="va">sample_range</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">my_table_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">my_table_2</span>, <span class="va">data_sample</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">my_table_2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">Hamilton_table_2</span><span class="op">)</span></code></pre></div>
-<p>Finally, <code>rbind</code> Hamilton’s table 2 with my table for a visual comparison. The results are nearly identical, inspiring confidence in the replication of the approach, as the functions of the <code>neverhpfilter</code> package.</p>
-<p>According to the ‘code and data’ link on the <a href="http://econweb.ucsd.edu/~jhamilto/#working">‘Current Working Papers’</a> page of Hamilton’s site, both Matlab and RATS were used for computation of the table. It is not surprising that minor differences in estimates would occur, likely due to differences in the underlying data or internal computational choices made by each commercial software product. While economic time series are publicly available and have a central source at <a href="https://fred.stlouisfed.org/">FRED</a>, that is not so for Standard &amp; Poor’s index data. Unsurprisingly, the <code>SP500</code> data shows the most divergence, and it is not clear what source was used in the original paper (though I have my suspicions for future exploration).</p>
-<p>Below, see Hamilton’s table 2 compared with estimates from neverhpfilter::yth_filter, sorted by standard deviation of the cycle component. yth_filter estimates are labeled with the suffix <strong><code>.cycle</code></strong></p>
+<code class="sourceCode R"><span><span class="va">sample_range</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">"-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/index.html" class="external-link">index</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>, <span class="st">"/"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/index.html" class="external-link">index</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">data_sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">quarterly_data</span>, <span class="va">sample_range</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">my_table_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">my_table_2</span>, <span class="va">data_sample</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">my_table_2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">Hamilton_table_2</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, <code>rbind</code> Hamilton’s table 2 with my table for a
+visual comparison. The results are nearly identical, inspiring
+confidence in the replication of the approach, as the functions of the
+<code>neverhpfilter</code> package.</p>
+<p>According to the ‘code and data’ link on the <a href="http://econweb.ucsd.edu/~jhamilto/#working" class="external-link">‘Current Working
+Papers’</a> page of Hamilton’s site, both Matlab and RATS were used for
+computation of the table. It is not surprising that minor differences in
+estimates would occur, likely due to differences in the underlying data
+or internal computational choices made by each commercial software
+product. While economic time series are publicly available and have a
+central source at <a href="https://fred.stlouisfed.org/" class="external-link">FRED</a>, that
+is not so for Standard &amp; Poor’s index data. Unsurprisingly, the
+<code>SP500</code> data shows the most divergence, and it is not clear
+what source was used in the original paper (though I have my suspicions
+for future exploration).</p>
+<p>Below, see Hamilton’s table 2 compared with estimates from
+neverhpfilter::yth_filter, sorted by standard deviation of the cycle
+component. yth_filter estimates are labeled with the suffix
+<strong><code>.cycle</code></strong></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="co"># Combined table</span>
-<span class="va">combined_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">Hamilton_table_2</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">Hamilton_table_2</span><span class="op">)</span>,<span class="op">]</span>, <span class="va">my_table_2</span><span class="op">)</span>
-
-<span class="va">combined_table</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">combined_table</span><span class="op">$</span><span class="va">cycle.sd</span><span class="op">)</span>,<span class="op">]</span></code></pre></div>
-<pre><code>##                        cycle.sd gdp.cor random.sd gdp.rand.cor          Sample
-## Unemployment-rate          1.44   -0.81      1.72        -0.79   1948-1/2016-2
-## UNRATENSA.cycle            1.44   -0.82      1.71        -0.80 1948-Q1/2016-Q2
-## 10-year-Treasury-yield     1.46   -0.05      1.51         0.08   1953-2/2016-2
-## GS10.cycle                 1.46   -0.05      1.51         0.08 1953-Q2/2016-Q2
-## Fedfunds-rate              2.78    0.33      3.03         0.40   1954-3/2016-2
-## FEDFUNDS.cycle             2.78    0.33      3.03         0.41 1954-Q3/2016-Q2
-## PCECC96.cycle              2.84    0.79      3.02         0.82 1947-Q1/2016-Q1
-## Consumption                2.85    0.79      3.04         0.82   1947-1/2016-1
-## GDP-Deflator               2.99    0.04      4.11        -0.13   1947-1/2016-1
-## GDPDEF.cycle               3.00    0.03      4.12        -0.14 1947-Q1/2016-Q1
-## Employment                 3.09    0.85      3.32         0.85   1947-1/2016-2
-## PAYEMS.cycle               3.09    0.85      3.32         0.85 1947-Q1/2016-Q2
-## GDPC1.cycle                3.37    1.00      3.65         1.00 1947-Q1/2016-Q1
-## GDP                        3.38    1.00      3.69         1.00   1947-1/2016-1
-## Government-spending        7.13    0.31      8.60         0.38   1947-1/2016-1
-## GCEC1.cycle                7.16    0.31      8.59         0.38 1947-Q1/2016-Q1
-## IMPGSC1.cycle              9.75    0.76      9.91         0.75 1947-Q1/2016-Q1
-## Imports                    9.79    0.77      9.98         0.75   1947-1/2016-1
-## EXPGSC1.cycle             10.74    0.33     11.32         0.30 1947-Q1/2016-Q1
-## Exports                   10.77    0.33     11.33         0.30   1947-1/2016-1
-## GPDIC1.cycle              13.14    0.83     13.65         0.78 1947-Q1/2016-Q1
-## Investment                13.19    0.84     13.74         0.80   1947-1/2016-1
-## SP500.cycle               21.38    0.42     21.60         0.40 1950-Q1/2016-Q2
-## S&amp;P500                    21.80    0.41     22.08         0.38   1950-1/2016-2</code></pre>
+<code class="sourceCode R"><span> <span class="co"># Combined table</span></span>
+<span><span class="va">combined_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">Hamilton_table_2</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">Hamilton_table_2</span><span class="op">)</span>,<span class="op">]</span>, <span class="va">my_table_2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">combined_table</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">combined_table</span><span class="op">$</span><span class="va">cycle.sd</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##                        cycle.sd gdp.cor random.sd gdp.rand.cor</span></span>
+<span><span class="co">## Unemployment-rate          1.44   -0.81      1.72        -0.79</span></span>
+<span><span class="co">## UNRATENSA.cycle            1.44   -0.82      1.71        -0.80</span></span>
+<span><span class="co">## 10-year-Treasury-yield     1.46   -0.05      1.51         0.08</span></span>
+<span><span class="co">## GS10.cycle                 1.46   -0.05      1.51         0.08</span></span>
+<span><span class="co">## Fedfunds-rate              2.78    0.33      3.03         0.40</span></span>
+<span><span class="co">## FEDFUNDS.cycle             2.78    0.33      3.03         0.41</span></span>
+<span><span class="co">## PCECC96.cycle              2.82    0.78      3.00         0.82</span></span>
+<span><span class="co">## Consumption                2.85    0.79      3.04         0.82</span></span>
+<span><span class="co">## GDP-Deflator               2.99    0.04      4.11        -0.13</span></span>
+<span><span class="co">## GDPDEF.cycle               3.01    0.03      4.13        -0.14</span></span>
+<span><span class="co">## Employment                 3.09    0.85      3.32         0.85</span></span>
+<span><span class="co">## PAYEMS.cycle               3.09    0.85      3.32         0.85</span></span>
+<span><span class="co">## GDPC1.cycle                3.35    1.00      3.63         1.00</span></span>
+<span><span class="co">## GDP                        3.38    1.00      3.69         1.00</span></span>
+<span><span class="co">## Government-spending        7.13    0.31      8.60         0.38</span></span>
+<span><span class="co">## GCEC1.cycle                7.16    0.32      8.59         0.38</span></span>
+<span><span class="co">## IMPGSC1.cycle              9.71    0.76      9.87         0.75</span></span>
+<span><span class="co">## Imports                    9.79    0.77      9.98         0.75</span></span>
+<span><span class="co">## EXPGSC1.cycle             10.75    0.33     11.33         0.30</span></span>
+<span><span class="co">## Exports                   10.77    0.33     11.33         0.30</span></span>
+<span><span class="co">## GPDIC1.cycle              13.18    0.83     13.67         0.78</span></span>
+<span><span class="co">## Investment                13.19    0.84     13.74         0.80</span></span>
+<span><span class="co">## SP500.cycle               21.38    0.42     21.60         0.40</span></span>
+<span><span class="co">## S&amp;P500                    21.80    0.41     22.08         0.38</span></span>
+<span><span class="co">##                                       Sample</span></span>
+<span><span class="co">## Unemployment-rate              1948-1/2016-2</span></span>
+<span><span class="co">## UNRATENSA.cycle        1948-01-01/2016-04-01</span></span>
+<span><span class="co">## 10-year-Treasury-yield         1953-2/2016-2</span></span>
+<span><span class="co">## GS10.cycle             1953-04-01/2016-04-01</span></span>
+<span><span class="co">## Fedfunds-rate                  1954-3/2016-2</span></span>
+<span><span class="co">## FEDFUNDS.cycle         1954-07-01/2016-04-01</span></span>
+<span><span class="co">## PCECC96.cycle          1947-01-01/2016-01-01</span></span>
+<span><span class="co">## Consumption                    1947-1/2016-1</span></span>
+<span><span class="co">## GDP-Deflator                   1947-1/2016-1</span></span>
+<span><span class="co">## GDPDEF.cycle           1947-01-01/2016-01-01</span></span>
+<span><span class="co">## Employment                     1947-1/2016-2</span></span>
+<span><span class="co">## PAYEMS.cycle           1947-01-01/2016-04-01</span></span>
+<span><span class="co">## GDPC1.cycle            1947-01-01/2016-01-01</span></span>
+<span><span class="co">## GDP                            1947-1/2016-1</span></span>
+<span><span class="co">## Government-spending            1947-1/2016-1</span></span>
+<span><span class="co">## GCEC1.cycle            1947-01-01/2016-01-01</span></span>
+<span><span class="co">## IMPGSC1.cycle          1947-01-01/2016-01-01</span></span>
+<span><span class="co">## Imports                        1947-1/2016-1</span></span>
+<span><span class="co">## EXPGSC1.cycle          1947-01-01/2016-01-01</span></span>
+<span><span class="co">## Exports                        1947-1/2016-1</span></span>
+<span><span class="co">## GPDIC1.cycle           1947-01-01/2016-01-01</span></span>
+<span><span class="co">## Investment                     1947-1/2016-1</span></span>
+<span><span class="co">## SP500.cycle            1950-01-01/2016-04-01</span></span>
+<span><span class="co">## S&amp;P500                         1950-1/2016-2</span></span></code></pre>
 </div>
-<div id="summary" class="section level1">
-<h1 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h1>
-<p>The estimates generated with the <code>neverhpfilter</code> package are nearly identical to those displayed by Hamilton (2017). If one has the use case, the generalized functions which inherit methods from <code>glm</code> and <code>xts</code> will estimate higher frequency time series as well as error distributions other than Gaussian. In addition to consulting the paper which inspired this package, check out the documentation for <code>yth_filter</code> to learn more, or reach out to me with any questions.</p>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>The estimates generated with the <code>neverhpfilter</code> package
+are nearly identical to those displayed by Hamilton (2017). If one has
+the use case, the generalized functions which inherit methods from
+<code>glm</code> and <code>xts</code> will estimate higher frequency
+time series as well as error distributions other than Gaussian. In
+addition to consulting the paper which inspired this package, check out
+the documentation for <code>yth_filter</code> to learn more, or reach
+out to me with any questions.</p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
 
 
       <footer><div class="copyright">
-  <p>Developed by Justin M. Shea.</p>
+  <p></p>
+<p>Developed by Justin M. Shea.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
       </footer>
 </div>
 
-  
+
+
+
 
 
   </body>
