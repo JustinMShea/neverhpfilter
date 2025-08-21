@@ -13,13 +13,17 @@ Fixed the following issues containing features & bugs:
 
 [Updates to "Getting Started" vignette #8](https://github.com/JustinMShea/neverhpfilter/issues/8)
 
+[Add full Code Coverage #7](https://github.com/JustinMShea/neverhpfilter/issues/7)
+
 [Update CI tools #5](https://github.com/JustinMShea/neverhpfilter/issues/5)
 
 Updated email address in `DESCRIPTION` to jshea01@uic.edu
 
+Refreshed all data series to current, recording updates in documentation files.
+
 # neverhpfilter 0.4-3
 
-Fixed all Notes that resulte in [CRAN Removal](https://cran-archive.r-project.org/web/checks/2025/2025-06-13_check_results_neverhpfilter.html)
+Fixed all Notes that resulted in [removal from CRAN](https://cran-archive.r-project.org/web/checks/2025/2025-06-13_check_results_neverhpfilter.html)
 
 # neverhpfilter 0.4-2
 
